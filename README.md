@@ -1,4 +1,11 @@
 >:hand: [Weave Ignite](https://github.com/weaveworks/ignite) is a tool for managing vm in the container way. This is a great open source project, but it seems [dead](https://github.com/weaveworks/ignite/issues/971) now. I want someone could help save this project.
+>
+>### What TO DO
+>
+>- [ ] Fix the issues from the origin repository
+>- [ ] Implement the "TODO" functions in the source code
+>- [ ] Upgrade golang version
+>- [ ] Implement the [roadmap](docs/roadmap.md)
 
 # Weave Ignite
 
@@ -8,9 +15,9 @@ Weave Ignite is an open source Virtual Machine (VM) manager with a container UX 
 built-in GitOps management.
 
 - Combines [Firecracker MicroVMs](https://aws.amazon.com/about-aws/whats-new/2018/11/firecracker-lightweight-virtualization-for-serverless-computing/) with Docker /
- [OCI images](https://github.com/opencontainers/image-spec) to unify containers and VMs.
+  [OCI images](https://github.com/opencontainers/image-spec) to unify containers and VMs.
 - Works in a [GitOps](https://www.weave.works/blog/what-is-gitops-really) fashion and can
- manage VMs declaratively and automatically like Kubernetes and Terraform.
+  manage VMs declaratively and automatically like Kubernetes and Terraform.
 
 Ignite is fast and secure because of Firecracker. Firecracker is an
 [open source KVM implementation](https://firecracker-microvm.github.io/) from AWS that is
