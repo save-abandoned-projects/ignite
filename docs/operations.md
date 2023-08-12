@@ -3,9 +3,9 @@
 ### Variables
 ![globalVaribals](./globalVariables.png)
 ### Create base system file
-![baseSysFile](./baseSysFile.png)
+![baseSysFile](./baseSysfile.png)
 ### Start vm
-![StartVm](./StartVm.png)
+![StartVm](./startVm.png)
 ### Network
 ![network](./network.png)
 ### Storage
