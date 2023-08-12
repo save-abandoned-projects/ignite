@@ -108,7 +108,7 @@ func collectInterfaces(vmIntfs map[string]string) (bool, error) {
 
 		foundIntfs[intf.Name] = intf
 
-		// If the interface is explictly defined, no changes are needed
+		// If the interface is explicitly defined, no changes are needed
 		if _, ok := vmIntfs[intf.Name]; ok {
 			continue
 		}
@@ -199,7 +199,7 @@ func networkSetup(fcIntfs *firecracker.NetworkInterfaces, dhcpIntfs *[]DHCPInter
 	return nil
 }
 
-// addTcRedirect sets up tc redirect betweeb veth and tap https://github.com/awslabs/tc-redirect-tap/blob/master/internal/netlink.go
+// addTcRedirect sets up tc redirect between veth and tap https://github.com/awslabs/tc-redirect-tap/blob/master/internal/netlink.go
 // on WSL2 this requires `CONFIG_NET_CLS_U32=y`
 func addTcRedirect(iface *net.Interface) (*firecracker.NetworkInterface, error) {
 
