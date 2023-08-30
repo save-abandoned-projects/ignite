@@ -8,10 +8,10 @@ package v1alpha3
 import (
 	unsafe "unsafe"
 
-	ignite "github.com/weaveworks/ignite/pkg/apis/ignite"
-	v1alpha1 "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	network "github.com/weaveworks/ignite/pkg/network"
-	pkgruntime "github.com/weaveworks/ignite/pkg/runtime"
+	ignite "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	v1alpha1 "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	network "github.com/save-abandoned-projects/ignite/pkg/network"
+	pkgruntime "github.com/save-abandoned-projects/ignite/pkg/runtime"
 	libgitopspkgruntime "github.com/save-abandoned-projects/libgitops/pkg/runtime"
 	conversion "k8s.io/apimachinery/pkg/conversion"
 	runtime "k8s.io/apimachinery/pkg/runtime"

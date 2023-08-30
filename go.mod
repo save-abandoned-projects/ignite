@@ -42,6 +42,7 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.8.1
 	github.com/vishvananda/netlink v1.1.0
+	github.com/weaveworks/ignite v0.10.0
 	golang.org/x/crypto v0.1.0
 	golang.org/x/sys v0.8.0
 	golang.org/x/term v0.8.0
@@ -125,6 +126,7 @@ require (
 	github.com/safchain/ethtool v0.0.0-20190326074333-42ed695e3de8 // indirect
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/vishvananda/netns v0.0.0-20191106174202-0a2b9b5464df // indirect
+	github.com/weaveworks/libgitops v0.0.0-20200611103311-2c871bbbbf0c // indirect
 	github.com/willf/bitset v1.1.11 // indirect
 	github.com/xanzy/ssh-agent v0.2.1 // indirect
 	go.mongodb.org/mongo-driver v1.3.4 // indirect

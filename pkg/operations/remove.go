@@ -57,7 +57,7 @@ func CleanupVM(vm *api.VM) error {
 	if logs.Quiet {
 		fmt.Println(vm.GetUID())
 	} else {
-		log.Infof("Removed %s with name %q and ID %q", vm.GetKind(), vm.GetName(), vm.GetUID())
+		log.Infof("Removed %s with name %q and ID %q", vm.GetObjectKind().GroupVersionKind().Kind, vm.GetName(), vm.GetUID())
 	}
 
 	return nil
@@ -87,7 +87,7 @@ func StopVM(vm *api.VM, kill, silent bool) error {
 
 	// Remove VM networking
 	if err = removeNetworking(vm.Status.Runtime.ID, vm.Spec.Network.Ports...); err != nil {
-		log.Warnf("Failed to cleanup networking for stopped container %s %q: %v", vm.GetKind(), vm.GetUID(), err)
+		log.Warnf("Failed to cleanup networking for stopped container %s %q: %v", vm.Kind, vm.GetUID(), err)
 
 		return err
 	}
@@ -102,7 +102,7 @@ func StopVM(vm *api.VM, kill, silent bool) error {
 		}
 
 		if err != nil {
-			return fmt.Errorf("failed to %s container for %s %q: %v", action, vm.GetKind(), vm.GetUID(), err)
+			return fmt.Errorf("failed to %s container for %s %q: %v", action, vm.Kind, vm.GetUID(), err)
 		}
 
 		if silent {
@@ -112,7 +112,7 @@ func StopVM(vm *api.VM, kill, silent bool) error {
 		if logs.Quiet {
 			fmt.Println(vm.GetUID())
 		} else {
-			log.Infof("Stopped %s with name %q and ID %q", vm.GetKind(), vm.GetName(), vm.GetUID())
+			log.Infof("Stopped %s with name %q and ID %q", vm.Kind, vm.GetName(), vm.GetUID())
 		}
 	}
 

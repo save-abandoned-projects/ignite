@@ -8,7 +8,7 @@ package ignite
 import (
 	net "net"
 
-	v1alpha1 "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
+	v1alpha1 "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
 	pkgruntime "github.com/save-abandoned-projects/libgitops/pkg/runtime"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
