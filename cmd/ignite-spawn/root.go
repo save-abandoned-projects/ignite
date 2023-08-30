@@ -6,9 +6,9 @@ import (
 
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
-	"github.com/weaveworks/ignite/pkg/logs"
-	logflag "github.com/weaveworks/ignite/pkg/logs/flag"
-	"github.com/weaveworks/ignite/pkg/util"
+	"github.com/save-abandoned-projects/ignite/pkg/logs"
+	logflag "github.com/save-abandoned-projects/ignite/pkg/logs/flag"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 )
 
 var logLevel = logrus.InfoLevel

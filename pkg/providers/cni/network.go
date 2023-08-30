@@ -1,9 +1,9 @@
 package cni
 
 import (
+	"github.com/save-abandoned-projects/ignite/pkg/network/cni"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/ignite/pkg/network/cni"
-	"github.com/weaveworks/ignite/pkg/providers"
 )
 
 func SetCNINetworkPlugin() (err error) {

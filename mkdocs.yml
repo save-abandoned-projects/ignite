@@ -5,7 +5,7 @@ site_url: https://ignite.readthedocs.io
 
 # Repository
 repo_name: weaveworks/ignite
-repo_url: https://github.com/weaveworks/ignite
+repo_url: https://github.com/save-abandoned-projects/ignite
 edit_uri: ""
 
 theme:

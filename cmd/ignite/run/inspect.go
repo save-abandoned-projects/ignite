@@ -3,12 +3,12 @@ package run
 import (
 	"bytes"
 	"fmt"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/scheme"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
 	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
 	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/scheme"
-	"github.com/weaveworks/ignite/pkg/providers"
 	"strings"
 	"text/template"
 )

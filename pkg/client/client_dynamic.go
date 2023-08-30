@@ -3,7 +3,7 @@ package client
 import (
 	"errors"
 	"fmt"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 
 	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 	"github.com/save-abandoned-projects/libgitops/pkg/runtime"

@@ -1,9 +1,9 @@
 package client
 
 import (
+	"github.com/save-abandoned-projects/ignite/pkg/client"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/ignite/pkg/client"
-	"github.com/weaveworks/ignite/pkg/providers"
 )
 
 func SetClient() (err error) {

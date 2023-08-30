@@ -44,8 +44,8 @@ VM with a new IP address:
 package client
 
 import (
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	"github.com/save-abandoned-projects/libgitops/pkg/storage"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
 
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )

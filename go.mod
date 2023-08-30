@@ -1,4 +1,4 @@
-module github.com/weaveworks/ignite
+module github.com/save-abandoned-projects/ignite
 
 go 1.21
 
@@ -20,6 +20,7 @@ require (
 	github.com/docker/docker v20.10.6+incompatible
 	github.com/docker/go-connections v0.4.0
 	github.com/firecracker-microvm/firecracker-go-sdk v0.22.0
+	github.com/fluxcd/go-git-providers v0.0.2
 	github.com/freddierice/go-losetup v0.0.0-20170407175016-fc9adea44124
 	github.com/go-openapi/spec v0.19.8
 	github.com/goombaio/namegenerator v0.0.0-20181006234301-989e774b106e
@@ -72,7 +73,6 @@ require (
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/emicklei/go-restful/v3 v3.9.0 // indirect
 	github.com/emirpasic/gods v1.12.0 // indirect
-	github.com/fluxcd/go-git-providers v0.0.2 // indirect
 	github.com/fluxcd/toolkit v0.0.1-beta.2 // indirect
 	github.com/go-errors/errors v1.0.1 // indirect
 	github.com/go-git/gcfg v1.5.0 // indirect
@@ -98,7 +98,6 @@ require (
 	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/gofuzz v1.1.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
-	github.com/gorilla/mux v1.7.4 // indirect
 	github.com/hashicorp/errwrap v1.0.0 // indirect
 	github.com/hashicorp/go-multierror v1.0.0 // indirect
 	github.com/imdario/mergo v0.3.11 // indirect

@@ -3,10 +3,10 @@ package main
 import (
 	"os"
 
-	"github.com/weaveworks/ignite/cmd/ignite/cmd"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/ignite/pkg/providers/ignite"
-	"github.com/weaveworks/ignite/pkg/util"
+	"github.com/save-abandoned-projects/ignite/cmd/ignite/cmd"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/ignite/pkg/providers/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 )
 
 func main() {

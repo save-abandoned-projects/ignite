@@ -1,9 +1,9 @@
 package lookup
 
 import (
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/client"
 	"github.com/save-abandoned-projects/libgitops/pkg/filter"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/client"
 	"k8s.io/apimachinery/pkg/types"
 )
 

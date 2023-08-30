@@ -7,11 +7,11 @@ import (
 	"syscall"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/ignite/cmd/ignited/cmd"
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/ignite/pkg/providers/ignited"
-	"github.com/weaveworks/ignite/pkg/util"
+	"github.com/save-abandoned-projects/ignite/cmd/ignited/cmd"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/ignite/pkg/providers/ignited"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 )
 
 func main() {

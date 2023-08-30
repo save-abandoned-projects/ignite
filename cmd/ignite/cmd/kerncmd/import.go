@@ -7,10 +7,10 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 
-	"github.com/weaveworks/ignite/cmd/ignite/cmd/cmdutil"
-	"github.com/weaveworks/ignite/cmd/ignite/run"
-	"github.com/weaveworks/ignite/pkg/providers"
-	runtimeflag "github.com/weaveworks/ignite/pkg/runtime/flag"
+	"github.com/save-abandoned-projects/ignite/cmd/ignite/cmd/cmdutil"
+	"github.com/save-abandoned-projects/ignite/cmd/ignite/run"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	runtimeflag "github.com/save-abandoned-projects/ignite/pkg/runtime/flag"
 )
 
 // NewCmdImport imports a new kernel image

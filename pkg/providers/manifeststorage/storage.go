@@ -1,6 +1,10 @@
 package manifeststorage
 
 import (
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/scheme"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
 	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
 	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
 	"github.com/save-abandoned-projects/libgitops/pkg/storage"
@@ -8,10 +12,6 @@ import (
 	"github.com/save-abandoned-projects/libgitops/pkg/storage/sync"
 	"github.com/save-abandoned-projects/libgitops/pkg/storage/watch"
 	log "github.com/sirupsen/logrus"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/scheme"
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/providers"
 )
 
 var ManifestStorage sync.SyncStorage

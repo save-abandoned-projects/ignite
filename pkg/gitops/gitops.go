@@ -2,13 +2,13 @@ package gitops
 
 import (
 	"github.com/fluxcd/go-git-providers/gitprovider"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/scheme"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/operations/reconcile"
+	"github.com/save-abandoned-projects/ignite/pkg/providers/manifeststorage"
 	"github.com/save-abandoned-projects/libgitops/pkg/gitdir"
 	"github.com/save-abandoned-projects/libgitops/pkg/storage/sync"
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/scheme"
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/operations/reconcile"
-	"github.com/weaveworks/ignite/pkg/providers/manifeststorage"
 )
 
 func RunGitOps(url string, opts gitdir.GitDirectoryOptions) error {

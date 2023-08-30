@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"path"
 
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/util"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 )
 
 // SetImage populates relevant fields to an Image on the VM object

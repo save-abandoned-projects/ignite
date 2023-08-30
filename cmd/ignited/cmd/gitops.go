@@ -7,12 +7,12 @@ import (
 
 	"github.com/lithammer/dedent"
 	homedir "github.com/mitchellh/go-homedir"
+	"github.com/save-abandoned-projects/ignite/pkg/gitops"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 	"github.com/save-abandoned-projects/libgitops/pkg/gitdir"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	"github.com/weaveworks/ignite/pkg/gitops"
-	"github.com/weaveworks/ignite/pkg/util"
 )
 
 const defaultKnownHostsPath = "~/.ssh/known_hosts"

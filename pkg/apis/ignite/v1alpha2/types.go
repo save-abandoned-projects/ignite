@@ -1,7 +1,7 @@
 package v1alpha2
 
 import (
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 

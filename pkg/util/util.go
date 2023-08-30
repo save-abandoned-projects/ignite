@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/goombaio/namegenerator"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/ignite/pkg/constants"
 )
 
 // GenericCheckErr is used by the commands to check if the action failed
