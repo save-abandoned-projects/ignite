@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
 	"github.com/stretchr/testify/assert"
 	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/libgitops/pkg/runtime"
 )
 
 func TestMetaFiltering(t *testing.T) {

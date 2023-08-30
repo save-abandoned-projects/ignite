@@ -12,7 +12,7 @@ import (
 	v1alpha1 "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
 	network "github.com/weaveworks/ignite/pkg/network"
 	pkgruntime "github.com/weaveworks/ignite/pkg/runtime"
-	libgitopspkgruntime "github.com/weaveworks/libgitops/pkg/runtime"
+	libgitopspkgruntime "github.com/save-abandoned-projects/libgitops/pkg/runtime"
 	conversion "k8s.io/apimachinery/pkg/conversion"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )

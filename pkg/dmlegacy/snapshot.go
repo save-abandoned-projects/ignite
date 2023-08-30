@@ -62,7 +62,7 @@ func ActivateSnapshot(vm *api.VM) (devicePath string, err error) {
 	defer util.DeferErr(&err, lock.Unlock)
 
 	// Setup loop device for the image
-	imageLoop, err := newLoopDev(path.Join(constants.IMAGE_DIR, imageUID.String(), constants.IMAGE_FS), true)
+	imageLoop, err := newLoopDev(path.Join(constants.IMAGE_DIR, string(imageUID), constants.IMAGE_FS), true)
 	if err != nil {
 		return
 	}

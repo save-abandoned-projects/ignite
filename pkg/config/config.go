@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
 	log "github.com/sirupsen/logrus"
-
 	api "github.com/weaveworks/ignite/pkg/apis/ignite"
 	"github.com/weaveworks/ignite/pkg/apis/ignite/scheme"
 	"github.com/weaveworks/ignite/pkg/constants"
@@ -73,7 +73,7 @@ func getConfigFromFile(configPath string) (*api.Configuration, error) {
 	componentConfig := &api.Configuration{}
 
 	// TODO: Fix libgitops DecodeFileInto to not allow empty files.
-	if err := scheme.Serializer.DecodeFileInto(configPath, componentConfig); err != nil {
+	if err := scheme.Serializer.Decoder().DecodeInto(serializer.NewJSONFrameReader(serializer.FromFile(configPath)), componentConfig); err != nil {
 		return nil, err
 	}
 

@@ -28,7 +28,7 @@ func StartDHCPServers(vm *api.VM, dhcpIfaces []DHCPInterface) error {
 	for i := range dhcpIfaces {
 		dhcpIface := &dhcpIfaces[i]
 		// Set the VM hostname to the VM ID
-		dhcpIface.Hostname = vm.GetUID().String()
+		dhcpIface.Hostname = string(vm.GetUID())
 
 		// Add the DNS servers from the container
 		dhcpIface.SetDNSServers(clientConfig.Servers)
@@ -56,7 +56,7 @@ type DHCPInterface struct {
 
 // StartBlockingServer starts a blocking DHCP server on port 67
 func (i *DHCPInterface) StartBlockingServer() error {
-	packetConn, err := conn.NewUDP4BoundListener(i.Bridge, ":67")
+	packetConn, err := conn.NewUDP4FilterListener(i.Bridge, ":67")
 	if err != nil {
 		return err
 	}

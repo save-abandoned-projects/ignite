@@ -3,6 +3,7 @@ package run
 import (
 	"fmt"
 
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
 	api "github.com/weaveworks/ignite/pkg/apis/ignite"
 	"github.com/weaveworks/ignite/pkg/apis/ignite/scheme"
 	"github.com/weaveworks/ignite/pkg/config"
@@ -33,9 +34,10 @@ func (rf *RmFlags) NewRmOptions(vmMatches []string) (*RmOptions, error) {
 		}
 
 		vm := &api.VM{}
-		if err := scheme.Serializer.DecodeFileInto(rf.ConfigFile, vm); err != nil {
+		if err := scheme.Serializer.Decoder().DecodeInto(serializer.NewJSONFrameReader(serializer.FromFile(rf.ConfigFile)), vm); err != nil {
 			return ro, err
 		}
+
 		// Name or UID must be provided in the config file.
 		if len(vm.Name) == 0 && len(vm.UID) == 0 {
 			return ro, fmt.Errorf("API resource config must have Name or UID")

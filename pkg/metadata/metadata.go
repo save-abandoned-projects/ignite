@@ -1,6 +1,7 @@
 package metadata
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"os"
@@ -8,14 +9,14 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/save-abandoned-projects/libgitops/pkg/filter"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
 	api "github.com/weaveworks/ignite/pkg/apis/ignite"
 	"github.com/weaveworks/ignite/pkg/client"
 	"github.com/weaveworks/ignite/pkg/constants"
 	"github.com/weaveworks/ignite/pkg/providers"
 	"github.com/weaveworks/ignite/pkg/util"
-	"github.com/weaveworks/libgitops/pkg/filter"
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/storage/filterer"
+	"k8s.io/apimachinery/pkg/types"
 )
 
 var (
@@ -65,15 +66,16 @@ func SetLabels(obj runtime.Object, labels []string) error {
 		if kv[0] == "" {
 			return fmt.Errorf("invalid label %q, name empty", label)
 		}
-		obj.SetLabel(kv[0], kv[1])
+		obj.SetLabels(map[string]string{kv[0]: kv[1]})
 	}
 	return nil
 }
 
 // processUID a new 8-byte ID and handles directory creation/deletion
 func processUID(obj runtime.Object, c *client.Client) error {
-	uid := obj.GetUID().String()
+	uid := string(obj.GetUID())
 
+	kind := api.Kind(obj.GetObjectKind().GroupVersionKind().Kind)
 	// Validate the given UID if set
 	if len(uid) > 0 {
 		// Verify that if specified
@@ -82,7 +84,7 @@ func processUID(obj runtime.Object, c *client.Client) error {
 		}
 
 		// Make sure there isn't any duplicate names
-		if err := verifyUIDOrName(c, uid, obj.GetKind()); err != nil {
+		if err := verifyUIDOrName(c, uid, kind); err != nil {
 			return err
 		}
 	} else {
@@ -94,9 +96,9 @@ func processUID(obj runtime.Object, c *client.Client) error {
 			}
 
 			// If the generated UID is unique break the generator loop
-			if err := verifyUIDOrName(c, uid, obj.GetKind()); err == nil {
+			if err := verifyUIDOrName(c, uid, kind); err == nil {
 				// Set the generated UID to the object
-				obj.SetUID(runtime.UID(uid))
+				obj.SetUID(types.UID(uid))
 				break
 			}
 		}
@@ -104,7 +106,7 @@ func processUID(obj runtime.Object, c *client.Client) error {
 
 	// Create the directory for the specified UID
 	// TODO: Move this kind of functionality into pkg/storage
-	dir := path.Join(constants.DATA_DIR, obj.GetKind().Lower(), uid)
+	dir := path.Join(constants.DATA_DIR, string(bytes.ToLower([]byte(kind))), uid)
 	if err := os.MkdirAll(dir, constants.DATA_DIR_PERM); err != nil {
 		return fmt.Errorf("failed to create directory for ID %q: %v", uid, err)
 	}
@@ -114,14 +116,14 @@ func processUID(obj runtime.Object, c *client.Client) error {
 
 func processName(obj runtime.Object, c *client.Client) error {
 	name := obj.GetName()
-	kind := obj.GetKind()
+	kind := api.Kind(obj.GetObjectKind().GroupVersionKind().Kind)
 
 	// Enforce a latest tag for images and kernels. Also,
 	// images and kernels must have their name set at this stage
 	if kind == api.KindImage || kind == api.KindKernel {
 		if len(name) == 0 {
 			// this should not happen, programmer error
-			return fmt.Errorf("%s name must not be unset", kind.String())
+			return fmt.Errorf("%s name must not be unset", kind)
 		}
 	} else if len(name) == 0 { // If some other kind's name is empty, set a random name
 		name = util.RandomName()
@@ -142,16 +144,10 @@ func processName(obj runtime.Object, c *client.Client) error {
 	return nil
 }
 
-func verifyUIDOrName(c *client.Client, match string, kind runtime.Kind) error {
-	_, err := c.Dynamic(kind).Find(filter.NewNameFilter(match))
-	switch err.(type) {
-	case *filterer.NonexistentError:
-		// The id/name is unique, no error
-		return nil
-	case nil, *filterer.AmbiguousError:
-		// The ambiguous error can only occur if someone manually created two Objects with the same name
-		return fmt.Errorf("invalid %s id/name %q: already exists", kind, match)
-	default:
+func verifyUIDOrName(c *client.Client, match string, kind api.Kind) error {
+	_, err := c.Dynamic(kind).Find(filter.NameFilter{Name: match})
+	if err != nil {
 		return err
 	}
+	return nil
 }

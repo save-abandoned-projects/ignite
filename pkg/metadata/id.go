@@ -2,6 +2,7 @@ package metadata
 
 import (
 	"fmt"
+	api "github.com/weaveworks/ignite/pkg/apis/ignite"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/weaveworks/ignite/pkg/logs"
@@ -15,18 +16,19 @@ var success = make(map[Metadata]bool)
 // silence all but the last command to print the ID only once
 func Cleanup(md Metadata, silent bool) error {
 	// If success has not been confirmed, remove the generated directory
+	kind := md.GetObjectKind().GroupVersionKind().Kind
 	if !success[md] {
 		if !logs.Quiet {
-			log.Infof("Removed %s with name %q and ID %q", md.GetKind(), md.GetName(), md.GetUID())
+			log.Infof("Removed %s with name %q and ID %q", kind, md.GetName(), md.GetUID())
 		} else if !silent {
 			fmt.Println(md.GetUID())
 		}
 
-		return providers.Client.Dynamic(md.GetKind()).Delete(md.GetUID())
+		return providers.Client.Dynamic(api.Kind(kind)).Delete(md.GetUID())
 	}
 
 	if !logs.Quiet {
-		log.Infof("Created %s with ID %q and name %q", md.GetKind(), md.GetUID(), md.GetName())
+		log.Infof("Created %s with ID %q and name %q", kind, md.GetUID(), md.GetName())
 	} else if !silent {
 		fmt.Println(md.GetUID())
 	}

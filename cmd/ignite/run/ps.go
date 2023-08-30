@@ -7,9 +7,10 @@ import (
 	"text/template"
 
 	"github.com/pkg/errors"
+	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 	log "github.com/sirupsen/logrus"
 	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/filter"
+	ignite_filter "github.com/weaveworks/ignite/pkg/filter"
 	"github.com/weaveworks/ignite/pkg/providers"
 	"github.com/weaveworks/ignite/pkg/runtime"
 	containerdruntime "github.com/weaveworks/ignite/pkg/runtime/containerd"
@@ -37,7 +38,7 @@ type PsOptions struct {
 // NewPsOptions constructs and returns PsOptions.
 func (pf *PsFlags) NewPsOptions() (po *PsOptions, err error) {
 	po = &PsOptions{PsFlags: pf}
-	po.allVMs, err = providers.Client.VMs().FindAll(filter.NewVMFilterAll("", po.All))
+	po.allVMs, err = providers.Client.VMs().FindAll(filter.ListOptions{})
 	// If the storage is uninitialized, avoid failure and continue with empty
 	// VM list.
 	if err != nil && os.IsNotExist(err) {
@@ -48,12 +49,12 @@ func (pf *PsFlags) NewPsOptions() (po *PsOptions, err error) {
 
 // Ps filters and renders the VMs based on the PsOptions.
 func Ps(po *PsOptions) error {
-	var filters *filter.MultipleMetaFilter
+	var filters *ignite_filter.MultipleMetaFilter
 	var err error
 	var filtering bool
 	if po.PsFlags.Filter != "" {
 		filtering = true
-		filters, err = filter.GenerateMultipleMetadataFiltering(po.PsFlags.Filter)
+		filters, err = ignite_filter.GenerateMultipleMetadataFiltering(po.PsFlags.Filter)
 		if err != nil {
 			return err
 		}
@@ -128,7 +129,7 @@ func Ps(po *PsOptions) error {
 }
 
 func formatCreated(vm *api.VM) string {
-	created := vm.GetCreated()
+	created := vm.GetCreationTimestamp()
 
 	var suffix string
 	if !created.IsZero() {

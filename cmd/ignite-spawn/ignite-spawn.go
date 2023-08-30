@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
 	"os"
 	"path"
 
+	patchutil "github.com/save-abandoned-projects/libgitops/pkg/util/patch"
 	log "github.com/sirupsen/logrus"
 	api "github.com/weaveworks/ignite/pkg/apis/ignite"
 	"github.com/weaveworks/ignite/pkg/apis/ignite/scheme"
@@ -13,7 +15,6 @@ import (
 	"github.com/weaveworks/ignite/pkg/dmlegacy"
 	"github.com/weaveworks/ignite/pkg/prometheus"
 	"github.com/weaveworks/ignite/pkg/util"
-	patchutil "github.com/weaveworks/libgitops/pkg/util/patch"
 )
 
 func main() {
@@ -23,14 +24,10 @@ func main() {
 
 func decodeVM(vmID string) (*api.VM, error) {
 	filePath := constants.IGNITE_SPAWN_VM_FILE_PATH
-	obj, err := scheme.Serializer.DecodeFile(filePath, true)
+	vm := &api.VM{}
+	err := scheme.Serializer.Decoder().DecodeInto(serializer.NewJSONFrameReader(serializer.FromFile(filePath)), vm)
 	if err != nil {
 		return nil, err
-	}
-
-	vm, ok := obj.(*api.VM)
-	if !ok {
-		return nil, fmt.Errorf("object couldn't be converted to VM")
 	}
 
 	// Explicitly set the GVK on this object

@@ -34,7 +34,7 @@ CTR := $(DOCKER) run -i --rm \
 		ctr
 UID_GID?=$(shell id -u):$(shell id -g)
 FIRECRACKER_VERSION:=$(shell cat hack/FIRECRACKER_VERSION)
-GO_VERSION=1.17.9
+GO_VERSION=1.21.0
 DOCKER_USER?=weaveworks
 IMAGE=$(DOCKER_USER)/ignite
 GIT_VERSION:=$(shell DOCKER_USER=$(DOCKER_USER) hack/ldflags.sh --version-only)
@@ -115,7 +115,7 @@ go-in-docker: # Do not use directly -- use $(GO_MAKE_TARGET)
 # Make make execute this target although the file already exists.
 .PHONY: bin/$(GOARCH)/ignite bin/$(GOARCH)/ignite-spawn bin/$(GOARCH)/ignited
 bin/$(GOARCH)/ignite bin/$(GOARCH)/ignited bin/$(GOARCH)/ignite-spawn: bin/$(GOARCH)/%:
-	CGO_ENABLED=0 GOARCH=$(GOARCH) go build -mod=vendor -ldflags "$(shell IGNITE_GIT_VERSION=$(GIT_VERSION) DOCKER_USER=$(DOCKER_USER) ./hack/ldflags.sh)" -o bin/$(GOARCH)/$* ./cmd/$*
+	CGO_ENABLED=0 GOARCH=$(GOARCH) go build -mod=mod -ldflags "$(shell IGNITE_GIT_VERSION=$(GIT_VERSION) DOCKER_USER=$(DOCKER_USER) ./hack/ldflags.sh)" -o bin/$(GOARCH)/$* ./cmd/$*
 ifeq ($(GOARCH),$(GOHOSTARCH))
 	ln -sf ./$(GOARCH)/$* bin/$*
 endif

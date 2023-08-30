@@ -29,7 +29,7 @@ func NewCmdDaemon(out io.Writer) *cobra.Command {
 
 			go func() {
 				log.Infof("Starting reconciliation loop...")
-				reconcile.ReconcileManifests(ms)
+				reconcile.ReconcileManifests(&ms)
 			}()
 
 			go func() {

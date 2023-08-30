@@ -10,7 +10,7 @@ import (
 
 	ignite "github.com/weaveworks/ignite/pkg/apis/ignite"
 	v1alpha1 "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	pkgruntime "github.com/weaveworks/libgitops/pkg/runtime"
+	pkgruntime "github.com/save-abandoned-projects/libgitops/pkg/runtime"
 	conversion "k8s.io/apimachinery/pkg/conversion"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )

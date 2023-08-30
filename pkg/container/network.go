@@ -494,7 +494,7 @@ func maskString(mask net.IPMask) string {
 func parseExtraIntfs(vm *api.VM) map[string]string {
 	result := make(map[string]string)
 
-	for intf, mode := range vm.GetObjectMeta().Annotations {
+	for intf, mode := range vm.GetObjectMeta().GetAnnotations() {
 		if !strings.HasPrefix(intf, constants.IGNITE_INTERFACE_ANNOTATION) {
 			continue
 		}

@@ -1,12 +1,11 @@
 package run
 
 import (
-	"os"
-
+	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 	api "github.com/weaveworks/ignite/pkg/apis/ignite"
 	"github.com/weaveworks/ignite/pkg/providers"
 	"github.com/weaveworks/ignite/pkg/util"
-	"github.com/weaveworks/libgitops/pkg/filter"
+	"os"
 )
 
 type ImagesOptions struct {
@@ -15,7 +14,7 @@ type ImagesOptions struct {
 
 func NewImagesOptions() (io *ImagesOptions, err error) {
 	io = &ImagesOptions{}
-	io.allImages, err = providers.Client.Images().FindAll(filter.NewAllFilter())
+	io.allImages, err = providers.Client.Images().FindAll(filter.ListOptions{})
 	// If the storage is uninitialized, avoid failure and continue with empty
 	// image list.
 	if err != nil && os.IsNotExist(err) {
@@ -30,7 +29,7 @@ func Images(io *ImagesOptions) error {
 
 	o.Write("IMAGE ID", "NAME", "CREATED", "SIZE")
 	for _, image := range io.allImages {
-		o.Write(image.GetUID(), image.GetName(), image.GetCreated(), image.Status.OCISource.Size.String())
+		o.Write(image.GetUID(), image.GetName(), image.GetCreationTimestamp(), image.Status.OCISource.Size.String())
 	}
 
 	return nil

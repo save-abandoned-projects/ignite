@@ -2,6 +2,7 @@ package operations
 
 import (
 	"fmt"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"path"
 	"path/filepath"
 	"strings"
@@ -17,7 +18,6 @@ import (
 	"github.com/weaveworks/ignite/pkg/providers"
 	"github.com/weaveworks/ignite/pkg/runtime"
 	"github.com/weaveworks/ignite/pkg/util"
-	apiruntime "github.com/weaveworks/libgitops/pkg/runtime"
 )
 
 // VMChannels can be used to get signals for different stages of VM lifecycle
@@ -60,8 +60,8 @@ func StartVMNonBlocking(vm *api.VM, debug bool) (*VMChannels, error) {
 		return vmChans, err
 	}
 
-	vmDir := filepath.Join(constants.VM_DIR, vm.GetUID().String())
-	kernelDir := filepath.Join(constants.KERNEL_DIR, kernelUID.String())
+	vmDir := filepath.Join(constants.VM_DIR, string(vm.GetUID()))
+	kernelDir := filepath.Join(constants.KERNEL_DIR, string(kernelUID))
 
 	// Verify that the image containing ignite-spawn is pulled
 	// TODO: Integrate automatic pulling into pkg/runtime
@@ -72,7 +72,7 @@ func StartVMNonBlocking(vm *api.VM, debug bool) (*VMChannels, error) {
 	config := &runtime.ContainerConfig{
 		Cmd: []string{
 			fmt.Sprintf("--log-level=%s", logs.Logger.Level.String()),
-			vm.GetUID().String(),
+			string(vm.GetUID()),
 		},
 		Labels: map[string]string{"ignite.name": vm.GetName()},
 		Binds: []*runtime.Bind{
@@ -106,7 +106,7 @@ func StartVMNonBlocking(vm *api.VM, debug bool) (*VMChannels, error) {
 	}
 
 	var envVars []string
-	for k, v := range vm.GetObjectMeta().Annotations {
+	for k, v := range vm.GetObjectMeta().GetAnnotations() {
 		if strings.HasPrefix(k, constants.IGNITE_SANDBOX_ENV_VAR) {
 			k := strings.TrimPrefix(k, constants.IGNITE_SANDBOX_ENV_VAR)
 			envVars = append(envVars, fmt.Sprintf("%s=%s", k, v))
@@ -137,7 +137,7 @@ func StartVMNonBlocking(vm *api.VM, debug bool) (*VMChannels, error) {
 	}
 
 	// Run the VM container in Docker
-	containerID, err := providers.Runtime.RunContainer(vm.Spec.Sandbox.OCI, config, vm.PrefixedID(), vm.GetUID().String())
+	containerID, err := providers.Runtime.RunContainer(vm.Spec.Sandbox.OCI, config, vm.PrefixedID(), string(vm.GetUID()))
 	if err != nil {
 		return vmChans, fmt.Errorf("failed to start container for VM %q: %v", vm.GetUID(), err)
 	}
@@ -214,8 +214,8 @@ func waitForSpawn(vm *api.VM, vmChans *VMChannels) {
 			vm.Status.Running = true
 
 			// Set the start time for the VM
-			startTime := apiruntime.Timestamp()
-			vm.Status.StartTime = &startTime
+			startTime := metav1.Time{Time: time.Now().UTC()}
+			vm.Status.StartTime = startTime
 
 			// Write the state changes, send any errors through the channel
 			vmChans.SpawnFinished <- providers.Client.VMs().Set(vm)

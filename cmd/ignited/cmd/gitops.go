@@ -7,12 +7,12 @@ import (
 
 	"github.com/lithammer/dedent"
 	homedir "github.com/mitchellh/go-homedir"
+	"github.com/save-abandoned-projects/libgitops/pkg/gitdir"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"github.com/weaveworks/ignite/pkg/gitops"
 	"github.com/weaveworks/ignite/pkg/util"
-	"github.com/weaveworks/libgitops/pkg/gitdir"
 )
 
 const defaultKnownHostsPath = "~/.ssh/known_hosts"
@@ -68,24 +68,27 @@ func NewCmdGitOps(out io.Writer) *cobra.Command {
 				log.Tracef("Parsed identity file path: %s", f.identityFile)
 				util.GenericCheckErr(err)
 
-				opts.IdentityFileContent, err = ioutil.ReadFile(f.identityFile)
+				identityFileContent, err := ioutil.ReadFile(f.identityFile)
 				util.GenericCheckErr(err)
-			}
-			if f.hostsFile != "" {
-				var err error
+
+				if f.hostsFile == "" {
+					f.hostsFile = "~/.ssh/known_hosts"
+				}
+
 				// support ~ prefixes in the path
 				f.hostsFile, err = homedir.Expand(f.hostsFile)
 				log.Tracef("Parsed_known hosts file path: %s", f.hostsFile)
 				util.GenericCheckErr(err)
 
-				opts.KnownHostsFileContent, err = ioutil.ReadFile(f.hostsFile)
+				knownHostsFileContent, err := ioutil.ReadFile(f.hostsFile)
 				util.GenericCheckErr(err)
-			}
-			if f.username != "" {
-				opts.Username = &f.username
-			}
-			if f.password != "" {
-				opts.Password = &f.password
+
+				opts.AuthMethod, err = gitdir.NewSSHAuthMethod(identityFileContent, knownHostsFileContent)
+				util.GenericCheckErr(err)
+			} else {
+				var err error
+				opts.AuthMethod, err = gitdir.NewHTTPSAuthMethod(f.username, f.password)
+				util.GenericCheckErr(err)
 			}
 
 			util.GenericCheckErr(gitops.RunGitOps(args[0], opts))
