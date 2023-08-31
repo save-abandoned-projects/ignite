@@ -3,8 +3,8 @@ package flag
 import (
 	"fmt"
 
-	"github.com/spf13/pflag"
 	"github.com/save-abandoned-projects/ignite/pkg/runtime"
+	"github.com/spf13/pflag"
 )
 
 var runtimes = runtime.ListRuntimes()

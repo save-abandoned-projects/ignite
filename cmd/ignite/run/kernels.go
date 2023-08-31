@@ -1,8 +1,9 @@
 package run
 
 import (
-	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 	"os"
+
+	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 
 	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	"github.com/save-abandoned-projects/ignite/pkg/providers"

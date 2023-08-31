@@ -10,11 +10,11 @@ import (
 	"time"
 
 	"github.com/firecracker-microvm/firecracker-go-sdk"
-	log "github.com/sirupsen/logrus"
-	"github.com/vishvananda/netlink"
 	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	"github.com/save-abandoned-projects/ignite/pkg/constants"
 	"github.com/save-abandoned-projects/ignite/pkg/util"
+	log "github.com/sirupsen/logrus"
+	"github.com/vishvananda/netlink"
 	"k8s.io/apimachinery/pkg/util/wait"
 )
 

@@ -2,10 +2,11 @@ package operations
 
 import (
 	"fmt"
-	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 	"io/ioutil"
 	"os"
 	"path"
+
+	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 
 	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"

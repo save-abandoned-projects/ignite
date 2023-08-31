@@ -29,7 +29,7 @@ const (
 	CNIBinDir = "/opt/cni/bin"
 	// CNIConfDir describes the directory where the CNI plugin's configuration is stored
 	CNIConfDir = "/etc/cni/net.d"
-	// netNSPathFmt gives the path to the a process network namespace, given the pid
+	// netNSPathFmt gives the path to the process network namespace, given the pid
 	netNSPathFmt = "/proc/%d/ns/net"
 
 	// defaultCNIConfFilename is the vanity filename of Ignite's default CNI configuration file

@@ -2,12 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
 	"os"
 	"path"
 
-	patchutil "github.com/save-abandoned-projects/libgitops/pkg/util/patch"
-	log "github.com/sirupsen/logrus"
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
+
 	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/scheme"
 	"github.com/save-abandoned-projects/ignite/pkg/constants"
@@ -15,6 +14,8 @@ import (
 	"github.com/save-abandoned-projects/ignite/pkg/dmlegacy"
 	"github.com/save-abandoned-projects/ignite/pkg/prometheus"
 	"github.com/save-abandoned-projects/ignite/pkg/util"
+	patchutil "github.com/save-abandoned-projects/libgitops/pkg/util/patch"
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {

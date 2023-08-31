@@ -8,9 +8,9 @@ import (
 	dhcp "github.com/krolaw/dhcp4"
 	"github.com/krolaw/dhcp4/conn"
 	"github.com/miekg/dns"
-	log "github.com/sirupsen/logrus"
 	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	log "github.com/sirupsen/logrus"
 )
 
 var leaseDuration, _ = time.ParseDuration(constants.DHCP_INFINITE_LEASE) // Infinite lease time

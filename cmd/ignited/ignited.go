@@ -6,12 +6,12 @@ import (
 	"path"
 	"syscall"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/save-abandoned-projects/ignite/cmd/ignited/cmd"
 	"github.com/save-abandoned-projects/ignite/pkg/constants"
 	"github.com/save-abandoned-projects/ignite/pkg/providers"
 	"github.com/save-abandoned-projects/ignite/pkg/providers/ignited"
 	"github.com/save-abandoned-projects/ignite/pkg/util"
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {

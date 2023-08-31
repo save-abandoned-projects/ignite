@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/sirupsen/logrus"
-	"github.com/spf13/pflag"
 	"github.com/save-abandoned-projects/ignite/pkg/logs"
 	logflag "github.com/save-abandoned-projects/ignite/pkg/logs/flag"
 	"github.com/save-abandoned-projects/ignite/pkg/util"
+	"github.com/sirupsen/logrus"
+	"github.com/spf13/pflag"
 )
 
 var logLevel = logrus.InfoLevel

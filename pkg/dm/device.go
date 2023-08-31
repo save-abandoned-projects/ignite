@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"path"
 
-	log "github.com/sirupsen/logrus"
 	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
 	"github.com/save-abandoned-projects/ignite/pkg/constants"
 	"github.com/save-abandoned-projects/ignite/pkg/source"
 	"github.com/save-abandoned-projects/ignite/pkg/util"
+	log "github.com/sirupsen/logrus"
 )
 
 type Device struct {

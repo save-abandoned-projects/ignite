@@ -9,6 +9,7 @@ package client
 import (
 	"errors"
 	"fmt"
+
 	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
@@ -94,6 +95,10 @@ func (c *kernelClient) Find(opt filter.ObjectFilter) (*api.Kernel, error) {
 	objects, err := c.FindAll(filter.ListOptions{Filters: []filter.ListFilter{filter.ObjectToListFilter(opt)}})
 	if err != nil {
 		return nil, err
+	}
+
+	if len(objects) == 0 {
+		return nil, nil
 	}
 
 	if len(objects) != 1 {

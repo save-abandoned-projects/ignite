@@ -7,10 +7,10 @@ import (
 	"os/signal"
 	"sync"
 
-	log "github.com/sirupsen/logrus"
-	"github.com/spf13/cobra"
 	"github.com/save-abandoned-projects/ignite/pkg/operations/reconcile"
 	"github.com/save-abandoned-projects/ignite/pkg/providers/manifeststorage"
+	log "github.com/sirupsen/logrus"
+	"github.com/spf13/cobra"
 )
 
 func NewCmdDaemon(out io.Writer) *cobra.Command {

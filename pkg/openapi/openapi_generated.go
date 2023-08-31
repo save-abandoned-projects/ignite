@@ -8,98 +8,98 @@
 package openapi
 
 import (
-	spec "github.com/go-openapi/spec"
 	common "k8s.io/kube-openapi/pkg/common"
+	spec "k8s.io/kube-openapi/pkg/validation/spec"
 )
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.BlockDeviceVolume": schema_pkg_apis_ignite_v1alpha2_BlockDeviceVolume(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.FileMapping":       schema_pkg_apis_ignite_v1alpha2_FileMapping(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.Image":             schema_pkg_apis_ignite_v1alpha2_Image(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.ImageSpec":         schema_pkg_apis_ignite_v1alpha2_ImageSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.ImageStatus":       schema_pkg_apis_ignite_v1alpha2_ImageStatus(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.Kernel":            schema_pkg_apis_ignite_v1alpha2_Kernel(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.KernelSpec":        schema_pkg_apis_ignite_v1alpha2_KernelSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.KernelStatus":      schema_pkg_apis_ignite_v1alpha2_KernelStatus(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource":    schema_pkg_apis_ignite_v1alpha2_OCIImageSource(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.Pool":              schema_pkg_apis_ignite_v1alpha2_Pool(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.PoolDevice":        schema_pkg_apis_ignite_v1alpha2_PoolDevice(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.PoolSpec":          schema_pkg_apis_ignite_v1alpha2_PoolSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.PoolStatus":        schema_pkg_apis_ignite_v1alpha2_PoolStatus(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.Runtime":           schema_pkg_apis_ignite_v1alpha2_Runtime(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.SSH":               schema_pkg_apis_ignite_v1alpha2_SSH(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VM":                schema_pkg_apis_ignite_v1alpha2_VM(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMImageSpec":       schema_pkg_apis_ignite_v1alpha2_VMImageSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMKernelSpec":      schema_pkg_apis_ignite_v1alpha2_VMKernelSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMNetworkSpec":     schema_pkg_apis_ignite_v1alpha2_VMNetworkSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMSandboxSpec":     schema_pkg_apis_ignite_v1alpha2_VMSandboxSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMSpec":            schema_pkg_apis_ignite_v1alpha2_VMSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMStatus":          schema_pkg_apis_ignite_v1alpha2_VMStatus(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMStorageSpec":     schema_pkg_apis_ignite_v1alpha2_VMStorageSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.Volume":            schema_pkg_apis_ignite_v1alpha2_Volume(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VolumeMount":       schema_pkg_apis_ignite_v1alpha2_VolumeMount(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.BlockDeviceVolume": schema_pkg_apis_ignite_v1alpha3_BlockDeviceVolume(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.Configuration":     schema_pkg_apis_ignite_v1alpha3_Configuration(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.ConfigurationSpec": schema_pkg_apis_ignite_v1alpha3_ConfigurationSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.FileMapping":       schema_pkg_apis_ignite_v1alpha3_FileMapping(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.Image":             schema_pkg_apis_ignite_v1alpha3_Image(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.ImageSpec":         schema_pkg_apis_ignite_v1alpha3_ImageSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.ImageStatus":       schema_pkg_apis_ignite_v1alpha3_ImageStatus(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.Kernel":            schema_pkg_apis_ignite_v1alpha3_Kernel(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.KernelSpec":        schema_pkg_apis_ignite_v1alpha3_KernelSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.KernelStatus":      schema_pkg_apis_ignite_v1alpha3_KernelStatus(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.Network":           schema_pkg_apis_ignite_v1alpha3_Network(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource":    schema_pkg_apis_ignite_v1alpha3_OCIImageSource(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.Pool":              schema_pkg_apis_ignite_v1alpha3_Pool(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.PoolDevice":        schema_pkg_apis_ignite_v1alpha3_PoolDevice(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.PoolSpec":          schema_pkg_apis_ignite_v1alpha3_PoolSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.PoolStatus":        schema_pkg_apis_ignite_v1alpha3_PoolStatus(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.Runtime":           schema_pkg_apis_ignite_v1alpha3_Runtime(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.SSH":               schema_pkg_apis_ignite_v1alpha3_SSH(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VM":                schema_pkg_apis_ignite_v1alpha3_VM(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMImageSpec":       schema_pkg_apis_ignite_v1alpha3_VMImageSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMKernelSpec":      schema_pkg_apis_ignite_v1alpha3_VMKernelSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMNetworkSpec":     schema_pkg_apis_ignite_v1alpha3_VMNetworkSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMSandboxSpec":     schema_pkg_apis_ignite_v1alpha3_VMSandboxSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMSpec":            schema_pkg_apis_ignite_v1alpha3_VMSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMStatus":          schema_pkg_apis_ignite_v1alpha3_VMStatus(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMStorageSpec":     schema_pkg_apis_ignite_v1alpha3_VMStorageSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.Volume":            schema_pkg_apis_ignite_v1alpha3_Volume(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VolumeMount":       schema_pkg_apis_ignite_v1alpha3_VolumeMount(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.BlockDeviceVolume": schema_pkg_apis_ignite_v1alpha4_BlockDeviceVolume(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.Configuration":     schema_pkg_apis_ignite_v1alpha4_Configuration(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.ConfigurationSpec": schema_pkg_apis_ignite_v1alpha4_ConfigurationSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.FileMapping":       schema_pkg_apis_ignite_v1alpha4_FileMapping(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.Image":             schema_pkg_apis_ignite_v1alpha4_Image(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.ImageSpec":         schema_pkg_apis_ignite_v1alpha4_ImageSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.ImageStatus":       schema_pkg_apis_ignite_v1alpha4_ImageStatus(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.Kernel":            schema_pkg_apis_ignite_v1alpha4_Kernel(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.KernelSpec":        schema_pkg_apis_ignite_v1alpha4_KernelSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.KernelStatus":      schema_pkg_apis_ignite_v1alpha4_KernelStatus(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.Network":           schema_pkg_apis_ignite_v1alpha4_Network(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource":    schema_pkg_apis_ignite_v1alpha4_OCIImageSource(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.Pool":              schema_pkg_apis_ignite_v1alpha4_Pool(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.PoolDevice":        schema_pkg_apis_ignite_v1alpha4_PoolDevice(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.PoolSpec":          schema_pkg_apis_ignite_v1alpha4_PoolSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.PoolStatus":        schema_pkg_apis_ignite_v1alpha4_PoolStatus(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.Runtime":           schema_pkg_apis_ignite_v1alpha4_Runtime(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.SSH":               schema_pkg_apis_ignite_v1alpha4_SSH(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VM":                schema_pkg_apis_ignite_v1alpha4_VM(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMImageSpec":       schema_pkg_apis_ignite_v1alpha4_VMImageSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMKernelSpec":      schema_pkg_apis_ignite_v1alpha4_VMKernelSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMNetworkSpec":     schema_pkg_apis_ignite_v1alpha4_VMNetworkSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMSandboxSpec":     schema_pkg_apis_ignite_v1alpha4_VMSandboxSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMSpec":            schema_pkg_apis_ignite_v1alpha4_VMSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMStatus":          schema_pkg_apis_ignite_v1alpha4_VMStatus(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMStorageSpec":     schema_pkg_apis_ignite_v1alpha4_VMStorageSpec(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.Volume":            schema_pkg_apis_ignite_v1alpha4_Volume(ref),
-		"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VolumeMount":       schema_pkg_apis_ignite_v1alpha4_VolumeMount(ref),
-		"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.DMID":                schema_pkg_apis_meta_v1alpha1_DMID(ref),
-		"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIContentID":        schema_pkg_apis_meta_v1alpha1_OCIContentID(ref),
-		"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef":         schema_pkg_apis_meta_v1alpha1_OCIImageRef(ref),
-		"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.PortMapping":         schema_pkg_apis_meta_v1alpha1_PortMapping(ref),
-		"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size":                schema_pkg_apis_meta_v1alpha1_Size(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.BlockDeviceVolume": schema_pkg_apis_ignite_v1alpha2_BlockDeviceVolume(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.FileMapping":       schema_pkg_apis_ignite_v1alpha2_FileMapping(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.Image":             schema_pkg_apis_ignite_v1alpha2_Image(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.ImageSpec":         schema_pkg_apis_ignite_v1alpha2_ImageSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.ImageStatus":       schema_pkg_apis_ignite_v1alpha2_ImageStatus(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.Kernel":            schema_pkg_apis_ignite_v1alpha2_Kernel(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.KernelSpec":        schema_pkg_apis_ignite_v1alpha2_KernelSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.KernelStatus":      schema_pkg_apis_ignite_v1alpha2_KernelStatus(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource":    schema_pkg_apis_ignite_v1alpha2_OCIImageSource(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.Pool":              schema_pkg_apis_ignite_v1alpha2_Pool(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.PoolDevice":        schema_pkg_apis_ignite_v1alpha2_PoolDevice(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.PoolSpec":          schema_pkg_apis_ignite_v1alpha2_PoolSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.PoolStatus":        schema_pkg_apis_ignite_v1alpha2_PoolStatus(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.Runtime":           schema_pkg_apis_ignite_v1alpha2_Runtime(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.SSH":               schema_pkg_apis_ignite_v1alpha2_SSH(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VM":                schema_pkg_apis_ignite_v1alpha2_VM(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMImageSpec":       schema_pkg_apis_ignite_v1alpha2_VMImageSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMKernelSpec":      schema_pkg_apis_ignite_v1alpha2_VMKernelSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMNetworkSpec":     schema_pkg_apis_ignite_v1alpha2_VMNetworkSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMSandboxSpec":     schema_pkg_apis_ignite_v1alpha2_VMSandboxSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMSpec":            schema_pkg_apis_ignite_v1alpha2_VMSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMStatus":          schema_pkg_apis_ignite_v1alpha2_VMStatus(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMStorageSpec":     schema_pkg_apis_ignite_v1alpha2_VMStorageSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.Volume":            schema_pkg_apis_ignite_v1alpha2_Volume(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VolumeMount":       schema_pkg_apis_ignite_v1alpha2_VolumeMount(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.BlockDeviceVolume": schema_pkg_apis_ignite_v1alpha3_BlockDeviceVolume(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.Configuration":     schema_pkg_apis_ignite_v1alpha3_Configuration(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.ConfigurationSpec": schema_pkg_apis_ignite_v1alpha3_ConfigurationSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.FileMapping":       schema_pkg_apis_ignite_v1alpha3_FileMapping(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.Image":             schema_pkg_apis_ignite_v1alpha3_Image(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.ImageSpec":         schema_pkg_apis_ignite_v1alpha3_ImageSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.ImageStatus":       schema_pkg_apis_ignite_v1alpha3_ImageStatus(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.Kernel":            schema_pkg_apis_ignite_v1alpha3_Kernel(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.KernelSpec":        schema_pkg_apis_ignite_v1alpha3_KernelSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.KernelStatus":      schema_pkg_apis_ignite_v1alpha3_KernelStatus(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.Network":           schema_pkg_apis_ignite_v1alpha3_Network(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource":    schema_pkg_apis_ignite_v1alpha3_OCIImageSource(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.Pool":              schema_pkg_apis_ignite_v1alpha3_Pool(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.PoolDevice":        schema_pkg_apis_ignite_v1alpha3_PoolDevice(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.PoolSpec":          schema_pkg_apis_ignite_v1alpha3_PoolSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.PoolStatus":        schema_pkg_apis_ignite_v1alpha3_PoolStatus(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.Runtime":           schema_pkg_apis_ignite_v1alpha3_Runtime(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.SSH":               schema_pkg_apis_ignite_v1alpha3_SSH(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VM":                schema_pkg_apis_ignite_v1alpha3_VM(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMImageSpec":       schema_pkg_apis_ignite_v1alpha3_VMImageSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMKernelSpec":      schema_pkg_apis_ignite_v1alpha3_VMKernelSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMNetworkSpec":     schema_pkg_apis_ignite_v1alpha3_VMNetworkSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMSandboxSpec":     schema_pkg_apis_ignite_v1alpha3_VMSandboxSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMSpec":            schema_pkg_apis_ignite_v1alpha3_VMSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMStatus":          schema_pkg_apis_ignite_v1alpha3_VMStatus(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMStorageSpec":     schema_pkg_apis_ignite_v1alpha3_VMStorageSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.Volume":            schema_pkg_apis_ignite_v1alpha3_Volume(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VolumeMount":       schema_pkg_apis_ignite_v1alpha3_VolumeMount(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.BlockDeviceVolume": schema_pkg_apis_ignite_v1alpha4_BlockDeviceVolume(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.Configuration":     schema_pkg_apis_ignite_v1alpha4_Configuration(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.ConfigurationSpec": schema_pkg_apis_ignite_v1alpha4_ConfigurationSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.FileMapping":       schema_pkg_apis_ignite_v1alpha4_FileMapping(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.Image":             schema_pkg_apis_ignite_v1alpha4_Image(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.ImageSpec":         schema_pkg_apis_ignite_v1alpha4_ImageSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.ImageStatus":       schema_pkg_apis_ignite_v1alpha4_ImageStatus(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.Kernel":            schema_pkg_apis_ignite_v1alpha4_Kernel(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.KernelSpec":        schema_pkg_apis_ignite_v1alpha4_KernelSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.KernelStatus":      schema_pkg_apis_ignite_v1alpha4_KernelStatus(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.Network":           schema_pkg_apis_ignite_v1alpha4_Network(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource":    schema_pkg_apis_ignite_v1alpha4_OCIImageSource(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.Pool":              schema_pkg_apis_ignite_v1alpha4_Pool(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.PoolDevice":        schema_pkg_apis_ignite_v1alpha4_PoolDevice(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.PoolSpec":          schema_pkg_apis_ignite_v1alpha4_PoolSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.PoolStatus":        schema_pkg_apis_ignite_v1alpha4_PoolStatus(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.Runtime":           schema_pkg_apis_ignite_v1alpha4_Runtime(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.SSH":               schema_pkg_apis_ignite_v1alpha4_SSH(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VM":                schema_pkg_apis_ignite_v1alpha4_VM(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMImageSpec":       schema_pkg_apis_ignite_v1alpha4_VMImageSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMKernelSpec":      schema_pkg_apis_ignite_v1alpha4_VMKernelSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMNetworkSpec":     schema_pkg_apis_ignite_v1alpha4_VMNetworkSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMSandboxSpec":     schema_pkg_apis_ignite_v1alpha4_VMSandboxSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMSpec":            schema_pkg_apis_ignite_v1alpha4_VMSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMStatus":          schema_pkg_apis_ignite_v1alpha4_VMStatus(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMStorageSpec":     schema_pkg_apis_ignite_v1alpha4_VMStorageSpec(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.Volume":            schema_pkg_apis_ignite_v1alpha4_Volume(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VolumeMount":       schema_pkg_apis_ignite_v1alpha4_VolumeMount(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.DMID":                schema_pkg_apis_meta_v1alpha1_DMID(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIContentID":        schema_pkg_apis_meta_v1alpha1_OCIContentID(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef":         schema_pkg_apis_meta_v1alpha1_OCIImageRef(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.PortMapping":         schema_pkg_apis_meta_v1alpha1_PortMapping(ref),
+		"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size":                schema_pkg_apis_meta_v1alpha1_Size(ref),
 	}
 }
 
@@ -159,37 +159,45 @@ func schema_pkg_apis_ignite_v1alpha2_Image(ref common.ReferenceCallback) common.
 				Description: "Image represents a cached OCI image ready to be used with Ignite",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"TypeMeta": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"),
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
 							Description: "runtime.ObjectMeta is also embedded into the struct, and defines the human-readable name, and the machine-readable ID Name is available at the .metadata.name JSON path ID is available at the .metadata.uid JSON path (the Go type is k8s.io/apimachinery/pkg/types.UID, which is only a typed string)",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta"),
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.ImageSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.ImageSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.ImageStatus"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.ImageStatus"),
 						},
 					},
 				},
-				Required: []string{"TypeMeta", "metadata", "spec", "status"},
+				Required: []string{"metadata", "spec", "status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.ImageSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.ImageStatus", "github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.ImageSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.ImageStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -203,7 +211,7 @@ func schema_pkg_apis_ignite_v1alpha2_ImageSpec(ref common.ReferenceCallback) com
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 				},
@@ -211,7 +219,7 @@ func schema_pkg_apis_ignite_v1alpha2_ImageSpec(ref common.ReferenceCallback) com
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -226,7 +234,7 @@ func schema_pkg_apis_ignite_v1alpha2_ImageStatus(ref common.ReferenceCallback) c
 						SchemaProps: spec.SchemaProps{
 							Description: "OCISource contains the information about how this OCI image was imported",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource"),
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource"),
 						},
 					},
 				},
@@ -234,7 +242,7 @@ func schema_pkg_apis_ignite_v1alpha2_ImageStatus(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource"},
 	}
 }
 
@@ -245,37 +253,45 @@ func schema_pkg_apis_ignite_v1alpha2_Kernel(ref common.ReferenceCallback) common
 				Description: "Kernel is a serializable object that caches information about imported kernels This file is stored in /var/lib/firecracker/kernels/{oci-image-digest}/metadata.json",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"TypeMeta": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"),
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
 							Description: "runtime.ObjectMeta is also embedded into the struct, and defines the human-readable name, and the machine-readable ID Name is available at the .metadata.name JSON path ID is available at the .metadata.uid JSON path (the Go type is k8s.io/apimachinery/pkg/types.UID, which is only a typed string)",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta"),
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.KernelSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.KernelSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.KernelStatus"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.KernelStatus"),
 						},
 					},
 				},
-				Required: []string{"TypeMeta", "metadata", "spec", "status"},
+				Required: []string{"metadata", "spec", "status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.KernelSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.KernelStatus", "github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.KernelSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.KernelStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -289,7 +305,7 @@ func schema_pkg_apis_ignite_v1alpha2_KernelSpec(ref common.ReferenceCallback) co
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 				},
@@ -297,7 +313,7 @@ func schema_pkg_apis_ignite_v1alpha2_KernelSpec(ref common.ReferenceCallback) co
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -318,7 +334,7 @@ func schema_pkg_apis_ignite_v1alpha2_KernelStatus(ref common.ReferenceCallback) 
 					"ociSource": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource"),
 						},
 					},
 				},
@@ -326,7 +342,7 @@ func schema_pkg_apis_ignite_v1alpha2_KernelStatus(ref common.ReferenceCallback) 
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource"},
 	}
 }
 
@@ -340,14 +356,14 @@ func schema_pkg_apis_ignite_v1alpha2_OCIImageSource(ref common.ReferenceCallback
 					"id": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ID defines the source's content ID (e.g. the canonical OCI path or Docker image ID)",
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIContentID"),
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIContentID"),
 						},
 					},
 					"size": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Size defines the size of the source in bytes",
-							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default:     0,
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 				},
@@ -355,7 +371,7 @@ func schema_pkg_apis_ignite_v1alpha2_OCIImageSource(ref common.ReferenceCallback
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIContentID", "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIContentID", "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"},
 	}
 }
 
@@ -366,30 +382,38 @@ func schema_pkg_apis_ignite_v1alpha2_Pool(ref common.ReferenceCallback) common.O
 				Description: "Pool defines device mapper pool database This file is managed by the snapshotter part of Ignite, and the file (existing as a singleton) is present at /var/lib/firecracker/snapshotter/pool.json",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"TypeMeta": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"),
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.PoolSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.PoolSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.PoolStatus"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.PoolStatus"),
 						},
 					},
 				},
-				Required: []string{"TypeMeta", "spec", "status"},
+				Required: []string{"spec", "status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.PoolSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.PoolStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.PoolSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.PoolStatus"},
 	}
 }
 
@@ -402,14 +426,14 @@ func schema_pkg_apis_ignite_v1alpha2_PoolDevice(ref common.ReferenceCallback) co
 				Properties: map[string]spec.Schema{
 					"size": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default: 0,
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"parent": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.DMID"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.DMID"),
 						},
 					},
 					"type": {
@@ -433,7 +457,7 @@ func schema_pkg_apis_ignite_v1alpha2_PoolDevice(ref common.ReferenceCallback) co
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.DMID", "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.DMID", "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"},
 	}
 }
 
@@ -447,22 +471,22 @@ func schema_pkg_apis_ignite_v1alpha2_PoolSpec(ref common.ReferenceCallback) comm
 					"metadataSize": {
 						SchemaProps: spec.SchemaProps{
 							Description: "MetadataSize specifies the size of the pool's metadata",
-							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default:     0,
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"dataSize": {
 						SchemaProps: spec.SchemaProps{
 							Description: "DataSize specifies the size of the pool's data",
-							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default:     0,
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"allocationSize": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AllocationSize specifies the smallest size that can be allocated at a time",
-							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default:     0,
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"metadataPath": {
@@ -486,7 +510,7 @@ func schema_pkg_apis_ignite_v1alpha2_PoolSpec(ref common.ReferenceCallback) comm
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"},
 	}
 }
 
@@ -504,7 +528,7 @@ func schema_pkg_apis_ignite_v1alpha2_PoolStatus(ref common.ReferenceCallback) co
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.PoolDevice"),
+										Ref: ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.PoolDevice"),
 									},
 								},
 							},
@@ -515,7 +539,7 @@ func schema_pkg_apis_ignite_v1alpha2_PoolStatus(ref common.ReferenceCallback) co
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.PoolDevice"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.PoolDevice"},
 	}
 }
 
@@ -558,37 +582,45 @@ func schema_pkg_apis_ignite_v1alpha2_VM(ref common.ReferenceCallback) common.Ope
 				Description: "VM represents a virtual machine run by Firecracker These files are stored in /var/lib/firecracker/vm/{vm-id}/metadata.json",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"TypeMeta": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"),
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
 							Description: "runtime.ObjectMeta is also embedded into the struct, and defines the human-readable name, and the machine-readable ID Name is available at the .metadata.name JSON path ID is available at the .metadata.uid JSON path (the Go type is k8s.io/apimachinery/pkg/types.UID, which is only a typed string)",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta"),
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMStatus"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMStatus"),
 						},
 					},
 				},
-				Required: []string{"TypeMeta", "metadata", "spec", "status"},
+				Required: []string{"metadata", "spec", "status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMStatus", "github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -601,7 +633,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMImageSpec(ref common.ReferenceCallback) c
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 				},
@@ -609,7 +641,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMImageSpec(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -622,7 +654,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMKernelSpec(ref common.ReferenceCallback) 
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 					"cmdLine": {
@@ -636,7 +668,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMKernelSpec(ref common.ReferenceCallback) 
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -653,7 +685,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMNetworkSpec(ref common.ReferenceCallback)
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.PortMapping"),
+										Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.PortMapping"),
 									},
 								},
 							},
@@ -663,7 +695,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMNetworkSpec(ref common.ReferenceCallback)
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.PortMapping"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.PortMapping"},
 	}
 }
 
@@ -677,7 +709,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMSandboxSpec(ref common.ReferenceCallback)
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 				},
@@ -685,7 +717,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMSandboxSpec(ref common.ReferenceCallback)
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -699,19 +731,19 @@ func schema_pkg_apis_ignite_v1alpha2_VMSpec(ref common.ReferenceCallback) common
 					"image": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMImageSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMImageSpec"),
 						},
 					},
 					"sandbox": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMSandboxSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMSandboxSpec"),
 						},
 					},
 					"kernel": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMKernelSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMKernelSpec"),
 						},
 					},
 					"cpus": {
@@ -723,27 +755,27 @@ func schema_pkg_apis_ignite_v1alpha2_VMSpec(ref common.ReferenceCallback) common
 					},
 					"memory": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default: 0,
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"diskSize": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default: 0,
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"network": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Currently both will show in the JSON output as empty arrays. Making them pointers requires plenty of nil checks (as their contents are accessed directly) and is very risky for stability. APIMachinery potentially has a solution.",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMNetworkSpec"),
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMNetworkSpec"),
 						},
 					},
 					"storage": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMStorageSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMStorageSpec"),
 						},
 					},
 					"copyFiles": {
@@ -754,7 +786,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMSpec(ref common.ReferenceCallback) common
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.FileMapping"),
+										Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.FileMapping"),
 									},
 								},
 							},
@@ -763,7 +795,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMSpec(ref common.ReferenceCallback) common
 					"ssh": {
 						SchemaProps: spec.SchemaProps{
 							Description: "SSH specifies how the SSH setup should be done nil here means \"don't do anything special\" If SSH.Generate is set, Ignite will generate a new SSH key and copy it in to authorized_keys in the VM Specifying a path in SSH.Generate means \"use this public key\" If SSH.PublicKey is set, this struct will marshal as a string using that path If SSH.Generate is set, this struct will marshal as a bool => true",
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.SSH"),
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.SSH"),
 						},
 					},
 				},
@@ -771,7 +803,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMSpec(ref common.ReferenceCallback) common
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.FileMapping", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.SSH", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMImageSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMKernelSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMNetworkSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMSandboxSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VMStorageSpec", "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.FileMapping", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.SSH", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMImageSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMKernelSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMNetworkSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMSandboxSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VMStorageSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"},
 	}
 }
 
@@ -791,12 +823,13 @@ func schema_pkg_apis_ignite_v1alpha2_VMStatus(ref common.ReferenceCallback) comm
 					},
 					"runtime": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.Runtime"),
+							Ref: ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.Runtime"),
 						},
 					},
 					"startTime": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/save-abandoned-projects/libgitops/pkg/runtime.Time"),
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
 						},
 					},
 					"ipAddresses": {
@@ -815,13 +848,13 @@ func schema_pkg_apis_ignite_v1alpha2_VMStatus(ref common.ReferenceCallback) comm
 					"image": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource"),
 						},
 					},
 					"kernel": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource"),
 						},
 					},
 				},
@@ -829,7 +862,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMStatus(ref common.ReferenceCallback) comm
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.Runtime", "github.com/save-abandoned-projects/libgitops/pkg/runtime.Time"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.OCIImageSource", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.Runtime", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 	}
 }
 
@@ -847,7 +880,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMStorageSpec(ref common.ReferenceCallback)
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.Volume"),
+										Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.Volume"),
 									},
 								},
 							},
@@ -860,7 +893,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMStorageSpec(ref common.ReferenceCallback)
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VolumeMount"),
+										Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VolumeMount"),
 									},
 								},
 							},
@@ -870,7 +903,7 @@ func schema_pkg_apis_ignite_v1alpha2_VMStorageSpec(ref common.ReferenceCallback)
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.Volume", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.VolumeMount"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.Volume", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.VolumeMount"},
 	}
 }
 
@@ -890,7 +923,7 @@ func schema_pkg_apis_ignite_v1alpha2_Volume(ref common.ReferenceCallback) common
 					},
 					"blockDevice": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.BlockDeviceVolume"),
+							Ref: ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.BlockDeviceVolume"),
 						},
 					},
 				},
@@ -898,7 +931,7 @@ func schema_pkg_apis_ignite_v1alpha2_Volume(ref common.ReferenceCallback) common
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2.BlockDeviceVolume"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2.BlockDeviceVolume"},
 	}
 }
 
@@ -958,30 +991,38 @@ func schema_pkg_apis_ignite_v1alpha3_Configuration(ref common.ReferenceCallback)
 				Description: "Configuration represents the ignite runtime configuration.",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"TypeMeta": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"),
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta"),
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.ConfigurationSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.ConfigurationSpec"),
 						},
 					},
 				},
-				Required: []string{"TypeMeta", "metadata", "spec"},
+				Required: []string{"metadata", "spec"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.ConfigurationSpec", "github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.ConfigurationSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -1007,7 +1048,7 @@ func schema_pkg_apis_ignite_v1alpha3_ConfigurationSpec(ref common.ReferenceCallb
 					"vmDefaults": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMSpec"),
 						},
 					},
 					"idPrefix": {
@@ -1020,7 +1061,7 @@ func schema_pkg_apis_ignite_v1alpha3_ConfigurationSpec(ref common.ReferenceCallb
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMSpec"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMSpec"},
 	}
 }
 
@@ -1059,37 +1100,45 @@ func schema_pkg_apis_ignite_v1alpha3_Image(ref common.ReferenceCallback) common.
 				Description: "Image represents a cached OCI image ready to be used with Ignite",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"TypeMeta": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"),
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
 							Description: "runtime.ObjectMeta is also embedded into the struct, and defines the human-readable name, and the machine-readable ID Name is available at the .metadata.name JSON path ID is available at the .metadata.uid JSON path (the Go type is k8s.io/apimachinery/pkg/types.UID, which is only a typed string)",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta"),
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.ImageSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.ImageSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.ImageStatus"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.ImageStatus"),
 						},
 					},
 				},
-				Required: []string{"TypeMeta", "metadata", "spec", "status"},
+				Required: []string{"metadata", "spec", "status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.ImageSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.ImageStatus", "github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.ImageSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.ImageStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -1103,7 +1152,7 @@ func schema_pkg_apis_ignite_v1alpha3_ImageSpec(ref common.ReferenceCallback) com
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 				},
@@ -1111,7 +1160,7 @@ func schema_pkg_apis_ignite_v1alpha3_ImageSpec(ref common.ReferenceCallback) com
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -1126,7 +1175,7 @@ func schema_pkg_apis_ignite_v1alpha3_ImageStatus(ref common.ReferenceCallback) c
 						SchemaProps: spec.SchemaProps{
 							Description: "OCISource contains the information about how this OCI image was imported",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource"),
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource"),
 						},
 					},
 				},
@@ -1134,7 +1183,7 @@ func schema_pkg_apis_ignite_v1alpha3_ImageStatus(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource"},
 	}
 }
 
@@ -1145,37 +1194,45 @@ func schema_pkg_apis_ignite_v1alpha3_Kernel(ref common.ReferenceCallback) common
 				Description: "Kernel is a serializable object that caches information about imported kernels This file is stored in /var/lib/firecracker/kernels/{oci-image-digest}/metadata.json",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"TypeMeta": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"),
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
 							Description: "runtime.ObjectMeta is also embedded into the struct, and defines the human-readable name, and the machine-readable ID Name is available at the .metadata.name JSON path ID is available at the .metadata.uid JSON path (the Go type is k8s.io/apimachinery/pkg/types.UID, which is only a typed string)",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta"),
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.KernelSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.KernelSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.KernelStatus"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.KernelStatus"),
 						},
 					},
 				},
-				Required: []string{"TypeMeta", "metadata", "spec", "status"},
+				Required: []string{"metadata", "spec", "status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.KernelSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.KernelStatus", "github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.KernelSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.KernelStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -1189,7 +1246,7 @@ func schema_pkg_apis_ignite_v1alpha3_KernelSpec(ref common.ReferenceCallback) co
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 				},
@@ -1197,7 +1254,7 @@ func schema_pkg_apis_ignite_v1alpha3_KernelSpec(ref common.ReferenceCallback) co
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -1218,7 +1275,7 @@ func schema_pkg_apis_ignite_v1alpha3_KernelStatus(ref common.ReferenceCallback) 
 					"ociSource": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource"),
 						},
 					},
 				},
@@ -1226,7 +1283,7 @@ func schema_pkg_apis_ignite_v1alpha3_KernelStatus(ref common.ReferenceCallback) 
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource"},
 	}
 }
 
@@ -1274,14 +1331,14 @@ func schema_pkg_apis_ignite_v1alpha3_OCIImageSource(ref common.ReferenceCallback
 					"id": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ID defines the source's content ID (e.g. the canonical OCI path or Docker image ID)",
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIContentID"),
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIContentID"),
 						},
 					},
 					"size": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Size defines the size of the source in bytes",
-							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default:     0,
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 				},
@@ -1289,7 +1346,7 @@ func schema_pkg_apis_ignite_v1alpha3_OCIImageSource(ref common.ReferenceCallback
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIContentID", "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIContentID", "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"},
 	}
 }
 
@@ -1300,30 +1357,38 @@ func schema_pkg_apis_ignite_v1alpha3_Pool(ref common.ReferenceCallback) common.O
 				Description: "Pool defines device mapper pool database This file is managed by the snapshotter part of Ignite, and the file (existing as a singleton) is present at /var/lib/firecracker/snapshotter/pool.json",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"TypeMeta": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"),
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.PoolSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.PoolSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.PoolStatus"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.PoolStatus"),
 						},
 					},
 				},
-				Required: []string{"TypeMeta", "spec", "status"},
+				Required: []string{"spec", "status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.PoolSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.PoolStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.PoolSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.PoolStatus"},
 	}
 }
 
@@ -1336,14 +1401,14 @@ func schema_pkg_apis_ignite_v1alpha3_PoolDevice(ref common.ReferenceCallback) co
 				Properties: map[string]spec.Schema{
 					"size": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default: 0,
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"parent": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.DMID"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.DMID"),
 						},
 					},
 					"type": {
@@ -1367,7 +1432,7 @@ func schema_pkg_apis_ignite_v1alpha3_PoolDevice(ref common.ReferenceCallback) co
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.DMID", "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.DMID", "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"},
 	}
 }
 
@@ -1381,22 +1446,22 @@ func schema_pkg_apis_ignite_v1alpha3_PoolSpec(ref common.ReferenceCallback) comm
 					"metadataSize": {
 						SchemaProps: spec.SchemaProps{
 							Description: "MetadataSize specifies the size of the pool's metadata",
-							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default:     0,
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"dataSize": {
 						SchemaProps: spec.SchemaProps{
 							Description: "DataSize specifies the size of the pool's data",
-							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default:     0,
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"allocationSize": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AllocationSize specifies the smallest size that can be allocated at a time",
-							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default:     0,
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"metadataPath": {
@@ -1420,7 +1485,7 @@ func schema_pkg_apis_ignite_v1alpha3_PoolSpec(ref common.ReferenceCallback) comm
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"},
 	}
 }
 
@@ -1438,7 +1503,7 @@ func schema_pkg_apis_ignite_v1alpha3_PoolStatus(ref common.ReferenceCallback) co
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.PoolDevice"),
+										Ref: ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.PoolDevice"),
 									},
 								},
 							},
@@ -1449,7 +1514,7 @@ func schema_pkg_apis_ignite_v1alpha3_PoolStatus(ref common.ReferenceCallback) co
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.PoolDevice"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.PoolDevice"},
 	}
 }
 
@@ -1499,37 +1564,45 @@ func schema_pkg_apis_ignite_v1alpha3_VM(ref common.ReferenceCallback) common.Ope
 				Description: "VM represents a virtual machine run by Firecracker These files are stored in /var/lib/firecracker/vm/{vm-id}/metadata.json",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"TypeMeta": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"),
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
 							Description: "runtime.ObjectMeta is also embedded into the struct, and defines the human-readable name, and the machine-readable ID Name is available at the .metadata.name JSON path ID is available at the .metadata.uid JSON path (the Go type is k8s.io/apimachinery/pkg/types.UID, which is only a typed string)",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta"),
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMStatus"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMStatus"),
 						},
 					},
 				},
-				Required: []string{"TypeMeta", "metadata", "spec", "status"},
+				Required: []string{"metadata", "spec", "status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMStatus", "github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -1542,7 +1615,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMImageSpec(ref common.ReferenceCallback) c
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 				},
@@ -1550,7 +1623,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMImageSpec(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -1563,7 +1636,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMKernelSpec(ref common.ReferenceCallback) 
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 					"cmdLine": {
@@ -1577,7 +1650,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMKernelSpec(ref common.ReferenceCallback) 
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -1594,7 +1667,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMNetworkSpec(ref common.ReferenceCallback)
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.PortMapping"),
+										Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.PortMapping"),
 									},
 								},
 							},
@@ -1604,7 +1677,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMNetworkSpec(ref common.ReferenceCallback)
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.PortMapping"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.PortMapping"},
 	}
 }
 
@@ -1618,7 +1691,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMSandboxSpec(ref common.ReferenceCallback)
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 				},
@@ -1626,7 +1699,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMSandboxSpec(ref common.ReferenceCallback)
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -1640,19 +1713,19 @@ func schema_pkg_apis_ignite_v1alpha3_VMSpec(ref common.ReferenceCallback) common
 					"image": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMImageSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMImageSpec"),
 						},
 					},
 					"sandbox": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMSandboxSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMSandboxSpec"),
 						},
 					},
 					"kernel": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMKernelSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMKernelSpec"),
 						},
 					},
 					"cpus": {
@@ -1664,27 +1737,27 @@ func schema_pkg_apis_ignite_v1alpha3_VMSpec(ref common.ReferenceCallback) common
 					},
 					"memory": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default: 0,
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"diskSize": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default: 0,
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"network": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Currently both will show in the JSON output as empty arrays. Making them pointers requires plenty of nil checks (as their contents are accessed directly) and is very risky for stability. APIMachinery potentially has a solution.",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMNetworkSpec"),
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMNetworkSpec"),
 						},
 					},
 					"storage": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMStorageSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMStorageSpec"),
 						},
 					},
 					"copyFiles": {
@@ -1695,7 +1768,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMSpec(ref common.ReferenceCallback) common
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.FileMapping"),
+										Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.FileMapping"),
 									},
 								},
 							},
@@ -1704,7 +1777,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMSpec(ref common.ReferenceCallback) common
 					"ssh": {
 						SchemaProps: spec.SchemaProps{
 							Description: "SSH specifies how the SSH setup should be done nil here means \"don't do anything special\" If SSH.Generate is set, Ignite will generate a new SSH key and copy it in to authorized_keys in the VM Specifying a path in SSH.Generate means \"use this public key\" If SSH.PublicKey is set, this struct will marshal as a string using that path If SSH.Generate is set, this struct will marshal as a bool => true",
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.SSH"),
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.SSH"),
 						},
 					},
 				},
@@ -1712,7 +1785,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMSpec(ref common.ReferenceCallback) common
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.FileMapping", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.SSH", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMImageSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMKernelSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMNetworkSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMSandboxSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VMStorageSpec", "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.FileMapping", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.SSH", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMImageSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMKernelSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMNetworkSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMSandboxSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VMStorageSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"},
 	}
 }
 
@@ -1732,29 +1805,30 @@ func schema_pkg_apis_ignite_v1alpha3_VMStatus(ref common.ReferenceCallback) comm
 					},
 					"runtime": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.Runtime"),
+							Ref: ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.Runtime"),
 						},
 					},
 					"startTime": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/save-abandoned-projects/libgitops/pkg/runtime.Time"),
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
 						},
 					},
 					"network": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.Network"),
+							Ref: ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.Network"),
 						},
 					},
 					"image": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource"),
 						},
 					},
 					"kernel": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource"),
 						},
 					},
 					"idPrefix": {
@@ -1769,7 +1843,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMStatus(ref common.ReferenceCallback) comm
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.Network", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.Runtime", "github.com/save-abandoned-projects/libgitops/pkg/runtime.Time"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.Network", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.OCIImageSource", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.Runtime", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 	}
 }
 
@@ -1787,7 +1861,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMStorageSpec(ref common.ReferenceCallback)
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.Volume"),
+										Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.Volume"),
 									},
 								},
 							},
@@ -1800,7 +1874,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMStorageSpec(ref common.ReferenceCallback)
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VolumeMount"),
+										Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VolumeMount"),
 									},
 								},
 							},
@@ -1810,7 +1884,7 @@ func schema_pkg_apis_ignite_v1alpha3_VMStorageSpec(ref common.ReferenceCallback)
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.Volume", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.VolumeMount"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.Volume", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.VolumeMount"},
 	}
 }
 
@@ -1830,7 +1904,7 @@ func schema_pkg_apis_ignite_v1alpha3_Volume(ref common.ReferenceCallback) common
 					},
 					"blockDevice": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.BlockDeviceVolume"),
+							Ref: ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.BlockDeviceVolume"),
 						},
 					},
 				},
@@ -1838,7 +1912,7 @@ func schema_pkg_apis_ignite_v1alpha3_Volume(ref common.ReferenceCallback) common
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3.BlockDeviceVolume"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3.BlockDeviceVolume"},
 	}
 }
 
@@ -1898,30 +1972,38 @@ func schema_pkg_apis_ignite_v1alpha4_Configuration(ref common.ReferenceCallback)
 				Description: "Configuration represents the ignite runtime configuration.",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"TypeMeta": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"),
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta"),
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.ConfigurationSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.ConfigurationSpec"),
 						},
 					},
 				},
-				Required: []string{"TypeMeta", "metadata", "spec"},
+				Required: []string{"metadata", "spec"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.ConfigurationSpec", "github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.ConfigurationSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -1947,7 +2029,7 @@ func schema_pkg_apis_ignite_v1alpha4_ConfigurationSpec(ref common.ReferenceCallb
 					"vmDefaults": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMSpec"),
 						},
 					},
 					"idPrefix": {
@@ -1966,7 +2048,7 @@ func schema_pkg_apis_ignite_v1alpha4_ConfigurationSpec(ref common.ReferenceCallb
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMSpec"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMSpec"},
 	}
 }
 
@@ -2005,37 +2087,45 @@ func schema_pkg_apis_ignite_v1alpha4_Image(ref common.ReferenceCallback) common.
 				Description: "Image represents a cached OCI image ready to be used with Ignite",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"TypeMeta": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"),
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
 							Description: "runtime.ObjectMeta is also embedded into the struct, and defines the human-readable name, and the machine-readable ID Name is available at the .metadata.name JSON path ID is available at the .metadata.uid JSON path (the Go type is k8s.io/apimachinery/pkg/types.UID, which is only a typed string)",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta"),
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.ImageSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.ImageSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.ImageStatus"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.ImageStatus"),
 						},
 					},
 				},
-				Required: []string{"TypeMeta", "metadata", "spec", "status"},
+				Required: []string{"metadata", "spec", "status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.ImageSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.ImageStatus", "github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.ImageSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.ImageStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -2049,7 +2139,7 @@ func schema_pkg_apis_ignite_v1alpha4_ImageSpec(ref common.ReferenceCallback) com
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 				},
@@ -2057,7 +2147,7 @@ func schema_pkg_apis_ignite_v1alpha4_ImageSpec(ref common.ReferenceCallback) com
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -2072,7 +2162,7 @@ func schema_pkg_apis_ignite_v1alpha4_ImageStatus(ref common.ReferenceCallback) c
 						SchemaProps: spec.SchemaProps{
 							Description: "OCISource contains the information about how this OCI image was imported",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource"),
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource"),
 						},
 					},
 				},
@@ -2080,7 +2170,7 @@ func schema_pkg_apis_ignite_v1alpha4_ImageStatus(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource"},
 	}
 }
 
@@ -2091,37 +2181,45 @@ func schema_pkg_apis_ignite_v1alpha4_Kernel(ref common.ReferenceCallback) common
 				Description: "Kernel is a serializable object that caches information about imported kernels This file is stored in /var/lib/firecracker/kernels/{oci-image-digest}/metadata.json",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"TypeMeta": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"),
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
 							Description: "runtime.ObjectMeta is also embedded into the struct, and defines the human-readable name, and the machine-readable ID Name is available at the .metadata.name JSON path ID is available at the .metadata.uid JSON path (the Go type is k8s.io/apimachinery/pkg/types.UID, which is only a typed string)",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta"),
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.KernelSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.KernelSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.KernelStatus"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.KernelStatus"),
 						},
 					},
 				},
-				Required: []string{"TypeMeta", "metadata", "spec", "status"},
+				Required: []string{"metadata", "spec", "status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.KernelSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.KernelStatus", "github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.KernelSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.KernelStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -2135,7 +2233,7 @@ func schema_pkg_apis_ignite_v1alpha4_KernelSpec(ref common.ReferenceCallback) co
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 				},
@@ -2143,7 +2241,7 @@ func schema_pkg_apis_ignite_v1alpha4_KernelSpec(ref common.ReferenceCallback) co
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -2164,7 +2262,7 @@ func schema_pkg_apis_ignite_v1alpha4_KernelStatus(ref common.ReferenceCallback) 
 					"ociSource": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource"),
 						},
 					},
 				},
@@ -2172,7 +2270,7 @@ func schema_pkg_apis_ignite_v1alpha4_KernelStatus(ref common.ReferenceCallback) 
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource"},
 	}
 }
 
@@ -2220,14 +2318,14 @@ func schema_pkg_apis_ignite_v1alpha4_OCIImageSource(ref common.ReferenceCallback
 					"id": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ID defines the source's content ID (e.g. the canonical OCI path or Docker image ID)",
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIContentID"),
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIContentID"),
 						},
 					},
 					"size": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Size defines the size of the source in bytes",
-							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default:     0,
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 				},
@@ -2235,7 +2333,7 @@ func schema_pkg_apis_ignite_v1alpha4_OCIImageSource(ref common.ReferenceCallback
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIContentID", "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIContentID", "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"},
 	}
 }
 
@@ -2246,30 +2344,38 @@ func schema_pkg_apis_ignite_v1alpha4_Pool(ref common.ReferenceCallback) common.O
 				Description: "Pool defines device mapper pool database This file is managed by the snapshotter part of Ignite, and the file (existing as a singleton) is present at /var/lib/firecracker/snapshotter/pool.json",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"TypeMeta": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"),
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.PoolSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.PoolSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.PoolStatus"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.PoolStatus"),
 						},
 					},
 				},
-				Required: []string{"TypeMeta", "spec", "status"},
+				Required: []string{"spec", "status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.PoolSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.PoolStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.PoolSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.PoolStatus"},
 	}
 }
 
@@ -2282,14 +2388,14 @@ func schema_pkg_apis_ignite_v1alpha4_PoolDevice(ref common.ReferenceCallback) co
 				Properties: map[string]spec.Schema{
 					"size": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default: 0,
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"parent": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.DMID"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.DMID"),
 						},
 					},
 					"type": {
@@ -2313,7 +2419,7 @@ func schema_pkg_apis_ignite_v1alpha4_PoolDevice(ref common.ReferenceCallback) co
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.DMID", "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.DMID", "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"},
 	}
 }
 
@@ -2327,22 +2433,22 @@ func schema_pkg_apis_ignite_v1alpha4_PoolSpec(ref common.ReferenceCallback) comm
 					"metadataSize": {
 						SchemaProps: spec.SchemaProps{
 							Description: "MetadataSize specifies the size of the pool's metadata",
-							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default:     0,
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"dataSize": {
 						SchemaProps: spec.SchemaProps{
 							Description: "DataSize specifies the size of the pool's data",
-							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default:     0,
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"allocationSize": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AllocationSize specifies the smallest size that can be allocated at a time",
-							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default:     0,
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"metadataPath": {
@@ -2366,7 +2472,7 @@ func schema_pkg_apis_ignite_v1alpha4_PoolSpec(ref common.ReferenceCallback) comm
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"},
 	}
 }
 
@@ -2384,7 +2490,7 @@ func schema_pkg_apis_ignite_v1alpha4_PoolStatus(ref common.ReferenceCallback) co
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.PoolDevice"),
+										Ref: ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.PoolDevice"),
 									},
 								},
 							},
@@ -2395,7 +2501,7 @@ func schema_pkg_apis_ignite_v1alpha4_PoolStatus(ref common.ReferenceCallback) co
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.PoolDevice"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.PoolDevice"},
 	}
 }
 
@@ -2445,37 +2551,45 @@ func schema_pkg_apis_ignite_v1alpha4_VM(ref common.ReferenceCallback) common.Ope
 				Description: "VM represents a virtual machine run by Firecracker These files are stored in /var/lib/firecracker/vm/{vm-id}/metadata.json",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"TypeMeta": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"),
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
 							Description: "runtime.ObjectMeta is also embedded into the struct, and defines the human-readable name, and the machine-readable ID Name is available at the .metadata.name JSON path ID is available at the .metadata.uid JSON path (the Go type is k8s.io/apimachinery/pkg/types.UID, which is only a typed string)",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta"),
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMStatus"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMStatus"),
 						},
 					},
 				},
-				Required: []string{"TypeMeta", "metadata", "spec", "status"},
+				Required: []string{"metadata", "spec", "status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMStatus", "github.com/save-abandoned-projects/libgitops/pkg/runtime.ObjectMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -2488,7 +2602,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMImageSpec(ref common.ReferenceCallback) c
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 				},
@@ -2496,7 +2610,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMImageSpec(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -2509,7 +2623,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMKernelSpec(ref common.ReferenceCallback) 
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 					"cmdLine": {
@@ -2523,7 +2637,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMKernelSpec(ref common.ReferenceCallback) 
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -2540,7 +2654,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMNetworkSpec(ref common.ReferenceCallback)
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.PortMapping"),
+										Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.PortMapping"),
 									},
 								},
 							},
@@ -2550,7 +2664,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMNetworkSpec(ref common.ReferenceCallback)
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.PortMapping"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.PortMapping"},
 	}
 }
 
@@ -2564,7 +2678,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMSandboxSpec(ref common.ReferenceCallback)
 					"oci": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"),
 						},
 					},
 				},
@@ -2572,7 +2686,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMSandboxSpec(ref common.ReferenceCallback)
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.OCIImageRef"},
 	}
 }
 
@@ -2586,19 +2700,19 @@ func schema_pkg_apis_ignite_v1alpha4_VMSpec(ref common.ReferenceCallback) common
 					"image": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMImageSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMImageSpec"),
 						},
 					},
 					"sandbox": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMSandboxSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMSandboxSpec"),
 						},
 					},
 					"kernel": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMKernelSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMKernelSpec"),
 						},
 					},
 					"cpus": {
@@ -2610,27 +2724,27 @@ func schema_pkg_apis_ignite_v1alpha4_VMSpec(ref common.ReferenceCallback) common
 					},
 					"memory": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default: 0,
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"diskSize": {
 						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"),
+							Default: 0,
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"),
 						},
 					},
 					"network": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Currently both will show in the JSON output as empty arrays. Making them pointers requires plenty of nil checks (as their contents are accessed directly) and is very risky for stability. APIMachinery potentially has a solution.",
 							Default:     map[string]interface{}{},
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMNetworkSpec"),
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMNetworkSpec"),
 						},
 					},
 					"storage": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMStorageSpec"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMStorageSpec"),
 						},
 					},
 					"copyFiles": {
@@ -2641,7 +2755,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMSpec(ref common.ReferenceCallback) common
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.FileMapping"),
+										Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.FileMapping"),
 									},
 								},
 							},
@@ -2650,7 +2764,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMSpec(ref common.ReferenceCallback) common
 					"ssh": {
 						SchemaProps: spec.SchemaProps{
 							Description: "SSH specifies how the SSH setup should be done nil here means \"don't do anything special\" If SSH.Generate is set, Ignite will generate a new SSH key and copy it in to authorized_keys in the VM Specifying a path in SSH.Generate means \"use this public key\" If SSH.PublicKey is set, this struct will marshal as a string using that path If SSH.Generate is set, this struct will marshal as a bool => true",
-							Ref:         ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.SSH"),
+							Ref:         ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.SSH"),
 						},
 					},
 				},
@@ -2658,7 +2772,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMSpec(ref common.ReferenceCallback) common
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.FileMapping", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.SSH", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMImageSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMKernelSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMNetworkSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMSandboxSpec", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VMStorageSpec", "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1.Size"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.FileMapping", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.SSH", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMImageSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMKernelSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMNetworkSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMSandboxSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VMStorageSpec", "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1.Size"},
 	}
 }
 
@@ -2678,29 +2792,30 @@ func schema_pkg_apis_ignite_v1alpha4_VMStatus(ref common.ReferenceCallback) comm
 					},
 					"runtime": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.Runtime"),
+							Ref: ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.Runtime"),
 						},
 					},
 					"startTime": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/save-abandoned-projects/libgitops/pkg/runtime.Time"),
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
 						},
 					},
 					"network": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.Network"),
+							Ref: ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.Network"),
 						},
 					},
 					"image": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource"),
 						},
 					},
 					"kernel": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource"),
+							Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource"),
 						},
 					},
 					"idPrefix": {
@@ -2715,7 +2830,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMStatus(ref common.ReferenceCallback) comm
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.Network", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.Runtime", "github.com/save-abandoned-projects/libgitops/pkg/runtime.Time"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.Network", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.OCIImageSource", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.Runtime", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 	}
 }
 
@@ -2733,7 +2848,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMStorageSpec(ref common.ReferenceCallback)
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.Volume"),
+										Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.Volume"),
 									},
 								},
 							},
@@ -2746,7 +2861,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMStorageSpec(ref common.ReferenceCallback)
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VolumeMount"),
+										Ref:     ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VolumeMount"),
 									},
 								},
 							},
@@ -2756,7 +2871,7 @@ func schema_pkg_apis_ignite_v1alpha4_VMStorageSpec(ref common.ReferenceCallback)
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.Volume", "github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.VolumeMount"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.Volume", "github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.VolumeMount"},
 	}
 }
 
@@ -2776,7 +2891,7 @@ func schema_pkg_apis_ignite_v1alpha4_Volume(ref common.ReferenceCallback) common
 					},
 					"blockDevice": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.BlockDeviceVolume"),
+							Ref: ref("github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.BlockDeviceVolume"),
 						},
 					},
 				},
@@ -2784,7 +2899,7 @@ func schema_pkg_apis_ignite_v1alpha4_Volume(ref common.ReferenceCallback) common
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4.BlockDeviceVolume"},
+			"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4.BlockDeviceVolume"},
 	}
 }
 

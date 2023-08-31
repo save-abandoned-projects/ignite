@@ -3,14 +3,15 @@ package run
 import (
 	"bytes"
 	"fmt"
+	"strings"
+	"text/template"
+
 	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/scheme"
 	"github.com/save-abandoned-projects/ignite/pkg/providers"
 	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
 	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
-	"strings"
-	"text/template"
 )
 
 // InspectFlags contains the flags supported by inspect.

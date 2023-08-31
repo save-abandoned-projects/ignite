@@ -2,14 +2,15 @@ package run
 
 import (
 	"fmt"
-	"k8s.io/apimachinery/pkg/types"
 	"os"
 
-	"github.com/save-abandoned-projects/libgitops/pkg/filter"
-	log "github.com/sirupsen/logrus"
+	"k8s.io/apimachinery/pkg/types"
+
 	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	"github.com/save-abandoned-projects/ignite/pkg/operations/lookup"
 	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/libgitops/pkg/filter"
+	log "github.com/sirupsen/logrus"
 )
 
 type RmiFlags struct {
