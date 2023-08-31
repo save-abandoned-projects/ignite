@@ -2,10 +2,6 @@
 
 Operates in daemon mode and watches /etc/firecracker/manifests for VM specifications to run.
 
-### Synopsis
-
-Operates in daemon mode and watches /etc/firecracker/manifests for VM specifications to run.
-
 ```
 ignited daemon [flags]
 ```
