@@ -82,7 +82,7 @@ func TestInspect(t *testing.T) {
 			// Update the golden file if needed.
 			if !rt.err && *update {
 				t.Log("update inspect golden files")
-				if err := ioutil.WriteFile(goldenFilePath, buf.Bytes(), 0644); err != nil {
+				if err := os.WriteFile(goldenFilePath, buf.Bytes(), 0644); err != nil {
 					t.Fatalf("failed to update inspect golden file: %s: %v", goldenFilePath, err)
 				}
 			}

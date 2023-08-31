@@ -1,7 +1,9 @@
 package run
 
 import (
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
 	"io/ioutil"
+	"k8s.io/apimachinery/pkg/types"
 	"os"
 	"path/filepath"
 	"testing"
@@ -10,12 +12,12 @@ import (
 	"github.com/save-abandoned-projects/libgitops/pkg/storage"
 	"github.com/save-abandoned-projects/libgitops/pkg/storage/cache"
 
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/scheme"
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	"github.com/weaveworks/ignite/pkg/client"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/ignite/pkg/util"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/scheme"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	"github.com/save-abandoned-projects/ignite/pkg/client"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 )
 
 func TestNewRmOptions(t *testing.T) {
@@ -86,9 +88,10 @@ func TestNewRmOptions(t *testing.T) {
 			}
 			defer os.RemoveAll(dir)
 
-			storage := cache.NewCache(
-				storage.NewGenericStorage(
-					storage.NewGenericRawStorage(dir), scheme.Serializer))
+			storage := cache.NewCache(storage.NewGenericStorage(
+				storage.NewGenericRawStorage(dir, api.SchemeGroupVersion, serializer.ContentTypeYAML),
+				scheme.Serializer,
+				[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier}))
 
 			// Create ignite client with the created storage.
 			ic := client.NewClient(storage)
@@ -103,7 +106,7 @@ func TestNewRmOptions(t *testing.T) {
 				if err != nil {
 					t.Errorf("failed to generate new UID: %v", err)
 				}
-				vm.SetUID(runtime.UID(uid))
+				vm.SetUID(types.UID(uid))
 
 				// Set VM image.
 				ociRef, err := meta.NewOCIImageRef("foo/bar:latest")
