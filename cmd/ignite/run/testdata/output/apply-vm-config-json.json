@@ -18,7 +18,6 @@
     "cpus": 2,
     "memory": "2GB",
     "diskSize": "8GB",
-    "startTime": null,
     "network": {},
     "storage": {},
     "ssh": true
@@ -29,6 +28,7 @@
       "id": "",
       "name": ""
     },
+    "startTime": null,
     "network": {
       "plugin": "",
       "ipAddresses": null
