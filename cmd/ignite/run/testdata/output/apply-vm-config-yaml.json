@@ -18,6 +18,7 @@
     "cpus": 4,
     "memory": "1500MB",
     "diskSize": "10GB",
+    "startTime": null,
     "network": {},
     "storage": {},
     "ssh": true
@@ -28,7 +29,6 @@
       "id": "",
       "name": ""
     },
-    "startTime": null,
     "network": {
       "plugin": "",
       "ipAddresses": null
