@@ -159,7 +159,7 @@ func (r *GenericRawStorage) List(kind KindKey) ([]ObjectKey, error) {
 	return result, nil
 }
 
-// This returns the modification time as a UnixNano string
+// Checksum This returns the modification time as a UnixNano string
 // If the file doesn't exist, return ErrNotFound
 func (r *GenericRawStorage) Checksum(key ObjectKey) (string, error) {
 	// Validate GroupVersion first

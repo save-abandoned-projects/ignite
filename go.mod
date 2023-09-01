@@ -35,7 +35,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/pkg/sftp v1.11.0
 	github.com/prometheus/client_golang v1.15.1
-	github.com/save-abandoned-projects/libgitops v0.0.4-0.20230818130917-b1f95b5da45c
+	github.com/save-abandoned-projects/libgitops v0.0.4-0.20230831094201-5d11a5d7c0b7
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/cobra v1.6.0
 	github.com/spf13/pflag v1.0.5

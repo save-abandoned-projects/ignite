@@ -65,25 +65,25 @@ type GenericWatchStorage struct {
 
 var _ update.EventStorage = &GenericWatchStorage{}
 
-// Suspend modify events during Create
+// Create Suspend modify events during Create
 func (s *GenericWatchStorage) Create(obj runtime.Object) error {
 	s.watcher.Suspend(watcher.FileEventModify)
 	return s.Storage.Create(obj)
 }
 
-// Suspend modify events during Update
+// Update Suspend modify events during Update
 func (s *GenericWatchStorage) Update(obj runtime.Object) error {
 	s.watcher.Suspend(watcher.FileEventModify)
 	return s.Storage.Update(obj)
 }
 
-// Suspend modify events during Patch
+// Patch Suspend modify events during Patch
 func (s *GenericWatchStorage) Patch(key storage.ObjectKey, patch []byte) error {
 	s.watcher.Suspend(watcher.FileEventModify)
 	return s.Storage.Patch(key, patch)
 }
 
-// Suspend delete events during Delete
+// Delete Suspend delete events during Delete
 func (s *GenericWatchStorage) Delete(key storage.ObjectKey) error {
 	s.watcher.Suspend(watcher.FileEventDelete)
 	return s.Storage.Delete(key)

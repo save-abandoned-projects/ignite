@@ -18,7 +18,7 @@ type PartialObjectImpl struct {
 
 func (po *PartialObjectImpl) IsPartialObject() {}
 
-// This constructor ensures the PartialObjectImpl fields are not nil.
+// NewPartialObject This constructor ensures the PartialObjectImpl fields are not nil.
 // TODO: Make this multi-document-aware?
 func NewPartialObject(frame []byte) (PartialObject, error) {
 	obj := &PartialObjectImpl{}

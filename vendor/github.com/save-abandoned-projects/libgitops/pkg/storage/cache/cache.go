@@ -87,13 +87,19 @@ func (c *cache) ObjectKeyFor(obj runtime.Object) (storage.ObjectKey, error) {
 }
 
 func (c *cache) Create(obj runtime.Object) error {
-	c.index.store(obj)
-	return c.storage.Create(obj)
+	if err := c.storage.Create(obj); err != nil {
+		return err
+	}
+
+	return c.index.store(obj)
 }
 
 func (c *cache) Update(obj runtime.Object) error {
-	c.index.store(obj)
-	return c.storage.Update(obj)
+	if err := c.storage.Update(obj); err != nil {
+		return err
+	}
+
+	return c.index.store(obj)
 }
 
 func (c *cache) Patch(key storage.ObjectKey, patch []byte) error {
@@ -135,13 +141,12 @@ func (s *cache) Serializer() serializer.Serializer {
 func (c *cache) Set(gvk schema.GroupVersionKind, obj runtime.Object) error {
 	log.Tracef("cache: Set %s with UID %q", gvk.Kind, obj.GetUID())
 
-	// Store the changed Object in the cache
-	if err := c.index.store(obj); err != nil {
+	if err := c.storage.Update(obj); err != nil {
 		return err
 	}
 
 	// TODO: For now the cache always flushes, we might add automatic flushing later
-	return c.storage.Update(obj)
+	return c.index.store(obj)
 }
 
 type listFunc func(kind storage.KindKey, opts ...filter.ListOption) ([]runtime.Object, error)

@@ -32,7 +32,7 @@ func NewTwoWayManifestStorage(manifestDir, dataDir string, ser serializer.Serial
 	ws, err := watch.NewGenericWatchStorage(storage.NewGenericStorage(
 		storage.NewGenericMappedRawStorage(manifestDir),
 		scheme.Serializer,
-		[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier}))
+		[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier, runtime.ObjectUIDIdentifier}))
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func NewTwoWayManifestStorage(manifestDir, dataDir string, ser serializer.Serial
 		storage.NewGenericStorage(
 			storage.NewGenericRawStorage(dataDir, api.SchemeGroupVersion, serializer.ContentTypeYAML),
 			ser,
-			[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier}),
+			[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier, runtime.ObjectUIDIdentifier}),
 		ws)
 
 	return ss, nil

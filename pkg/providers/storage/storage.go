@@ -18,6 +18,6 @@ func SetGenericStorage() error {
 		storage.NewGenericStorage(
 			storage.NewGenericRawStorage(constants.DATA_DIR, api.SchemeGroupVersion, serializer.ContentTypeYAML),
 			scheme.Serializer,
-			[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier}))
+			[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier, runtime.ObjectUIDIdentifier}))
 	return nil
 }

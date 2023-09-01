@@ -71,12 +71,12 @@ func TestNewCPOptions(t *testing.T) {
 			storage := cache.NewCache(storage.NewGenericStorage(
 				storage.NewGenericRawStorage(dir, api.SchemeGroupVersion, serializer.ContentTypeYAML),
 				scheme.Serializer,
-				[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier}))
+				[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier, runtime.ObjectUIDIdentifier}))
 
 			ic := client.NewClient(storage)
 
 			// Create a test vm.
-			vm := &api.VM{}
+			vm := ic.VMs().New()
 			vm.SetName(testVMName)
 			uid, err := util.NewUID()
 			if err != nil {
@@ -114,7 +114,6 @@ func TestNewCPOptions(t *testing.T) {
 				t.Errorf("failed to create new image reference: %v", err)
 			}
 			vm.Spec.Sandbox.OCI = ociRefSandbox
-
 			// Save object.
 			if err := ic.VMs().Set(vm); err != nil {
 				t.Errorf("failed to store VM object: %v", err)

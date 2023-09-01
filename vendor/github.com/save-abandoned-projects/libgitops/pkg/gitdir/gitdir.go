@@ -102,7 +102,7 @@ type GitDirectory interface {
 	Cleanup() error
 }
 
-// Create a new GitDirectory implementation. In order to start using this, run StartCheckoutLoop().
+// NewGitDirectory Create a new GitDirectory implementation. In order to start using this, run StartCheckoutLoop().
 func NewGitDirectory(repoRef gitprovider.RepositoryRef, opts GitDirectoryOptions) (GitDirectory, error) {
 	log.Info("Initializing the Git repo...")
 
@@ -452,7 +452,7 @@ func (d *gitDirectory) contextWithTimeout(ctx context.Context, fn func(context.C
 	fnErr := fn(ctx)
 
 	// Return the context error, if any, first so deadline/cancel signals can propagate.
-	// Otherwise passthrough the error returned from the function.
+	// Otherwise, pass through the error returned from the function.
 	if ctx.Err() != nil {
 		log.Debugf("operation context yielded error %v to be returned. Function error was: %v", ctx.Err(), fnErr)
 		return ctx.Err()

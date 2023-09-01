@@ -515,7 +515,7 @@ github.com/russross/blackfriday/v2
 # github.com/safchain/ethtool v0.0.0-20190326074333-42ed695e3de8
 ## explicit
 github.com/safchain/ethtool
-# github.com/save-abandoned-projects/libgitops v0.0.4-0.20230818130917-b1f95b5da45c
+# github.com/save-abandoned-projects/libgitops v0.0.4-0.20230831094201-5d11a5d7c0b7
 ## explicit; go 1.20
 github.com/save-abandoned-projects/libgitops/pkg/filter
 github.com/save-abandoned-projects/libgitops/pkg/gitdir

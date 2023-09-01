@@ -14,7 +14,7 @@ const updateBuffer = 4096 // How many updates to buffer, 4096 should be enough f
 
 // SyncStorage is a Storage implementation taking in multiple Storages and
 // keeping them in sync. Any write operation executed on the SyncStorage
-// is propagated to all of the Storages it manages (including the embedded
+// is propagated to all the Storages it manages (including the embedded
 // one). For any retrieval or generation operation, the embedded Storage
 // will be used (it is treated as read-write). As all other Storages only
 // receive write operations, they can be thought of as write-only.

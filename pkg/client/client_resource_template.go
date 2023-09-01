@@ -148,7 +148,7 @@ func (c *resourceClient) Get(uid types.UID) (*api.Resource, error) {
 func (c *resourceClient) Set(resource *api.Resource) error {
 	log.Tracef("Client.Set; UID: %q, GVK: %v", resource.GetUID(), c.gvk)
 
-	return c.storage.Update(resource)
+	return c.storage.Create(resource)
 }
 
 // Patch performs a strategic merge patch on the object with
