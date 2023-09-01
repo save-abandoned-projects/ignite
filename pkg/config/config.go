@@ -73,7 +73,7 @@ func getConfigFromFile(configPath string) (*api.Configuration, error) {
 	componentConfig := &api.Configuration{}
 
 	// TODO: Fix libgitops DecodeFileInto to not allow empty files.
-	if err := scheme.Serializer.Decoder().DecodeInto(serializer.NewJSONFrameReader(serializer.FromFile(configPath)), componentConfig); err != nil {
+	if err := scheme.Serializer.Decoder().DecodeInto(serializer.NewYAMLFrameReader(serializer.FromFile(configPath)), componentConfig); err != nil {
 		return nil, err
 	}
 

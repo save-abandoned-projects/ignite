@@ -34,7 +34,7 @@ func (rf *RmFlags) NewRmOptions(vmMatches []string) (*RmOptions, error) {
 		}
 
 		vm := &api.VM{}
-		if err := scheme.Serializer.Decoder().DecodeInto(serializer.NewJSONFrameReader(serializer.FromFile(rf.ConfigFile)), vm); err != nil {
+		if err := scheme.Serializer.Decoder().DecodeInto(serializer.NewYAMLFrameReader(serializer.FromFile(rf.ConfigFile)), vm); err != nil {
 			return ro, err
 		}
 

@@ -16,6 +16,7 @@ import (
 	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/scheme"
 	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
 	"github.com/save-abandoned-projects/ignite/pkg/client"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
 	"github.com/save-abandoned-projects/ignite/pkg/providers"
 	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
 	"github.com/save-abandoned-projects/libgitops/pkg/storage"
@@ -38,7 +39,7 @@ func TestApplyVMConfigFile(t *testing.T) {
 	storage := cache.NewCache(storage.NewGenericStorage(
 		storage.NewGenericRawStorage(dir, api.SchemeGroupVersion, serializer.ContentTypeYAML),
 		scheme.Serializer,
-		[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier}))
+		[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier, runtime.ObjectUIDIdentifier}))
 
 	ic := client.NewClient(storage)
 
@@ -89,7 +90,8 @@ func TestApplyVMConfigFile(t *testing.T) {
 					OCI: ociRef,
 				},
 				Kernel: api.VMKernelSpec{
-					OCI: ociRef,
+					OCI:     ociRef,
+					CmdLine: constants.VM_DEFAULT_KERNEL_ARGS,
 				},
 			},
 			configFile: "input/apply-vm-config.yaml",
@@ -106,7 +108,8 @@ func TestApplyVMConfigFile(t *testing.T) {
 					OCI: ociRef,
 				},
 				Kernel: api.VMKernelSpec{
-					OCI: ociRef,
+					OCI:     ociRef,
+					CmdLine: constants.VM_DEFAULT_KERNEL_ARGS,
 				},
 			},
 			configFile: "input/apply-vm-config.json",
@@ -384,7 +387,7 @@ func TestNewCreateOptions(t *testing.T) {
 			storage := cache.NewCache(storage.NewGenericStorage(
 				storage.NewGenericRawStorage(dir, api.SchemeGroupVersion, serializer.ContentTypeYAML),
 				scheme.Serializer,
-				[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier}))
+				[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier, runtime.ObjectUIDIdentifier}))
 
 			ic := client.NewClient(storage)
 

@@ -26,7 +26,7 @@ func main() {
 func decodeVM(vmID string) (*api.VM, error) {
 	filePath := constants.IGNITE_SPAWN_VM_FILE_PATH
 	vm := &api.VM{}
-	err := scheme.Serializer.Decoder().DecodeInto(serializer.NewJSONFrameReader(serializer.FromFile(filePath)), vm)
+	err := scheme.Serializer.Decoder().DecodeInto(serializer.NewYAMLFrameReader(serializer.FromFile(filePath)), vm)
 	if err != nil {
 		return nil, err
 	}

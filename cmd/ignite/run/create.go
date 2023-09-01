@@ -147,7 +147,7 @@ func applyVMConfigFile(baseVM *api.VM, configFile string) error {
 
 	// Marshal into a new object to extract VM image if any.
 	fileVM := &api.VM{}
-	if err := scheme.Serializer.Decoder().DecodeInto(serializer.NewJSONFrameReader(serializer.FromBytes(vmConfigBytes)), fileVM); err != nil {
+	if err := scheme.Serializer.Decoder().DecodeInto(serializer.NewYAMLFrameReader(serializer.FromBytes(vmConfigBytes)), fileVM); err != nil {
 		return err
 	}
 
@@ -184,7 +184,7 @@ func applyVMConfigFile(baseVM *api.VM, configFile string) error {
 		return err
 	}
 
-	if err := scheme.Serializer.Decoder().DecodeInto(serializer.NewJSONFrameReader(serializer.FromBytes(resultVMBytes)), baseVM); err != nil {
+	if err := scheme.Serializer.Decoder().DecodeInto(serializer.NewYAMLFrameReader(serializer.FromBytes(resultVMBytes)), baseVM); err != nil {
 		return err
 	}
 	return nil
