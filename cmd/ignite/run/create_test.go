@@ -119,6 +119,7 @@ func TestApplyVMConfigFile(t *testing.T) {
 			name:       "empty vm config",
 			configFile: "input/apply-vm-config-empty.yaml",
 			golden:     "output/apply-vm-config-empty.json",
+			err:        true, //EOF
 		},
 		{
 			name:       "invalid config",
