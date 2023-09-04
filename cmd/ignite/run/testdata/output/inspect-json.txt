@@ -4,7 +4,7 @@
   "metadata": {
     "name": "someVM",
     "uid": "1699b6ba255cde7f",
-    "created": "2000-01-01T01:00:00Z"
+    "creationTimestamp": "2000-01-01T01:00:00Z"
   },
   "spec": {
     "image": {
@@ -19,15 +19,12 @@
     "cpus": 0,
     "memory": "0B",
     "diskSize": "0B",
-    "network": {
-      
-    },
-    "storage": {
-      
-    }
+    "network": {},
+    "storage": {}
   },
   "status": {
     "running": false,
+    "startTime": null,
     "network": {
       "plugin": "",
       "ipAddresses": null
