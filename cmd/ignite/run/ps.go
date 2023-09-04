@@ -3,8 +3,10 @@ package run
 import (
 	"bytes"
 	"fmt"
+	"github.com/docker/go-units"
 	"os"
 	"text/template"
+	"time"
 
 	"github.com/pkg/errors"
 	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
@@ -129,14 +131,10 @@ func Ps(po *PsOptions) error {
 }
 
 func formatCreated(vm *api.VM) string {
-	created := vm.GetCreationTimestamp()
+	createdAt := time.Unix(0, vm.CreationTimestamp.UnixNano())
+	ctm := units.HumanDuration(time.Now().UTC().Sub(createdAt)) + " ago"
 
-	var suffix string
-	if !created.IsZero() {
-		suffix = " ago"
-	}
-
-	return fmt.Sprint(created, suffix)
+	return fmt.Sprint(ctm)
 }
 
 func formatStatus(vm *api.VM, outdatedVMs map[string]bool) string {
