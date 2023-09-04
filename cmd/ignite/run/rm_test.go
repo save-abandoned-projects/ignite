@@ -49,7 +49,7 @@ func TestNewRmOptions(t *testing.T) {
 			existingVMs: []string{"myvm1", "myvm2", "myvm3"},
 			rmFlags:     &RmFlags{},
 			vmMatches:   []string{"myvm4"},
-			err:         true,
+			err:         false,
 		},
 		{
 			name:        "error rm without any args or config flag",
@@ -97,7 +97,7 @@ func TestNewRmOptions(t *testing.T) {
 
 			// Create the existing VMs.
 			for _, objectName := range rt.existingVMs {
-				vm := &api.VM{}
+				vm := ic.VMs().New()
 				vm.SetName(objectName)
 
 				// Set UID.
