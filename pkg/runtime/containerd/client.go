@@ -304,7 +304,7 @@ func (cc *ctdClient) ExportImage(image meta.OCIImageRef) (r io.ReadCloser, clean
 	}
 
 	// Create a temporary directory to mount the view snapshot
-	if dir, err = ioutil.TempDir("", ""); err != nil {
+	if dir, err = os.MkdirTemp("", ""); err != nil {
 		return
 	}
 

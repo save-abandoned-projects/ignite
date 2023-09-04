@@ -90,7 +90,7 @@ type MountPoint struct {
 }
 
 func Mount(volume string) (*MountPoint, error) {
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		return nil, err
 	}

@@ -2,16 +2,15 @@ package containerd
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 	"time"
 
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/runtime"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/runtime"
 
 	v2shim "github.com/containerd/containerd/runtime/v2/shim"
 	"gotest.tools/assert"
@@ -45,7 +44,7 @@ func TestInspect(t *testing.T) {
 }
 
 /*func TestExport(t *testing.T) {
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -221,7 +220,7 @@ func TestNewRemoteResolver(t *testing.T) {
 	for _, rt := range cases {
 		t.Run(rt.name, func(t *testing.T) {
 			// Create directory for the registry configuration.
-			dir, err := ioutil.TempDir("", "ignite")
+			dir, err := os.MkdirTemp("", "ignite")
 			if err != nil {
 				t.Fatalf("failed to create storage for ignite: %v", err)
 			}

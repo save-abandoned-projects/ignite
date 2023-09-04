@@ -30,7 +30,7 @@ import (
 //	go test -v github.com/weaveworks/ignite/cmd/ignite/run -run TestApplyVMConfigFile -update
 func TestApplyVMConfigFile(t *testing.T) {
 	// Setup storage backend.
-	dir, err := ioutil.TempDir("", "ignite")
+	dir, err := os.MkdirTemp("", "ignite")
 	if err != nil {
 		t.Fatalf("failed to create storage for ignite: %v", err)
 	}
@@ -379,7 +379,7 @@ func TestNewCreateOptions(t *testing.T) {
 	for _, rt := range tests {
 		t.Run(rt.name, func(t *testing.T) {
 			// Setup storage backend.
-			dir, err := ioutil.TempDir("", "ignite")
+			dir, err := os.MkdirTemp("", "ignite")
 			if err != nil {
 				t.Fatalf("failed to create storage for ignite: %v", err)
 			}

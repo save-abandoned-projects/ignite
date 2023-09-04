@@ -2,7 +2,6 @@ package operations
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path"
 
@@ -120,7 +119,7 @@ func importKernel(c *client.Client, ociRef meta.OCIImageRef) (*api.Kernel, error
 	if !util.FileExists(kernelTarFile) || !util.FileExists(vmlinuxFile) {
 		// Create a temporary directory for extracting
 		// the necessary files from the OCI image
-		tempDir, err := ioutil.TempDir("", "")
+		tempDir, err := os.MkdirTemp("", "")
 		if err != nil {
 			return nil, err
 		}

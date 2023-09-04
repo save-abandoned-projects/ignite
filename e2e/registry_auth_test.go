@@ -66,12 +66,12 @@ func TestPullFromAuthRegistry(t *testing.T) {
 	defer os.Unsetenv(containerd.InsecureRegistriesEnvVar)
 
 	// Create a registry config directory to use in test.
-	emptyDir, err := ioutil.TempDir("", "ignite-test")
+	emptyDir, err := os.MkdirTemp("", "ignite-test")
 	assert.NilError(t, err)
 	defer os.RemoveAll(emptyDir)
 
 	// Create a registry config directory to use in test.
-	rcDir, err := ioutil.TempDir("", "ignite-test")
+	rcDir, err := os.MkdirTemp("", "ignite-test")
 	assert.NilError(t, err)
 	defer os.RemoveAll(rcDir)
 

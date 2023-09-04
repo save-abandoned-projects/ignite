@@ -2,7 +2,6 @@ package run
 
 import (
 	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
-	"io/ioutil"
 	"k8s.io/apimachinery/pkg/types"
 	"os"
 	"testing"
@@ -63,7 +62,7 @@ func TestNewCPOptions(t *testing.T) {
 	for _, rt := range cases {
 		t.Run(rt.name, func(t *testing.T) {
 			// Setup storage backend.
-			dir, err := ioutil.TempDir("", "ignite")
+			dir, err := os.MkdirTemp("", "ignite")
 			if err != nil {
 				t.Fatalf("failed to create storage for ignite: %v", err)
 			}

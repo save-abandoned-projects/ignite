@@ -2,7 +2,6 @@ package run
 
 import (
 	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
-	"io/ioutil"
 	"k8s.io/apimachinery/pkg/types"
 	"os"
 	"path/filepath"
@@ -82,7 +81,7 @@ func TestNewRmOptions(t *testing.T) {
 	for _, rt := range cases {
 		t.Run(rt.name, func(t *testing.T) {
 			// Create storage.
-			dir, err := ioutil.TempDir("", "ignite")
+			dir, err := os.MkdirTemp("", "ignite")
 			if err != nil {
 				t.Fatalf("failed to create storage for ignite: %v", err)
 			}
@@ -91,7 +90,7 @@ func TestNewRmOptions(t *testing.T) {
 			storage := cache.NewCache(storage.NewGenericStorage(
 				storage.NewGenericRawStorage(dir, api.SchemeGroupVersion, serializer.ContentTypeYAML),
 				scheme.Serializer,
-				[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier}))
+				[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier, runtime.ObjectUIDIdentifier}))
 
 			// Create ignite client with the created storage.
 			ic := client.NewClient(storage)

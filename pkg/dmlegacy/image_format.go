@@ -2,7 +2,6 @@ package dmlegacy
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
@@ -71,7 +70,7 @@ func CreateImageFilesystem(img *api.Image, src source.Source) error {
 func addFiles(img *api.Image, src source.Source) (err error) {
 	log.Debugf("Copying in files to the image file from a source...")
 	p := path.Join(img.ObjectPath(), constants.IMAGE_FS)
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		return
 	}

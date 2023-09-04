@@ -192,7 +192,7 @@ func TestNewPsOptionsStorageNotExists(t *testing.T) {
 	storage := cache.NewCache(storage.NewGenericStorage(
 		storage.NewGenericRawStorage(dir, api.SchemeGroupVersion, serializer.ContentTypeYAML),
 		scheme.Serializer,
-		[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier}))
+		[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier, runtime.ObjectUIDIdentifier}))
 
 	// Create ignite client with the storage.
 	providers.Client = client.NewClient(storage)
