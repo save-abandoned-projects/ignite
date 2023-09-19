@@ -2,20 +2,21 @@ package filter
 
 import (
 	"fmt"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/types"
 	"testing"
 	"time"
 
-	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	"github.com/stretchr/testify/assert"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
 )
 
 func TestMetaFiltering(t *testing.T) {
 	t.Run("SuccessCPUsEqual", func(t *testing.T) {
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
-				UID:     runtime.UID("myuid"),
-				Created: runtime.Time{},
+			ObjectMeta: metav1.ObjectMeta{
+				UID:               types.UID("myuid"),
+				CreationTimestamp: metav1.Time{},
 				Labels: map[string]string{
 					"first":  "f_value",
 					"second": "s_value",
@@ -39,10 +40,10 @@ func TestMetaFiltering(t *testing.T) {
 	})
 	t.Run("SuccessNameEqual", func(t *testing.T) {
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
-				Name:    "success_object",
-				UID:     runtime.UID("myuid"),
-				Created: runtime.Time{},
+			ObjectMeta: metav1.ObjectMeta{
+				Name:              "success_object",
+				UID:               types.UID("myuid"),
+				CreationTimestamp: metav1.Time{},
 				Labels: map[string]string{
 					"first":  "f_value",
 					"second": "s_value",
@@ -62,10 +63,10 @@ func TestMetaFiltering(t *testing.T) {
 	})
 	t.Run("SuccessNameDiff", func(t *testing.T) {
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
-				Name:    "success_object",
-				UID:     runtime.UID("myuid"),
-				Created: runtime.Time{},
+			ObjectMeta: metav1.ObjectMeta{
+				Name:              "success_object",
+				UID:               types.UID("myuid"),
+				CreationTimestamp: metav1.Time{},
 				Labels: map[string]string{
 					"first":  "f_value",
 					"second": "s_value",
@@ -85,7 +86,7 @@ func TestMetaFiltering(t *testing.T) {
 	})
 	t.Run("FailNameEqual", func(t *testing.T) {
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
+			ObjectMeta: metav1.ObjectMeta{
 				Name: "fail_object",
 			},
 		}
@@ -102,7 +103,7 @@ func TestMetaFiltering(t *testing.T) {
 	})
 	t.Run("FailNameDiff", func(t *testing.T) {
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
+			ObjectMeta: metav1.ObjectMeta{
 				Name: "fail_object",
 			},
 		}
@@ -119,7 +120,7 @@ func TestMetaFiltering(t *testing.T) {
 	})
 	t.Run("SuccessNameContains", func(t *testing.T) {
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
+			ObjectMeta: metav1.ObjectMeta{
 				Name: "fail_object",
 			},
 		}
@@ -136,7 +137,7 @@ func TestMetaFiltering(t *testing.T) {
 	})
 	t.Run("SuccessNameNotContains", func(t *testing.T) {
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
+			ObjectMeta: metav1.ObjectMeta{
 				Name: "fail_object",
 			},
 		}
@@ -153,7 +154,7 @@ func TestMetaFiltering(t *testing.T) {
 	})
 	t.Run("FailNameContains", func(t *testing.T) {
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
+			ObjectMeta: metav1.ObjectMeta{
 				Name: "fail_object",
 			},
 		}
@@ -170,7 +171,7 @@ func TestMetaFiltering(t *testing.T) {
 	})
 	t.Run("FailNameNotContains", func(t *testing.T) {
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
+			ObjectMeta: metav1.ObjectMeta{
 				Name: "fail_object",
 			},
 		}
@@ -187,8 +188,8 @@ func TestMetaFiltering(t *testing.T) {
 	})
 	t.Run("SuccessUID", func(t *testing.T) {
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
-				UID: runtime.UID("myuid"),
+			ObjectMeta: metav1.ObjectMeta{
+				UID: types.UID("myuid"),
 			},
 		}
 
@@ -204,7 +205,7 @@ func TestMetaFiltering(t *testing.T) {
 	})
 	t.Run("FailUID", func(t *testing.T) {
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
+			ObjectMeta: metav1.ObjectMeta{
 				UID: "failuid",
 			},
 		}
@@ -220,15 +221,17 @@ func TestMetaFiltering(t *testing.T) {
 		assert.False(t, res)
 	})
 	t.Run("SuccessCreated", func(t *testing.T) {
-		nowtime := runtime.Timestamp()
+		nowtime := metav1.Time{
+			Time: time.Now().UTC(),
+		}
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
-				Created: nowtime,
+			ObjectMeta: metav1.ObjectMeta{
+				CreationTimestamp: nowtime,
 			},
 		}
 
 		f := metaFilter{
-			identifier:    "{{.Created}}",
+			identifier:    "{{.CreationTimestamp}}",
 			expectedValue: nowtime.String(),
 			operator:      "=",
 		}
@@ -238,16 +241,18 @@ func TestMetaFiltering(t *testing.T) {
 		assert.True(t, res)
 	})
 	t.Run("FailCreated", func(t *testing.T) {
-		nowtime := runtime.Timestamp()
+		nowtime := metav1.Time{
+			Time: time.Now().UTC(),
+		}
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
-				Created: nowtime,
+			ObjectMeta: metav1.ObjectMeta{
+				CreationTimestamp: nowtime,
 			},
 		}
 
 		othertime := nowtime.Add(time.Duration(5))
 		f := metaFilter{
-			identifier:    "{{.Created}}",
+			identifier:    "{{.CreationTimestamp}}",
 			expectedValue: othertime.String(),
 			operator:      "=",
 		}
@@ -258,7 +263,7 @@ func TestMetaFiltering(t *testing.T) {
 	})
 	t.Run("SuccessLabels", func(t *testing.T) {
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
+			ObjectMeta: metav1.ObjectMeta{
 				Labels: map[string]string{
 					"foo": "bar",
 				},
@@ -277,7 +282,7 @@ func TestMetaFiltering(t *testing.T) {
 	})
 	t.Run("FailLabels", func(t *testing.T) {
 		oMeta := &api.VM{
-			ObjectMeta: runtime.ObjectMeta{
+			ObjectMeta: metav1.ObjectMeta{
 				Labels: map[string]string{
 					"foo": "bar2",
 				},
@@ -456,7 +461,7 @@ func TestMultipleMetaFilter(t *testing.T) {
 			name: "SuccessOneFilter",
 			str:  "{{.Name}}=hello",
 			object: &api.VM{
-				ObjectMeta: runtime.ObjectMeta{
+				ObjectMeta: metav1.ObjectMeta{
 					Name: "hello",
 					UID:  "123",
 				},
@@ -468,7 +473,7 @@ func TestMultipleMetaFilter(t *testing.T) {
 			name: "SuccessTwoFilter",
 			str:  "{{.Name}}=hello,{{.UID}}=123",
 			object: &api.VM{
-				ObjectMeta: runtime.ObjectMeta{
+				ObjectMeta: metav1.ObjectMeta{
 					Name: "hello",
 					UID:  "123",
 				},
@@ -480,7 +485,7 @@ func TestMultipleMetaFilter(t *testing.T) {
 			name: "SuccessOneValueDiffer",
 			str:  "{{.Name}}=hello,{{.UID}}=1234",
 			object: &api.VM{
-				ObjectMeta: runtime.ObjectMeta{
+				ObjectMeta: metav1.ObjectMeta{
 					Name: "hello",
 					UID:  "123",
 				},
@@ -492,7 +497,7 @@ func TestMultipleMetaFilter(t *testing.T) {
 			name: "FailBadFormat",
 			str:  "{{.Name}}=hello,{{.Unexisting}}=1234",
 			object: &api.VM{
-				ObjectMeta: runtime.ObjectMeta{
+				ObjectMeta: metav1.ObjectMeta{
 					Name: "hello",
 					UID:  "123",
 				},

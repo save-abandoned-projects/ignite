@@ -3,7 +3,7 @@ package container
 import (
 	"testing"
 
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	"gotest.tools/assert"
 )
 
@@ -54,10 +54,7 @@ func TestParseExtraIntfs(t *testing.T) {
 	for _, rt := range cases {
 		t.Run(rt.name, func(t *testing.T) {
 			vm := &api.VM{}
-			for k, v := range rt.annotations {
-				vm.SetAnnotation(k, v)
-			}
-
+			vm.SetAnnotations(rt.annotations)
 			parsedIntfs := parseExtraIntfs(vm)
 
 			assert.DeepEqual(t, parsedIntfs, rt.wantIntfs)
