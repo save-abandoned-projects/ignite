@@ -56,7 +56,7 @@ func SetLabels(obj runtime.Object, labels []string) error {
 		return ErrNilObject
 	}
 
-	var setLabels map[string]string
+	setLabels := make(map[string]string)
 	for _, label := range labels {
 		kv := strings.SplitN(label, "=", 2)
 		// Check the length of key/val. Must be exactly 2.
