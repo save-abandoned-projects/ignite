@@ -63,15 +63,15 @@ func TestSetLabels(t *testing.T) {
 	for _, rt := range cases {
 		t.Run(rt.name, func(t *testing.T) {
 			err := SetLabels(rt.obj, rt.labels)
-			if (err != nil) != rt.err {
+			if (err != nil) == rt.err {
 				t.Errorf("expected error %t, actual: %v", rt.err, err)
-			}
-
-			havaLabels := rt.obj.GetLabels()
-			// Check the values of all the labels.
-			for k, v := range rt.wantLabels {
-				if haveV, ok := havaLabels[k]; !ok || haveV != v {
-					t.Errorf("expected label key %q to have value %q, actual: %q", k, v, haveV)
+			} else {
+				havaLabels := rt.obj.GetLabels()
+				// Check the values of all the labels.
+				for k, v := range rt.wantLabels {
+					if haveV, ok := havaLabels[k]; !ok || haveV != v {
+						t.Errorf("expected label key %q to have value %q, actual: %q", k, v, haveV)
+					}
 				}
 			}
 		})
