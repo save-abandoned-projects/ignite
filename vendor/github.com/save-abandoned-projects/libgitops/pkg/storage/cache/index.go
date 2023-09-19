@@ -123,7 +123,7 @@ func (i *index) count(gvk schema.GroupVersionKind) (count uint64) {
 	return
 }
 
-func list(i *index, gvk schema.GroupVersionKind) ([]runtime.Object, error) {
+func list(i *index, gvk schema.GroupVersionKind, opts ...filter.ListOption) ([]runtime.Object, error) {
 	uids := i.objects[gvk]
 	list := make([]runtime.Object, 0, len(uids))
 
@@ -135,7 +135,17 @@ func list(i *index, gvk schema.GroupVersionKind) ([]runtime.Object, error) {
 			list = append(list, result)
 		}
 	}
+	o, err := filter.MakeListOptions(opts...)
+	if err != nil {
+		return nil, err
+	}
 
+	for _, filter := range o.Filters {
+		list, err = filter.Filter(list...)
+		if err != nil {
+			return nil, err
+		}
+	}
 	return list, nil
 }
 
@@ -156,7 +166,7 @@ func listMeta(i *index, gvk schema.GroupVersionKind) ([]runtime.PartialObject, e
 }
 
 func (i *index) list(kind storage.KindKey, opts ...filter.ListOption) ([]runtime.Object, error) {
-	return list(i, kind.GetGVK())
+	return list(i, kind.GetGVK(), opts...)
 }
 
 func (i *index) listMeta(kind storage.KindKey) ([]runtime.PartialObject, error) {

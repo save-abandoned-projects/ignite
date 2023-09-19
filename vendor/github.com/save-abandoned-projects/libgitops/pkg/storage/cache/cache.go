@@ -60,7 +60,7 @@ func (c *cache) GetMeta(key storage.ObjectKey) (obj runtime.PartialObject, err e
 }
 
 func (c *cache) List(kind storage.KindKey, opts ...filter.ListOption) ([]runtime.Object, error) {
-	return c.list(kind, c.storage.List, c.index.list, c.index.storeAll)
+	return c.list(kind, c.storage.List, c.index.list, c.index.storeAll, opts...)
 }
 
 func (c *cache) ListMeta(kind storage.KindKey) ([]runtime.PartialObject, error) {
@@ -155,7 +155,7 @@ type listMetaFunc func(kind storage.KindKey) ([]runtime.PartialObject, error)
 type cacheMetaStoreFunc func([]runtime.PartialObject) error
 
 // list is a common handler for List and ListMeta
-func (c *cache) list(kind storage.KindKey, slf, clf listFunc, csf cacheStoreFunc) (objs []runtime.Object, err error) {
+func (c *cache) list(kind storage.KindKey, slf, clf listFunc, csf cacheStoreFunc, opts ...filter.ListOption) (objs []runtime.Object, err error) {
 	var storageCount uint64
 	if storageCount, err = c.storage.Count(storage.NewObjectKey(kind, runtime.NewIdentifier(string(rune(0))))); err != nil {
 		return
@@ -164,14 +164,14 @@ func (c *cache) list(kind storage.KindKey, slf, clf listFunc, csf cacheStoreFunc
 	if c.index.count(kind.GetGVK()) != storageCount {
 		log.Tracef("cache: miss when listing: %s", kind.GetGVK())
 		// If the cache doesn't track all the Objects, request them from the storage
-		if objs, err = slf(storage.NewObjectKey(kind, runtime.NewIdentifier(string(rune(0))))); err != nil {
+		if objs, err = slf(storage.NewObjectKey(kind, runtime.NewIdentifier(string(rune(0)))), opts...); err != nil {
 			// If no errors occurred, store the Objects in the cache
 			err = csf(objs)
 		}
 	} else {
 		log.Tracef("cache: hit when listing: %s", kind.GetGVK())
 		// If the cache tracks everything, return the cache's contents
-		objs, err = clf(storage.NewObjectKey(kind, runtime.NewIdentifier(string(rune(0)))))
+		objs, err = clf(storage.NewObjectKey(kind, runtime.NewIdentifier(string(rune(0)))), opts...)
 	}
 
 	return
