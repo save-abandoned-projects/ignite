@@ -91,12 +91,13 @@ func TestVerifyUIDOrName(t *testing.T) {
 			name:            "create object with similar names",
 			existingObjects: []string{"myvm1", "myvm11", "myvm111"},
 			newObject:       "myvm",
+			err:             true, // not exist
 		},
 		{
 			name:            "create object with existing names",
 			existingObjects: []string{"myvm1", "myvm2"},
 			newObject:       "myvm1",
-			err:             true,
+			err:             false, //// exist
 		},
 	}
 
