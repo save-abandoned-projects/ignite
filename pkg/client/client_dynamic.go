@@ -100,6 +100,10 @@ func (c *dynamicClient) Find(opt filter.ListOption) (runtime.Object, error) {
 		return nil, err
 	}
 
+	if len(objects) == 0 {
+		return nil, nil
+	}
+
 	if len(objects) != 1 {
 		return nil, errors.New("ambiguous query: AllFilter used to match single Object")
 	}
