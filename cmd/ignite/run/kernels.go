@@ -3,8 +3,6 @@ package run
 import (
 	"os"
 
-	"github.com/save-abandoned-projects/libgitops/pkg/filter"
-
 	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	"github.com/save-abandoned-projects/ignite/pkg/providers"
 	"github.com/save-abandoned-projects/ignite/pkg/util"
@@ -16,7 +14,7 @@ type KernelsOptions struct {
 
 func NewKernelsOptions() (ko *KernelsOptions, err error) {
 	ko = &KernelsOptions{}
-	ko.allKernels, err = providers.Client.Kernels().FindAll(filter.ListOptions{})
+	ko.allKernels, err = providers.Client.Kernels().FindAll(nil)
 	// If the storage is uninitialized, avoid failure and continue with empty
 	// kernel list.
 	if err != nil && os.IsNotExist(err) {

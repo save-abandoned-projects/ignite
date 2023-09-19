@@ -27,10 +27,10 @@ func (rf *RmkFlags) NewRmkOptions(kernelMatches []string) (*RmkOptions, error) {
 	ro := &RmkOptions{RmkFlags: rf}
 
 	for _, match := range kernelMatches {
-		ops := filter.ListOptions{Filters: []filter.ListFilter{filter.ObjectToListFilter(
-			filter.NameFilter{Name: match, MatchPrefix: true}),
-			filter.ObjectToListFilter(filter.UIDFilter{UID: types.UID(match), MatchPrefix: true})}}
-		kernels, err := providers.Client.Kernels().FindAll(ops)
+		kernels, err := providers.Client.Kernels().FindAll([]filter.ListOption{
+			filter.NameFilter{Name: match, MatchPrefix: true},
+			filter.UIDFilter{UID: types.UID(match), MatchPrefix: true},
+		})
 		if err != nil {
 			return nil, err
 		}

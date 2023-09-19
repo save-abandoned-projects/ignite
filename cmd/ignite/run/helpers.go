@@ -25,5 +25,5 @@ func getVMsForMatches(vmMatches []string) ([]*api.VM, error) {
 }
 
 func getAllVMs() ([]*api.VM, error) {
-	return providers.Client.VMs().FindAll(filter.ListOptions{})
+	return providers.Client.VMs().FindAll(nil)
 }

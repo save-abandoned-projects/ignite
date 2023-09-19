@@ -121,7 +121,7 @@ func TestVerifyUIDOrName(t *testing.T) {
 			// Create existing VM object.
 			objectKind := "VM"
 			for _, objectName := range rt.existingObjects {
-				vm := &api.VM{}
+				vm := ic.VMs().New()
 				vm.SetName(objectName)
 
 				// Set UID.

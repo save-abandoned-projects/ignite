@@ -38,7 +38,7 @@ type ResourceClient interface {
 	Find(opt filter.ObjectFilter) (*api.Resource, error)
 	// FindAll returns multiple Resources matching the given filter, filters can
 	// match e.g. the Object's Name, UID or a specific property
-	FindAll(opts filter.ListOptions) ([]*api.Resource, error)
+	FindAll(opts []filter.ListOption) ([]*api.Resource, error)
 	// Delete deletes the Resource with the given UID from the storage
 	Delete(uid types.UID) error
 	// List returns a list of all Resources available
@@ -95,7 +95,14 @@ func (c *resourceClient) New() *api.Resource {
 func (c *resourceClient) Find(opt filter.ObjectFilter) (*api.Resource, error) {
 	log.Tracef("Client.Find; GVK: %v", c.gvk)
 
-	objects, err := c.FindAll(filter.ListOptions{Filters: []filter.ListFilter{filter.ObjectToListFilter(opt)}})
+	var opts []filter.ListOption
+	switch o := opt.(type) {
+	case filter.NameFilter, filter.UIDFilter, filter.GvkFilter:
+		opts = append(opts, o.(filter.ListOption))
+	default:
+		return nil, errors.New("bad filter")
+	}
+	objects, err := c.FindAll(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -112,19 +119,13 @@ func (c *resourceClient) Find(opt filter.ObjectFilter) (*api.Resource, error) {
 }
 
 // FindAll returns multiple Resources based on the given Filter
-func (c *resourceClient) FindAll(opts filter.ListOptions) ([]*api.Resource, error) {
+func (c *resourceClient) FindAll(opts []filter.ListOption) ([]*api.Resource, error) {
 	log.Tracef("Client.FindAll; GVK: %v", c.gvk)
-	matches, err := c.storage.List(storage.NewKindKey(c.gvk), nil)
+	matches, err := c.storage.List(storage.NewKindKey(c.gvk), opts...)
 	if err != nil {
 		return nil, err
 	}
 
-	for _, filter := range opts.Filters {
-		matches, err = filter.Filter(matches...)
-		if err != nil {
-			return nil, err
-		}
-	}
 	results := make([]*api.Resource, 0, len(matches))
 	for _, item := range matches {
 		results = append(results, item.(*api.Resource))

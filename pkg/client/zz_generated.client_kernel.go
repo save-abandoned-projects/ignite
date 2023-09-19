@@ -36,7 +36,7 @@ type KernelClient interface {
 	Find(opt filter.ObjectFilter) (*api.Kernel, error)
 	// FindAll returns multiple Kernels matching the given filter, filters can
 	// match e.g. the Object's Name, UID or a specific property
-	FindAll(opts filter.ListOptions) ([]*api.Kernel, error)
+	FindAll(opts []filter.ListOption) ([]*api.Kernel, error)
 	// Delete deletes the Kernel with the given UID from the storage
 	Delete(uid types.UID) error
 	// List returns a list of all Kernels available
@@ -93,7 +93,14 @@ func (c *kernelClient) New() *api.Kernel {
 func (c *kernelClient) Find(opt filter.ObjectFilter) (*api.Kernel, error) {
 	log.Tracef("Client.Find; GVK: %v", c.gvk)
 
-	objects, err := c.FindAll(filter.ListOptions{Filters: []filter.ListFilter{filter.ObjectToListFilter(opt)}})
+	var opts []filter.ListOption
+	switch o := opt.(type) {
+	case filter.NameFilter, filter.UIDFilter, filter.GvkFilter:
+		opts = append(opts, o.(filter.ListOption))
+	default:
+		return nil, errors.New("bad filter")
+	}
+	objects, err := c.FindAll(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -110,19 +117,13 @@ func (c *kernelClient) Find(opt filter.ObjectFilter) (*api.Kernel, error) {
 }
 
 // FindAll returns multiple Kernels based on the given Filter
-func (c *kernelClient) FindAll(opts filter.ListOptions) ([]*api.Kernel, error) {
+func (c *kernelClient) FindAll(opts []filter.ListOption) ([]*api.Kernel, error) {
 	log.Tracef("Client.FindAll; GVK: %v", c.gvk)
-	matches, err := c.storage.List(storage.NewKindKey(c.gvk), nil)
+	matches, err := c.storage.List(storage.NewKindKey(c.gvk), opts...)
 	if err != nil {
 		return nil, err
 	}
 
-	for _, filter := range opts.Filters {
-		matches, err = filter.Filter(matches...)
-		if err != nil {
-			return nil, err
-		}
-	}
 	results := make([]*api.Kernel, 0, len(matches))
 	for _, item := range matches {
 		results = append(results, item.(*api.Kernel))

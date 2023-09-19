@@ -26,10 +26,10 @@ type RmiOptions struct {
 func (rf *RmiFlags) NewRmiOptions(imageMatches []string) (*RmiOptions, error) {
 	ro := &RmiOptions{RmiFlags: rf}
 	for _, match := range imageMatches {
-		ops := filter.ListOptions{Filters: []filter.ListFilter{filter.ObjectToListFilter(
-			filter.NameFilter{Name: match, MatchPrefix: true}),
-			filter.ObjectToListFilter(filter.UIDFilter{UID: types.UID(match), MatchPrefix: true})}}
-		images, err := providers.Client.Images().FindAll(ops)
+		images, err := providers.Client.Images().FindAll([]filter.ListOption{
+			filter.NameFilter{Name: match, MatchPrefix: true},
+			filter.UIDFilter{UID: types.UID(match), MatchPrefix: true}},
+		)
 		if err != nil {
 			return nil, err
 		}

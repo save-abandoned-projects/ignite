@@ -16,7 +16,6 @@ import (
 	containerdruntime "github.com/save-abandoned-projects/ignite/pkg/runtime/containerd"
 	dockerruntime "github.com/save-abandoned-projects/ignite/pkg/runtime/docker"
 	"github.com/save-abandoned-projects/ignite/pkg/util"
-	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -40,7 +39,7 @@ type PsOptions struct {
 // NewPsOptions constructs and returns PsOptions.
 func (pf *PsFlags) NewPsOptions() (po *PsOptions, err error) {
 	po = &PsOptions{PsFlags: pf}
-	po.allVMs, err = providers.Client.VMs().FindAll(filter.ListOptions{})
+	po.allVMs, err = providers.Client.VMs().FindAll(nil)
 	// If the storage is uninitialized, avoid failure and continue with empty
 	// VM list.
 	if err != nil && os.IsNotExist(err) {

@@ -36,7 +36,7 @@ type ImageClient interface {
 	Find(opt filter.ObjectFilter) (*api.Image, error)
 	// FindAll returns multiple Images matching the given filter, filters can
 	// match e.g. the Object's Name, UID or a specific property
-	FindAll(opts filter.ListOptions) ([]*api.Image, error)
+	FindAll(opts []filter.ListOption) ([]*api.Image, error)
 	// Delete deletes the Image with the given UID from the storage
 	Delete(uid types.UID) error
 	// List returns a list of all Images available
@@ -93,7 +93,14 @@ func (c *imageClient) New() *api.Image {
 func (c *imageClient) Find(opt filter.ObjectFilter) (*api.Image, error) {
 	log.Tracef("Client.Find; GVK: %v", c.gvk)
 
-	objects, err := c.FindAll(filter.ListOptions{Filters: []filter.ListFilter{filter.ObjectToListFilter(opt)}})
+	var opts []filter.ListOption
+	switch o := opt.(type) {
+	case filter.NameFilter, filter.UIDFilter, filter.GvkFilter:
+		opts = append(opts, o.(filter.ListOption))
+	default:
+		return nil, errors.New("bad filter")
+	}
+	objects, err := c.FindAll(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -110,19 +117,13 @@ func (c *imageClient) Find(opt filter.ObjectFilter) (*api.Image, error) {
 }
 
 // FindAll returns multiple Images based on the given Filter
-func (c *imageClient) FindAll(opts filter.ListOptions) ([]*api.Image, error) {
+func (c *imageClient) FindAll(opts []filter.ListOption) ([]*api.Image, error) {
 	log.Tracef("Client.FindAll; GVK: %v", c.gvk)
-	matches, err := c.storage.List(storage.NewKindKey(c.gvk), nil)
+	matches, err := c.storage.List(storage.NewKindKey(c.gvk), opts...)
 	if err != nil {
 		return nil, err
 	}
 
-	for _, filter := range opts.Filters {
-		matches, err = filter.Filter(matches...)
-		if err != nil {
-			return nil, err
-		}
-	}
 	results := make([]*api.Image, 0, len(matches))
 	for _, item := range matches {
 		results = append(results, item.(*api.Image))
