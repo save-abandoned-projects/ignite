@@ -148,9 +148,13 @@ func processName(obj runtime.Object, c *client.Client) error {
 }
 
 func verifyUIDOrName(c *client.Client, match string, kind api.Kind) error {
-	_, err := c.Dynamic(kind).Find(filter.NameFilter{Name: match})
+	obj, err := c.Dynamic(kind).Find(filter.NameFilter{Name: match})
 	if err != nil {
 		return err
 	}
+	if obj != nil {
+		return fmt.Errorf("invalid %s id/name %q: already exists", kind, match)
+	}
+
 	return nil
 }
