@@ -58,7 +58,9 @@ type Interface interface {
 	InspectContainer(container string) (*ContainerInspectResult, error)
 	AttachContainer(container string) error
 	RunContainer(image meta.OCIImageRef, config *ContainerConfig, name, id string) (string, error)
+	// StopContainer first, send SIGTERM signal to stop the container process, if timeout, then send SIGKILL signal
 	StopContainer(container string, timeout *time.Duration) error
+	// KillContainer send SIGKILL signal to kill all the container processes
 	KillContainer(container, signal string) error
 	RemoveContainer(container string) error
 	ContainerLogs(container string) (io.ReadCloser, error)

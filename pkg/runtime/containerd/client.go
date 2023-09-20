@@ -731,6 +731,35 @@ func (cc *ctdClient) StopContainer(container string, timeout *time.Duration) (er
 	return
 }
 
+func killTask(ctx context.Context, container containerd.Container) error {
+	task, err := container.Task(ctx, nil)
+	// If the container is not found, return nil, no-op.
+	if errdefs.IsNotFound(err) {
+		log.Warn(err)
+		return nil
+	}
+
+	wait, err := task.Wait(ctx)
+	if err != nil {
+		if _, derr := task.Delete(ctx); derr == nil {
+			return nil
+		}
+		return err
+	}
+	if err := task.Kill(ctx, syscall.SIGKILL, containerd.WithKillAll); err != nil {
+		if _, derr := task.Delete(ctx); derr == nil {
+			return nil
+		}
+		return err
+	}
+	<-wait
+	if _, err := task.Delete(ctx); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (cc *ctdClient) KillContainer(container, signal string) (err error) {
 	cont, err := cc.client.LoadContainer(cc.ctx, container)
 	if err != nil {
@@ -742,33 +771,7 @@ func (cc *ctdClient) KillContainer(container, signal string) (err error) {
 		return
 	}
 
-	task, err := cont.Task(cc.ctx, cio.Load)
-	if err != nil {
-		// If the task is not found, return nil, no-op.
-		if errdefs.IsNotFound(err) {
-			log.Warn(err)
-			err = nil
-		}
-		return
-	}
-
-	// Initiate a wait
-	waitC, err := task.Wait(cc.ctx)
-	if err != nil {
-		return
-	}
-
-	// Send a SIGQUIT signal to force stop
-	if err = task.Kill(cc.ctx, syscall.SIGQUIT); err != nil {
-		return
-	}
-
-	// Wait for the container to stop
-	<-waitC
-
-	// Delete the task
-	_, err = task.Delete(cc.ctx)
-	return
+	return killTask(cc.ctx, cont)
 }
 
 func (cc *ctdClient) RemoveContainer(container string) error {

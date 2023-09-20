@@ -83,7 +83,7 @@ func TestRunRemove(t *testing.T) {
 	//       ideally, we could pass any tempdir with any permissions here
 	assert.NilError(t, os.MkdirAll(vmDir, constants.DATA_DIR_PERM))
 
-	cmds := []string{"/bin/sh", "-c", "echo hello"}
+	cmds := []string{"/bin/sh", "-c", "sleep 20"}
 	cfg := getContainerConfig(cmds, vmDir)
 
 	taskID, err := client.RunContainer(imageName, cfg, cName, cID)

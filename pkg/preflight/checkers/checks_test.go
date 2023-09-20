@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/util/sets"
 
-	"github.com/weaveworks/ignite/pkg/preflight"
+	"github.com/save-abandoned-projects/ignite/pkg/preflight"
 )
 
 type fakeChecker struct {
