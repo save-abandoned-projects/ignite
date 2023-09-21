@@ -83,7 +83,7 @@ func TestRunRemove(t *testing.T) {
 	//       ideally, we could pass any tempdir with any permissions here
 	assert.NilError(t, os.MkdirAll(vmDir, constants.DATA_DIR_PERM))
 
-	cmds := []string{"/bin/sh", "-c", "sleep 20"}
+	cmds := []string{"/bin/sh", "-c", "echo hello"}
 	cfg := getContainerConfig(cmds, vmDir)
 
 	taskID, err := client.RunContainer(imageName, cfg, cName, cID)
@@ -112,7 +112,7 @@ func TestInspectContainer(t *testing.T) {
 	vmDir := filepath.Join(constants.VM_DIR, cID)
 	assert.NilError(t, os.MkdirAll(vmDir, constants.DATA_DIR_PERM))
 
-	cmds := []string{"/bin/sh", "-c", "echo hello"}
+	cmds := []string{"/bin/sh", "-c", "sleep 20"}
 	cfg := getContainerConfig(cmds, vmDir)
 
 	taskID, err := client.RunContainer(imageName, cfg, cName, cID)
@@ -131,7 +131,7 @@ func TestInspectContainer(t *testing.T) {
 	assert.Equal(t, "running", result.Status)
 
 	time.Sleep(time.Second / 4)
-
+	client.KillContainer(cName, "")
 	err = client.RemoveContainer(cName)
 	if err != nil {
 		t.Errorf("Error Removing Container: %s", err)
