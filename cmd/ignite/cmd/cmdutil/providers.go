@@ -3,7 +3,7 @@ package cmdutil
 import (
 	log "github.com/sirupsen/logrus"
 
-	"github.com/weaveworks/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
 )
 
 // ResolveRegistryConfigDir reads various configuration to resolve the registry

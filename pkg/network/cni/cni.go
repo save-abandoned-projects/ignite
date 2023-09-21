@@ -14,12 +14,12 @@ import (
 	"github.com/containernetworking/plugins/pkg/ip"
 	"github.com/containernetworking/plugins/pkg/utils"
 	"github.com/coreos/go-iptables/iptables"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/network"
+	"github.com/save-abandoned-projects/ignite/pkg/runtime"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 	log "github.com/sirupsen/logrus"
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/network"
-	"github.com/weaveworks/ignite/pkg/runtime"
-	"github.com/weaveworks/ignite/pkg/util"
 )
 
 const (
@@ -29,7 +29,7 @@ const (
 	CNIBinDir = "/opt/cni/bin"
 	// CNIConfDir describes the directory where the CNI plugin's configuration is stored
 	CNIConfDir = "/etc/cni/net.d"
-	// netNSPathFmt gives the path to the a process network namespace, given the pid
+	// netNSPathFmt gives the path to the process network namespace, given the pid
 	netNSPathFmt = "/proc/%d/ns/net"
 
 	// defaultCNIConfFilename is the vanity filename of Ignite's default CNI configuration file

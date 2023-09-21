@@ -4,11 +4,13 @@ import (
 	"fmt"
 	"os"
 
+	"k8s.io/apimachinery/pkg/types"
+
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/operations/lookup"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 	log "github.com/sirupsen/logrus"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/operations/lookup"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/libgitops/pkg/filter"
 )
 
 type RmiFlags struct {
@@ -23,13 +25,15 @@ type RmiOptions struct {
 
 func (rf *RmiFlags) NewRmiOptions(imageMatches []string) (*RmiOptions, error) {
 	ro := &RmiOptions{RmiFlags: rf}
-
 	for _, match := range imageMatches {
-		if image, err := providers.Client.Images().Find(filter.NewIDNameFilter(match)); err == nil {
-			ro.images = append(ro.images, image)
-		} else {
+		images, err := providers.Client.Images().FindAll([]filter.ListOption{
+			filter.NameFilter{Name: match, MatchPrefix: true},
+			filter.UIDFilter{UID: types.UID(match), MatchPrefix: true}},
+		)
+		if err != nil {
 			return nil, err
 		}
+		ro.images = append(ro.images, images...)
 	}
 
 	var err error
@@ -67,7 +71,7 @@ func Rmi(ro *RmiOptions) error {
 		}
 
 		if err := os.RemoveAll(image.ObjectPath()); err != nil {
-			return fmt.Errorf("unable to remove directory for %s %q: %v", image.GetKind(), image.GetUID(), err)
+			return fmt.Errorf("unable to remove directory for %s %q: %v", image.GetObjectKind(), image.GetUID(), err)
 		}
 
 		fmt.Println(image.GetUID())

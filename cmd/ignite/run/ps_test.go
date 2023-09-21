@@ -3,25 +3,27 @@ package run
 import (
 	"bytes"
 	"fmt"
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
 	"io"
 	"io/ioutil"
+	"k8s.io/apimachinery/pkg/types"
 	"os"
 	"path/filepath"
 	"testing"
 	"time"
 
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/scheme"
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	"github.com/weaveworks/ignite/pkg/client"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/storage"
-	"github.com/weaveworks/libgitops/pkg/storage/cache"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/scheme"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	"github.com/save-abandoned-projects/ignite/pkg/client"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage/cache"
 	"gotest.tools/assert"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/weaveworks/ignite/pkg/util"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 )
 
 // createTestVM creates a VM object, given a name and ID (optional) with default
@@ -38,11 +40,11 @@ func createTestVM(name, id string) (*api.VM, error) {
 		}
 		id = uid
 	}
-	vm.SetUID(runtime.UID(id))
+	vm.SetUID(types.UID(id))
 
 	// Set a fixed time for deterministic results.
 	createdTime := time.Date(2000, time.January, 1, 1, 0, 0, 0, time.UTC)
-	vm.SetCreated(runtime.Time{Time: metav1.Time{Time: createdTime}})
+	vm.CreationTimestamp = metav1.Time{Time: createdTime}
 
 	// Set VM image.
 	ociRef, err := meta.NewOCIImageRef("foo/bar:latest")
@@ -82,12 +84,18 @@ func createTestVM(name, id string) (*api.VM, error) {
 }
 
 // Update the golden files with:
-//   go test -v github.com/weaveworks/ignite/cmd/ignite/run -run TestPs -update
+//
+//	go test -v github.com/weaveworks/ignite/cmd/ignite/run -run TestPs -update
 func TestPs(t *testing.T) {
 	// Existing VMs with UID for deterministic results.
 	// A sorted list of VMs. The VM list returned by the VM filter is sorted by
 	// VM UID.
-	existingVMs := []runtime.ObjectMeta{
+
+	type objectMeta struct {
+		Name string
+		UID  string
+	}
+	existingVMs := []objectMeta{
 		{Name: "vm1", UID: "20e1d566ce318ada"},
 		{Name: "vm2", UID: "bfc80c948b1e2419"},
 		{Name: "vm3", UID: "cddc37ba657766e3"},
@@ -121,7 +129,7 @@ func TestPs(t *testing.T) {
 
 			// Create VMs.
 			for _, eVM := range existingVMs {
-				vm, err := createTestVM(eVM.Name, eVM.UID.String())
+				vm, err := createTestVM(eVM.Name, eVM.UID)
 				if err != nil {
 					t.Errorf("failed to create VM: %v", err)
 				}
@@ -180,9 +188,11 @@ func TestPs(t *testing.T) {
 func TestNewPsOptionsStorageNotExists(t *testing.T) {
 	// Path to a directory that doesn't exist.
 	dir := "/tmp/ignite-fake-storage-path"
-	storage := cache.NewCache(
-		storage.NewGenericStorage(
-			storage.NewGenericRawStorage(dir), scheme.Serializer))
+
+	storage := cache.NewCache(storage.NewGenericStorage(
+		storage.NewGenericRawStorage(dir, api.SchemeGroupVersion, serializer.ContentTypeYAML),
+		scheme.Serializer,
+		[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier, runtime.ObjectUIDIdentifier}))
 
 	// Create ignite client with the storage.
 	providers.Client = client.NewClient(storage)

@@ -1,9 +1,9 @@
 package v1alpha2
 
 import (
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/version"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/version"
 
 	"k8s.io/apimachinery/pkg/runtime"
 )

@@ -3,10 +3,10 @@ package network
 import (
 	"fmt"
 
-	"github.com/weaveworks/ignite/pkg/network"
-	"github.com/weaveworks/ignite/pkg/providers"
-	cniprovider "github.com/weaveworks/ignite/pkg/providers/cni"
-	dockerprovider "github.com/weaveworks/ignite/pkg/providers/docker"
+	"github.com/save-abandoned-projects/ignite/pkg/network"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	cniprovider "github.com/save-abandoned-projects/ignite/pkg/providers/cni"
+	dockerprovider "github.com/save-abandoned-projects/ignite/pkg/providers/docker"
 )
 
 func SetNetworkPlugin() error {

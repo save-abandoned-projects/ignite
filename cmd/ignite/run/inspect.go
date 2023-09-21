@@ -6,11 +6,12 @@ import (
 	"strings"
 	"text/template"
 
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/scheme"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/libgitops/pkg/filter"
-	"github.com/weaveworks/libgitops/pkg/runtime"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/scheme"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/libgitops/pkg/filter"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
 )
 
 // InspectFlags contains the flags supported by inspect.
@@ -28,7 +29,7 @@ type InspectOptions struct {
 // and object ID.
 func (i *InspectFlags) NewInspectOptions(k, objectMatch string) (*InspectOptions, error) {
 	var err error
-	var kind runtime.Kind
+	var kind api.Kind
 	io := &InspectOptions{InspectFlags: i}
 
 	switch strings.ToLower(k) {
@@ -42,7 +43,7 @@ func (i *InspectFlags) NewInspectOptions(k, objectMatch string) (*InspectOptions
 		return nil, fmt.Errorf("unrecognized kind: %q", k)
 	}
 
-	if io.object, err = providers.Client.Dynamic(kind).Find(filter.NewIDNameFilter(objectMatch)); err != nil {
+	if io.object, err = providers.Client.Dynamic(kind).Find(filter.NameFilter{Name: objectMatch}); err != nil {
 		return nil, err
 	}
 
@@ -52,7 +53,7 @@ func (i *InspectFlags) NewInspectOptions(k, objectMatch string) (*InspectOptions
 // Inspect renders the result of inspect in different formats based on the
 // InspectOptions.
 func Inspect(io *InspectOptions) error {
-	var b []byte
+	var b bytes.Buffer
 	var err error
 
 	// If a template format is specified, render the template.
@@ -72,9 +73,9 @@ func Inspect(io *InspectOptions) error {
 	// Select the encoder and encode the object with it
 	switch io.OutputFormat {
 	case "json":
-		b, err = scheme.Serializer.EncodeJSON(io.object)
+		err = scheme.Serializer.Encoder().Encode(serializer.NewJSONFrameWriter(&b), io.object)
 	case "yaml":
-		b, err = scheme.Serializer.EncodeYAML(io.object)
+		err = scheme.Serializer.Encoder().Encode(serializer.NewYAMLFrameWriter(&b), io.object)
 	default:
 		err = fmt.Errorf("unrecognized output format: %q", io.OutputFormat)
 	}
@@ -84,6 +85,6 @@ func Inspect(io *InspectOptions) error {
 	}
 
 	// Print the encoded object
-	fmt.Println(string(bytes.TrimSpace(b)))
+	fmt.Println(string(bytes.TrimSpace(b.Bytes())))
 	return nil
 }

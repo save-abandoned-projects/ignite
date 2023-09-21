@@ -16,13 +16,13 @@ import (
 	"time"
 
 	"github.com/docker/cli/cli/config/credentials"
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/preflight"
-	"github.com/weaveworks/ignite/pkg/resolvconf"
-	"github.com/weaveworks/ignite/pkg/runtime"
-	"github.com/weaveworks/ignite/pkg/runtime/auth"
-	"github.com/weaveworks/ignite/pkg/util"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/preflight"
+	"github.com/save-abandoned-projects/ignite/pkg/resolvconf"
+	"github.com/save-abandoned-projects/ignite/pkg/runtime"
+	"github.com/save-abandoned-projects/ignite/pkg/runtime/auth"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 
 	"github.com/containerd/console"
 	"github.com/containerd/containerd"
@@ -43,8 +43,8 @@ import (
 	"github.com/opencontainers/image-spec/identity"
 	imagespec "github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/opencontainers/runtime-spec/specs-go"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/ignite/pkg/providers"
 	"golang.org/x/sys/unix"
 )
 
@@ -304,7 +304,7 @@ func (cc *ctdClient) ExportImage(image meta.OCIImageRef) (r io.ReadCloser, clean
 	}
 
 	// Create a temporary directory to mount the view snapshot
-	if dir, err = ioutil.TempDir("", ""); err != nil {
+	if dir, err = os.MkdirTemp("", ""); err != nil {
 		return
 	}
 
@@ -731,6 +731,35 @@ func (cc *ctdClient) StopContainer(container string, timeout *time.Duration) (er
 	return
 }
 
+func killTask(ctx context.Context, container containerd.Container) error {
+	task, err := container.Task(ctx, nil)
+	// If the container is not found, return nil, no-op.
+	if errdefs.IsNotFound(err) {
+		log.Warn(err)
+		return nil
+	}
+
+	wait, err := task.Wait(ctx)
+	if err != nil {
+		if _, derr := task.Delete(ctx); derr == nil {
+			return nil
+		}
+		return err
+	}
+	if err := task.Kill(ctx, syscall.SIGKILL, containerd.WithKillAll); err != nil {
+		if _, derr := task.Delete(ctx); derr == nil {
+			return nil
+		}
+		return err
+	}
+	<-wait
+	if _, err := task.Delete(ctx); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (cc *ctdClient) KillContainer(container, signal string) (err error) {
 	cont, err := cc.client.LoadContainer(cc.ctx, container)
 	if err != nil {
@@ -742,33 +771,7 @@ func (cc *ctdClient) KillContainer(container, signal string) (err error) {
 		return
 	}
 
-	task, err := cont.Task(cc.ctx, cio.Load)
-	if err != nil {
-		// If the task is not found, return nil, no-op.
-		if errdefs.IsNotFound(err) {
-			log.Warn(err)
-			err = nil
-		}
-		return
-	}
-
-	// Initiate a wait
-	waitC, err := task.Wait(cc.ctx)
-	if err != nil {
-		return
-	}
-
-	// Send a SIGQUIT signal to force stop
-	if err = task.Kill(cc.ctx, syscall.SIGQUIT); err != nil {
-		return
-	}
-
-	// Wait for the container to stop
-	<-waitC
-
-	// Delete the task
-	_, err = task.Delete(cc.ctx)
-	return
+	return killTask(cc.ctx, cont)
 }
 
 func (cc *ctdClient) RemoveContainer(container string) error {

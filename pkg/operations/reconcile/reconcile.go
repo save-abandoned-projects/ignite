@@ -1,23 +1,24 @@
 package reconcile
 
 import (
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/validation"
+	"github.com/save-abandoned-projects/ignite/pkg/client"
+	"github.com/save-abandoned-projects/ignite/pkg/dmlegacy"
+	"github.com/save-abandoned-projects/ignite/pkg/operations"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage/cache"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage/sync"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage/watch/update"
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/ignite/pkg/apis/ignite"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/validation"
-	"github.com/weaveworks/ignite/pkg/client"
-	"github.com/weaveworks/ignite/pkg/dmlegacy"
-	"github.com/weaveworks/ignite/pkg/operations"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/ignite/pkg/util"
-	"github.com/weaveworks/libgitops/pkg/storage/cache"
-	"github.com/weaveworks/libgitops/pkg/storage/manifest"
-	"github.com/weaveworks/libgitops/pkg/storage/watch/update"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 var c *client.Client
 
-func ReconcileManifests(s *manifest.ManifestStorage) {
+func ReconcileManifests(s *sync.SyncStorage) {
 	startMetricsThread()
 
 	// Wrap the Manifest Storage with a cache for better performance, and create a client
@@ -27,8 +28,9 @@ func ReconcileManifests(s *manifest.ManifestStorage) {
 	for upd := range s.GetUpdateStream() {
 
 		// Only care about VMs
-		if upd.APIType.GetKind() != api.KindVM {
-			log.Tracef("GitOps: Ignoring kind %s", upd.APIType.GetKind())
+		kind := upd.PartialObject.GetObjectKind().GroupVersionKind().Kind
+		if kind != string(api.KindVM) {
+			log.Tracef("GitOps: Ignoring kind %s", kind)
 			kindIgnored.Inc()
 			continue
 		}
@@ -38,9 +40,10 @@ func ReconcileManifests(s *manifest.ManifestStorage) {
 		if upd.Event == update.ObjectEventDelete {
 			// As we know this VM was deleted, it wouldn't show up in a Get() call
 			// Construct a temporary VM object for passing to the delete function
+			objMeta := upd.PartialObject.GetObjectMeta().(*metav1.ObjectMeta)
 			vm = &api.VM{
-				TypeMeta:   *upd.APIType.GetTypeMeta(),
-				ObjectMeta: *upd.APIType.GetObjectMeta(),
+				TypeMeta:   metav1.TypeMeta{Kind: kind, APIVersion: upd.PartialObject.GetResourceVersion()},
+				ObjectMeta: *objMeta,
 				Status: api.VMStatus{
 					Running: true, // TODO: Fix this in StopVM
 					Runtime: &ignite.Runtime{},
@@ -49,9 +52,9 @@ func ReconcileManifests(s *manifest.ManifestStorage) {
 			}
 		} else {
 			// Get the real API object
-			vm, err = c.VMs().Get(upd.APIType.GetUID())
+			vm, err = c.VMs().Get(upd.PartialObject.GetUID())
 			if err != nil {
-				log.Errorf("Getting %s %q returned an error: %v", upd.APIType.GetKind(), upd.APIType.GetUID(), err)
+				log.Errorf("Getting %s %q returned an error: %v", kind, upd.PartialObject.GetUID(), err)
 				continue
 			}
 
@@ -59,7 +62,7 @@ func ReconcileManifests(s *manifest.ManifestStorage) {
 			// Validate the VM object
 			// TODO: Validate name uniqueness
 			if err := validation.ValidateVM(vm).ToAggregate(); err != nil {
-				log.Warnf("Skipping %s of %s %q, not valid: %v.", upd.Event, upd.APIType.GetKind(), upd.APIType.GetUID(), err)
+				log.Warnf("Skipping %s of %s %q, not valid: %v.", kind, upd.PartialObject.GetUID(), err)
 				continue
 			}
 		}

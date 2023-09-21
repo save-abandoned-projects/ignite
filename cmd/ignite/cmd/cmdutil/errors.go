@@ -1,8 +1,8 @@
 package cmdutil
 
 import (
+	"github.com/save-abandoned-projects/ignite/pkg/logs"
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/ignite/pkg/logs"
 	"golang.org/x/crypto/ssh"
 )
 

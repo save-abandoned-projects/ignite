@@ -4,9 +4,9 @@ import (
 	"path"
 
 	go_prom "github.com/prometheus/client_golang/prometheus"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/prometheus"
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/prometheus"
 )
 
 var (

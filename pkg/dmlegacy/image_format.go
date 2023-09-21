@@ -2,7 +2,6 @@ package dmlegacy
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
@@ -11,11 +10,11 @@ import (
 	"unicode"
 
 	"github.com/pkg/errors"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/source"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 	log "github.com/sirupsen/logrus"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/source"
-	"github.com/weaveworks/ignite/pkg/util"
 )
 
 const (
@@ -71,7 +70,7 @@ func CreateImageFilesystem(img *api.Image, src source.Source) error {
 func addFiles(img *api.Image, src source.Source) (err error) {
 	log.Debugf("Copying in files to the image file from a source...")
 	p := path.Join(img.ObjectPath(), constants.IMAGE_FS)
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		return
 	}

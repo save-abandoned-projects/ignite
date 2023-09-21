@@ -1,24 +1,24 @@
 package v1alpha2
 
 import (
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	"github.com/weaveworks/libgitops/pkg/runtime"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 const (
-	KindImage  runtime.Kind = "Image"
-	KindKernel runtime.Kind = "Kernel"
-	KindVM     runtime.Kind = "VM"
+	KindImage  = "Image"
+	KindKernel = "Kernel"
+	KindVM     = "VM"
 )
 
 // Image represents a cached OCI image ready to be used with Ignite
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type Image struct {
-	runtime.TypeMeta `json:",inline"`
+	metav1.TypeMeta `json:",inline"`
 	// runtime.ObjectMeta is also embedded into the struct, and defines the human-readable name, and the machine-readable ID
 	// Name is available at the .metadata.name JSON path
 	// ID is available at the .metadata.uid JSON path (the Go type is k8s.io/apimachinery/pkg/types.UID, which is only a typed string)
-	runtime.ObjectMeta `json:"metadata"`
+	metav1.ObjectMeta `json:"metadata"`
 
 	Spec   ImageSpec   `json:"spec"`
 	Status ImageStatus `json:"status"`
@@ -49,7 +49,7 @@ type ImageStatus struct {
 // is present at /var/lib/firecracker/snapshotter/pool.json
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type Pool struct {
-	runtime.TypeMeta `json:",inline"`
+	metav1.TypeMeta `json:",inline"`
 	// Not needed (yet)
 	// runtime.ObjectMeta `json:"metadata"`
 
@@ -104,11 +104,11 @@ type PoolDevice struct {
 // This file is stored in /var/lib/firecracker/kernels/{oci-image-digest}/metadata.json
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type Kernel struct {
-	runtime.TypeMeta `json:",inline"`
+	metav1.TypeMeta `json:",inline"`
 	// runtime.ObjectMeta is also embedded into the struct, and defines the human-readable name, and the machine-readable ID
 	// Name is available at the .metadata.name JSON path
 	// ID is available at the .metadata.uid JSON path (the Go type is k8s.io/apimachinery/pkg/types.UID, which is only a typed string)
-	runtime.ObjectMeta `json:"metadata"`
+	metav1.ObjectMeta `json:"metadata"`
 
 	Spec   KernelSpec   `json:"spec"`
 	Status KernelStatus `json:"status"`
@@ -131,11 +131,11 @@ type KernelStatus struct {
 // These files are stored in /var/lib/firecracker/vm/{vm-id}/metadata.json
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type VM struct {
-	runtime.TypeMeta `json:",inline"`
+	metav1.TypeMeta `json:",inline"`
 	// runtime.ObjectMeta is also embedded into the struct, and defines the human-readable name, and the machine-readable ID
 	// Name is available at the .metadata.name JSON path
 	// ID is available at the .metadata.uid JSON path (the Go type is k8s.io/apimachinery/pkg/types.UID, which is only a typed string)
-	runtime.ObjectMeta `json:"metadata"`
+	metav1.ObjectMeta `json:"metadata"`
 
 	Spec   VMSpec   `json:"spec"`
 	Status VMStatus `json:"status"`
@@ -232,7 +232,7 @@ type Runtime struct {
 type VMStatus struct {
 	Running     bool             `json:"running"`
 	Runtime     *Runtime         `json:"runtime,omitempty"`
-	StartTime   *runtime.Time    `json:"startTime,omitempty"`
+	StartTime   metav1.Time      `json:"startTime,omitempty"`
 	IPAddresses meta.IPAddresses `json:"ipAddresses,omitempty"`
 	Image       OCIImageSource   `json:"image"`
 	Kernel      OCIImageSource   `json:"kernel"`

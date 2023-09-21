@@ -10,14 +10,15 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/weaveworks/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
 )
 
 // Update the test output golden files with this flag.
 var update = flag.Bool("update", false, "update inspect output golden files")
 
 // Update the golden files with:
-//   go test -v github.com/weaveworks/ignite/cmd/ignite/run -run TestInspect -update
+//
+//	go test -v github.com/weaveworks/ignite/cmd/ignite/run -run TestInspect -update
 func TestInspect(t *testing.T) {
 	cases := []struct {
 		name         string
@@ -81,7 +82,7 @@ func TestInspect(t *testing.T) {
 			// Update the golden file if needed.
 			if !rt.err && *update {
 				t.Log("update inspect golden files")
-				if err := ioutil.WriteFile(goldenFilePath, buf.Bytes(), 0644); err != nil {
+				if err := os.WriteFile(goldenFilePath, buf.Bytes(), 0644); err != nil {
 					t.Fatalf("failed to update inspect golden file: %s: %v", goldenFilePath, err)
 				}
 			}

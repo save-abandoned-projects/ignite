@@ -4,11 +4,13 @@ import (
 	"fmt"
 	"os"
 
+	"k8s.io/apimachinery/pkg/types"
+
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/operations/lookup"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 	log "github.com/sirupsen/logrus"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/operations/lookup"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/libgitops/pkg/filter"
 )
 
 type RmkFlags struct {
@@ -25,11 +27,14 @@ func (rf *RmkFlags) NewRmkOptions(kernelMatches []string) (*RmkOptions, error) {
 	ro := &RmkOptions{RmkFlags: rf}
 
 	for _, match := range kernelMatches {
-		if kernel, err := providers.Client.Kernels().Find(filter.NewIDNameFilter(match)); err == nil {
-			ro.kernels = append(ro.kernels, kernel)
-		} else {
+		kernels, err := providers.Client.Kernels().FindAll([]filter.ListOption{
+			filter.NameFilter{Name: match, MatchPrefix: true},
+			filter.UIDFilter{UID: types.UID(match), MatchPrefix: true},
+		})
+		if err != nil {
 			return nil, err
 		}
+		ro.kernels = append(ro.kernels, kernels...)
 	}
 
 	var err error
@@ -67,7 +72,7 @@ func Rmk(ro *RmkOptions) error {
 		}
 
 		if err := os.RemoveAll(kernel.ObjectPath()); err != nil {
-			return fmt.Errorf("unable to remove directory for %s %q: %v", kernel.GetKind(), kernel.GetUID(), err)
+			return fmt.Errorf("unable to remove directory for %s %q: %v", kernel.Kind, kernel.GetUID(), err)
 		}
 
 		fmt.Println(kernel.GetUID())

@@ -3,18 +3,20 @@ package run
 import (
 	"bytes"
 	"fmt"
+	"github.com/docker/go-units"
 	"os"
 	"text/template"
+	"time"
 
 	"github.com/pkg/errors"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	ignite_filter "github.com/save-abandoned-projects/ignite/pkg/filter"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/ignite/pkg/runtime"
+	containerdruntime "github.com/save-abandoned-projects/ignite/pkg/runtime/containerd"
+	dockerruntime "github.com/save-abandoned-projects/ignite/pkg/runtime/docker"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 	log "github.com/sirupsen/logrus"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/filter"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/ignite/pkg/runtime"
-	containerdruntime "github.com/weaveworks/ignite/pkg/runtime/containerd"
-	dockerruntime "github.com/weaveworks/ignite/pkg/runtime/docker"
-	"github.com/weaveworks/ignite/pkg/util"
 )
 
 // runtimeRunningStatus is the status returned from the container runtimes when
@@ -37,7 +39,7 @@ type PsOptions struct {
 // NewPsOptions constructs and returns PsOptions.
 func (pf *PsFlags) NewPsOptions() (po *PsOptions, err error) {
 	po = &PsOptions{PsFlags: pf}
-	po.allVMs, err = providers.Client.VMs().FindAll(filter.NewVMFilterAll("", po.All))
+	po.allVMs, err = providers.Client.VMs().FindAll(nil)
 	// If the storage is uninitialized, avoid failure and continue with empty
 	// VM list.
 	if err != nil && os.IsNotExist(err) {
@@ -48,12 +50,12 @@ func (pf *PsFlags) NewPsOptions() (po *PsOptions, err error) {
 
 // Ps filters and renders the VMs based on the PsOptions.
 func Ps(po *PsOptions) error {
-	var filters *filter.MultipleMetaFilter
+	var filters *ignite_filter.MultipleMetaFilter
 	var err error
 	var filtering bool
 	if po.PsFlags.Filter != "" {
 		filtering = true
-		filters, err = filter.GenerateMultipleMetadataFiltering(po.PsFlags.Filter)
+		filters, err = ignite_filter.GenerateMultipleMetadataFiltering(po.PsFlags.Filter)
 		if err != nil {
 			return err
 		}
@@ -128,14 +130,10 @@ func Ps(po *PsOptions) error {
 }
 
 func formatCreated(vm *api.VM) string {
-	created := vm.GetCreated()
+	createdAt := time.Unix(0, vm.CreationTimestamp.UnixNano())
+	ctm := units.HumanDuration(time.Now().UTC().Sub(createdAt)) + " ago"
 
-	var suffix string
-	if !created.IsZero() {
-		suffix = " ago"
-	}
-
-	return fmt.Sprint(created, suffix)
+	return fmt.Sprint(ctm)
 }
 
 func formatStatus(vm *api.VM, outdatedVMs map[string]bool) string {

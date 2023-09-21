@@ -11,12 +11,12 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/operations/lookup"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/ignite/pkg/util"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/operations/lookup"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 )
 
 const (
@@ -50,7 +50,7 @@ func AllocateAndPopulateOverlay(vm *api.VM) error {
 	}
 
 	// Get the size of the image ext4 file
-	fi, err := os.Stat(path.Join(constants.IMAGE_DIR, imageUID.String(), constants.IMAGE_FS))
+	fi, err := os.Stat(path.Join(constants.IMAGE_DIR, string(imageUID), constants.IMAGE_FS))
 	if err != nil {
 		return err
 	}
@@ -139,12 +139,12 @@ func copyToOverlay(vm *api.VM) (err error) {
 	}
 
 	// Write /etc/hosts for the VM
-	if err = writeEtcHosts(mp.Path, vm.GetUID().String(), ip); err != nil {
+	if err = writeEtcHosts(mp.Path, string(vm.GetUID()), ip); err != nil {
 		return
 	}
 
 	// Write the UID to /etc/hostname for the VM
-	if err = writeEtcHostname(mp.Path, vm.GetUID().String()); err != nil {
+	if err = writeEtcHostname(mp.Path, string(vm.GetUID())); err != nil {
 		return
 	}
 
@@ -164,7 +164,7 @@ func copyKernelToOverlay(vm *api.VM, mountPoint string) error {
 	if err != nil {
 		return err
 	}
-	kernelTarPath := path.Join(constants.KERNEL_DIR, kernelUID.String(), constants.KERNEL_TAR)
+	kernelTarPath := path.Join(constants.KERNEL_DIR, string(kernelUID), constants.KERNEL_TAR)
 
 	if !util.FileExists(kernelTarPath) {
 		log.Warnf("Could not find kernel overlay files, not copying into the VM.")

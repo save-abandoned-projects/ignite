@@ -5,8 +5,8 @@ import (
 	"os"
 
 	"github.com/lithammer/dedent"
+	"github.com/save-abandoned-projects/ignite/cmd/ignite/cmd/cmdutil"
 	"github.com/spf13/cobra"
-	"github.com/weaveworks/ignite/cmd/ignite/cmd/cmdutil"
 )
 
 func NewCmdCompletion(out io.Writer, rootCmd *cobra.Command) *cobra.Command {

@@ -3,8 +3,8 @@ package validation
 import (
 	"fmt"
 
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/util"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 	"k8s.io/apimachinery/pkg/util/validation/field"
 )
 

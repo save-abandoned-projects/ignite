@@ -34,7 +34,7 @@ CTR := $(DOCKER) run -i --rm \
 		ctr
 UID_GID?=$(shell id -u):$(shell id -g)
 FIRECRACKER_VERSION:=$(shell cat hack/FIRECRACKER_VERSION)
-GO_VERSION=1.17.9
+GO_VERSION=1.21.0
 DOCKER_USER?=weaveworks
 IMAGE=$(DOCKER_USER)/ignite
 GIT_VERSION:=$(shell DOCKER_USER=$(DOCKER_USER) hack/ldflags.sh --version-only)
@@ -42,7 +42,7 @@ IMAGE_DEV_TAG=dev
 IMAGE_TAG:=$(shell IGNITE_GIT_VERSION=$(GIT_VERSION) DOCKER_USER=$(DOCKER_USER) hack/ldflags.sh --image-tag-only)
 # IS_DIRTY is 1 if the tree state is dirty, otherwise 0
 IS_DIRTY:=$(shell echo ${GIT_VERSION} | grep -c dirty)
-PROJECT = github.com/weaveworks/ignite
+PROJECT = github.com/save-abandoned-projects/ignite
 APIS_DIR = ${PROJECT}/pkg/apis
 API_DIRS = ${APIS_DIR}/ignite,${APIS_DIR}/ignite/v1alpha2,${APIS_DIR}/ignite/v1alpha3,${APIS_DIR}/ignite/v1alpha4,${APIS_DIR}/meta/v1alpha1
 CACHE_DIR = $(shell pwd)/bin/cache
@@ -115,7 +115,7 @@ go-in-docker: # Do not use directly -- use $(GO_MAKE_TARGET)
 # Make make execute this target although the file already exists.
 .PHONY: bin/$(GOARCH)/ignite bin/$(GOARCH)/ignite-spawn bin/$(GOARCH)/ignited
 bin/$(GOARCH)/ignite bin/$(GOARCH)/ignited bin/$(GOARCH)/ignite-spawn: bin/$(GOARCH)/%:
-	CGO_ENABLED=0 GOARCH=$(GOARCH) go build -mod=vendor -ldflags "$(shell IGNITE_GIT_VERSION=$(GIT_VERSION) DOCKER_USER=$(DOCKER_USER) ./hack/ldflags.sh)" -o bin/$(GOARCH)/$* ./cmd/$*
+	CGO_ENABLED=0 GOARCH=$(GOARCH) go build -mod=mod -ldflags "$(shell IGNITE_GIT_VERSION=$(GIT_VERSION) DOCKER_USER=$(DOCKER_USER) ./hack/ldflags.sh)" -o bin/$(GOARCH)/$* ./cmd/$*
 ifeq ($(GOARCH),$(GOHOSTARCH))
 	ln -sf ./$(GOARCH)/$* bin/$*
 endif
@@ -207,7 +207,7 @@ api-doc:
 	mv $(shell pwd)/pkg/apis/${GROUPVERSION}/zz_generated* bin/tmp/${GROUPVERSION}
 	$(MAKE) $(GO_MAKE_TARGET) COMMAND="godoc2md /go/src/${PROJECT}/pkg/apis/${GROUPVERSION} > bin/tmp/${GROUP_VERSION}.md"
 	sed -e "s|src/target|pkg/apis/${GROUPVERSION}|g;s|/go/src/||g" -i bin/tmp/${GROUP_VERSION}.md
-	sed -e "s|(/pkg/apis|(https://github.com/weaveworks/ignite/tree/main/pkg/apis|g" -i bin/tmp/${GROUP_VERSION}.md
+	sed -e "s|(/pkg/apis|(https://github.com/save-abandoned-projects/ignite/tree/main/pkg/apis|g" -i bin/tmp/${GROUP_VERSION}.md
 	mv bin/tmp/${GROUPVERSION}/*.go $(shell pwd)/pkg/apis/${GROUPVERSION}/
 	rm -r bin/tmp/${GROUPVERSION}
 	# Format the docs with pandoc

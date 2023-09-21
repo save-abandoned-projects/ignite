@@ -1,25 +1,27 @@
 package run
 
 import (
+	"bytes"
 	"fmt"
 	"io/ioutil"
 	"path"
 	"strings"
 
-	"github.com/weaveworks/ignite/cmd/ignite/cmd/cmdutil"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/scheme"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/validation"
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	"github.com/weaveworks/ignite/pkg/config"
-	"github.com/weaveworks/ignite/pkg/dmlegacy"
-	"github.com/weaveworks/ignite/pkg/metadata"
-	"github.com/weaveworks/ignite/pkg/operations"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/ignite/pkg/util"
+	"github.com/save-abandoned-projects/ignite/cmd/ignite/cmd/cmdutil"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/scheme"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/validation"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	"github.com/save-abandoned-projects/ignite/pkg/config"
+	"github.com/save-abandoned-projects/ignite/pkg/dmlegacy"
+	"github.com/save-abandoned-projects/ignite/pkg/metadata"
+	"github.com/save-abandoned-projects/ignite/pkg/operations"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
 
+	patchutil "github.com/save-abandoned-projects/libgitops/pkg/util/patch"
 	flag "github.com/spf13/pflag"
-	patchutil "github.com/weaveworks/libgitops/pkg/util/patch"
 	"sigs.k8s.io/yaml"
 )
 
@@ -145,7 +147,7 @@ func applyVMConfigFile(baseVM *api.VM, configFile string) error {
 
 	// Marshal into a new object to extract VM image if any.
 	fileVM := &api.VM{}
-	if err := scheme.Serializer.DecodeInto(vmConfigBytes, fileVM); err != nil {
+	if err := scheme.Serializer.Decoder().DecodeInto(serializer.NewYAMLFrameReader(serializer.FromBytes(vmConfigBytes)), fileVM); err != nil {
 		return err
 	}
 
@@ -167,21 +169,24 @@ func applyVMConfigFile(baseVM *api.VM, configFile string) error {
 	}
 
 	// Serialize the base VM into json encoded bytes.
-	baseVMBytes, err := scheme.Serializer.EncodeJSON(baseVM)
+	//baseVMBytes, err := scheme.Serializer.EncodeJSON(baseVM)
+	var content bytes.Buffer
+	if err := scheme.Serializer.Encoder().Encode(serializer.NewJSONFrameWriter(&content), baseVM); err != nil {
+		return err
+	}
 	if err != nil {
 		return err
 	}
 
 	// Apply the VM config on the base VM.
-	resultVMBytes, err := p.Apply(baseVMBytes, vmConfigJSONBytes, baseVM.GroupVersionKind())
+	resultVMBytes, err := p.Apply(content.Bytes(), vmConfigJSONBytes, baseVM.GroupVersionKind())
 	if err != nil {
 		return err
 	}
 
-	if err := scheme.Serializer.DecodeInto(resultVMBytes, baseVM); err != nil {
+	if err := scheme.Serializer.Decoder().DecodeInto(serializer.NewYAMLFrameReader(serializer.FromBytes(resultVMBytes)), baseVM); err != nil {
 		return err
 	}
-
 	return nil
 }
 

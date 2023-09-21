@@ -22,10 +22,10 @@ import (
 )
 
 var (
-	multinetVM  = "e2e-test-vm-multinet"
-	sandboxImage = "weaveworks/ignite:dev"
-	kernelImage = "weaveworks/ignite-kernel:5.10.51"
-	vmImage     = "weaveworks/ignite-ubuntu"
+	multinetVM   = "e2e-test-vm-multinet"
+	sandboxImage = "save-abandoned-projects/ignite:dev"
+	kernelImage  = "save-abandoned-projects/ignite-kernel:5.10.51"
+	vmImage      = "save-abandoned-projects/ignite-ubuntu"
 )
 
 func startAsyncVM(t *testing.T, intfs []string) (*operations.VMChannels, string) {

@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/weaveworks/ignite/e2e/util"
-	"github.com/weaveworks/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/e2e/util"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
 	"gotest.tools/assert"
 )
 

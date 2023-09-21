@@ -8,8 +8,7 @@ package v1alpha2
 import (
 	net "net"
 
-	v1alpha1 "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	pkgruntime "github.com/weaveworks/libgitops/pkg/runtime"
+	v1alpha1 "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -457,11 +456,7 @@ func (in *VMStatus) DeepCopyInto(out *VMStatus) {
 		*out = new(Runtime)
 		**out = **in
 	}
-	if in.StartTime != nil {
-		in, out := &in.StartTime, &out.StartTime
-		*out = new(pkgruntime.Time)
-		(*in).DeepCopyInto(*out)
-	}
+	in.StartTime.DeepCopyInto(&out.StartTime)
 	if in.IPAddresses != nil {
 		in, out := &in.IPAddresses, &out.IPAddresses
 		*out = make(v1alpha1.IPAddresses, len(*in))

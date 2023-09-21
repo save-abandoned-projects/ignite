@@ -7,10 +7,10 @@ import (
 	"os/signal"
 	"sync"
 
+	"github.com/save-abandoned-projects/ignite/pkg/operations/reconcile"
+	"github.com/save-abandoned-projects/ignite/pkg/providers/manifeststorage"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"github.com/weaveworks/ignite/pkg/operations/reconcile"
-	"github.com/weaveworks/ignite/pkg/providers/manifeststorage"
 )
 
 func NewCmdDaemon(out io.Writer) *cobra.Command {
@@ -29,7 +29,7 @@ func NewCmdDaemon(out io.Writer) *cobra.Command {
 
 			go func() {
 				log.Infof("Starting reconciliation loop...")
-				reconcile.ReconcileManifests(ms)
+				reconcile.ReconcileManifests(&ms)
 			}()
 
 			go func() {

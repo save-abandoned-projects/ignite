@@ -8,11 +8,10 @@ package v1alpha4
 import (
 	unsafe "unsafe"
 
-	ignite "github.com/weaveworks/ignite/pkg/apis/ignite"
-	v1alpha1 "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	network "github.com/weaveworks/ignite/pkg/network"
-	pkgruntime "github.com/weaveworks/ignite/pkg/runtime"
-	libgitopspkgruntime "github.com/weaveworks/libgitops/pkg/runtime"
+	ignite "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	v1alpha1 "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	network "github.com/save-abandoned-projects/ignite/pkg/network"
+	pkgruntime "github.com/save-abandoned-projects/ignite/pkg/runtime"
 	conversion "k8s.io/apimachinery/pkg/conversion"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
@@ -328,7 +327,6 @@ func Convert_ignite_BlockDeviceVolume_To_v1alpha4_BlockDeviceVolume(in *ignite.B
 }
 
 func autoConvert_v1alpha4_Configuration_To_ignite_Configuration(in *Configuration, out *ignite.Configuration, s conversion.Scope) error {
-	out.TypeMeta = in.TypeMeta
 	out.ObjectMeta = in.ObjectMeta
 	if err := Convert_v1alpha4_ConfigurationSpec_To_ignite_ConfigurationSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
@@ -342,7 +340,6 @@ func Convert_v1alpha4_Configuration_To_ignite_Configuration(in *Configuration, o
 }
 
 func autoConvert_ignite_Configuration_To_v1alpha4_Configuration(in *ignite.Configuration, out *Configuration, s conversion.Scope) error {
-	out.TypeMeta = in.TypeMeta
 	out.ObjectMeta = in.ObjectMeta
 	if err := Convert_ignite_ConfigurationSpec_To_v1alpha4_ConfigurationSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
@@ -410,7 +407,6 @@ func Convert_ignite_FileMapping_To_v1alpha4_FileMapping(in *ignite.FileMapping, 
 }
 
 func autoConvert_v1alpha4_Image_To_ignite_Image(in *Image, out *ignite.Image, s conversion.Scope) error {
-	out.TypeMeta = in.TypeMeta
 	out.ObjectMeta = in.ObjectMeta
 	if err := Convert_v1alpha4_ImageSpec_To_ignite_ImageSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
@@ -427,7 +423,6 @@ func Convert_v1alpha4_Image_To_ignite_Image(in *Image, out *ignite.Image, s conv
 }
 
 func autoConvert_ignite_Image_To_v1alpha4_Image(in *ignite.Image, out *Image, s conversion.Scope) error {
-	out.TypeMeta = in.TypeMeta
 	out.ObjectMeta = in.ObjectMeta
 	if err := Convert_ignite_ImageSpec_To_v1alpha4_ImageSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
@@ -488,7 +483,6 @@ func Convert_ignite_ImageStatus_To_v1alpha4_ImageStatus(in *ignite.ImageStatus, 
 }
 
 func autoConvert_v1alpha4_Kernel_To_ignite_Kernel(in *Kernel, out *ignite.Kernel, s conversion.Scope) error {
-	out.TypeMeta = in.TypeMeta
 	out.ObjectMeta = in.ObjectMeta
 	if err := Convert_v1alpha4_KernelSpec_To_ignite_KernelSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
@@ -505,7 +499,6 @@ func Convert_v1alpha4_Kernel_To_ignite_Kernel(in *Kernel, out *ignite.Kernel, s 
 }
 
 func autoConvert_ignite_Kernel_To_v1alpha4_Kernel(in *ignite.Kernel, out *Kernel, s conversion.Scope) error {
-	out.TypeMeta = in.TypeMeta
 	out.ObjectMeta = in.ObjectMeta
 	if err := Convert_ignite_KernelSpec_To_v1alpha4_KernelSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
@@ -612,7 +605,6 @@ func Convert_ignite_OCIImageSource_To_v1alpha4_OCIImageSource(in *ignite.OCIImag
 }
 
 func autoConvert_v1alpha4_Pool_To_ignite_Pool(in *Pool, out *ignite.Pool, s conversion.Scope) error {
-	out.TypeMeta = in.TypeMeta
 	if err := Convert_v1alpha4_PoolSpec_To_ignite_PoolSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
 	}
@@ -628,7 +620,6 @@ func Convert_v1alpha4_Pool_To_ignite_Pool(in *Pool, out *ignite.Pool, s conversi
 }
 
 func autoConvert_ignite_Pool_To_v1alpha4_Pool(in *ignite.Pool, out *Pool, s conversion.Scope) error {
-	out.TypeMeta = in.TypeMeta
 	if err := Convert_ignite_PoolSpec_To_v1alpha4_PoolSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
 	}
@@ -762,7 +753,6 @@ func Convert_ignite_SSH_To_v1alpha4_SSH(in *ignite.SSH, out *SSH, s conversion.S
 }
 
 func autoConvert_v1alpha4_VM_To_ignite_VM(in *VM, out *ignite.VM, s conversion.Scope) error {
-	out.TypeMeta = in.TypeMeta
 	out.ObjectMeta = in.ObjectMeta
 	if err := Convert_v1alpha4_VMSpec_To_ignite_VMSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
@@ -779,7 +769,6 @@ func Convert_v1alpha4_VM_To_ignite_VM(in *VM, out *ignite.VM, s conversion.Scope
 }
 
 func autoConvert_ignite_VM_To_v1alpha4_VM(in *ignite.VM, out *VM, s conversion.Scope) error {
-	out.TypeMeta = in.TypeMeta
 	out.ObjectMeta = in.ObjectMeta
 	if err := Convert_ignite_VMSpec_To_v1alpha4_VMSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
@@ -938,7 +927,7 @@ func Convert_ignite_VMSpec_To_v1alpha4_VMSpec(in *ignite.VMSpec, out *VMSpec, s 
 func autoConvert_v1alpha4_VMStatus_To_ignite_VMStatus(in *VMStatus, out *ignite.VMStatus, s conversion.Scope) error {
 	out.Running = in.Running
 	out.Runtime = (*ignite.Runtime)(unsafe.Pointer(in.Runtime))
-	out.StartTime = (*libgitopspkgruntime.Time)(unsafe.Pointer(in.StartTime))
+	out.StartTime = in.StartTime
 	out.Network = (*ignite.Network)(unsafe.Pointer(in.Network))
 	if err := Convert_v1alpha4_OCIImageSource_To_ignite_OCIImageSource(&in.Image, &out.Image, s); err != nil {
 		return err
@@ -958,7 +947,7 @@ func Convert_v1alpha4_VMStatus_To_ignite_VMStatus(in *VMStatus, out *ignite.VMSt
 func autoConvert_ignite_VMStatus_To_v1alpha4_VMStatus(in *ignite.VMStatus, out *VMStatus, s conversion.Scope) error {
 	out.Running = in.Running
 	out.Runtime = (*Runtime)(unsafe.Pointer(in.Runtime))
-	out.StartTime = (*libgitopspkgruntime.Time)(unsafe.Pointer(in.StartTime))
+	out.StartTime = in.StartTime
 	out.Network = (*Network)(unsafe.Pointer(in.Network))
 	if err := Convert_ignite_OCIImageSource_To_v1alpha4_OCIImageSource(&in.Image, &out.Image, s); err != nil {
 		return err

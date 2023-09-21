@@ -9,7 +9,7 @@ import (
 
 	"gotest.tools/assert"
 
-	"github.com/weaveworks/ignite/e2e/util"
+	"github.com/save-abandoned-projects/ignite/e2e/util"
 )
 
 var (

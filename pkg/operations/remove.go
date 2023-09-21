@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"os"
 
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	"github.com/save-abandoned-projects/ignite/pkg/client"
+	"github.com/save-abandoned-projects/ignite/pkg/dmlegacy"
+	"github.com/save-abandoned-projects/ignite/pkg/logs"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/ignite/pkg/runtime"
 	log "github.com/sirupsen/logrus"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	"github.com/weaveworks/ignite/pkg/client"
-	"github.com/weaveworks/ignite/pkg/dmlegacy"
-	"github.com/weaveworks/ignite/pkg/logs"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/ignite/pkg/runtime"
 )
 
 const (
@@ -57,7 +57,7 @@ func CleanupVM(vm *api.VM) error {
 	if logs.Quiet {
 		fmt.Println(vm.GetUID())
 	} else {
-		log.Infof("Removed %s with name %q and ID %q", vm.GetKind(), vm.GetName(), vm.GetUID())
+		log.Infof("Removed %s with name %q and ID %q", vm.GetObjectKind().GroupVersionKind().Kind, vm.GetName(), vm.GetUID())
 	}
 
 	return nil
@@ -87,7 +87,7 @@ func StopVM(vm *api.VM, kill, silent bool) error {
 
 	// Remove VM networking
 	if err = removeNetworking(vm.Status.Runtime.ID, vm.Spec.Network.Ports...); err != nil {
-		log.Warnf("Failed to cleanup networking for stopped container %s %q: %v", vm.GetKind(), vm.GetUID(), err)
+		log.Warnf("Failed to cleanup networking for stopped container %s %q: %v", vm.Kind, vm.GetUID(), err)
 
 		return err
 	}
@@ -102,7 +102,7 @@ func StopVM(vm *api.VM, kill, silent bool) error {
 		}
 
 		if err != nil {
-			return fmt.Errorf("failed to %s container for %s %q: %v", action, vm.GetKind(), vm.GetUID(), err)
+			return fmt.Errorf("failed to %s container for %s %q: %v", action, vm.Kind, vm.GetUID(), err)
 		}
 
 		if silent {
@@ -112,7 +112,7 @@ func StopVM(vm *api.VM, kill, silent bool) error {
 		if logs.Quiet {
 			fmt.Println(vm.GetUID())
 		} else {
-			log.Infof("Stopped %s with name %q and ID %q", vm.GetKind(), vm.GetName(), vm.GetUID())
+			log.Infof("Stopped %s with name %q and ID %q", vm.Kind, vm.GetName(), vm.GetUID())
 		}
 	}
 

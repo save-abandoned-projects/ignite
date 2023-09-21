@@ -2,10 +2,6 @@
 
 Print the version of ignite
 
-### Synopsis
-
-Print the version of ignite
-
 ```
 ignite version [flags]
 ```

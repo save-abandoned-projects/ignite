@@ -1,7 +1,9 @@
 package e2e
 
 import (
+	"bytes"
 	"fmt"
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
 	"io/ioutil"
 	"path/filepath"
 	"strings"
@@ -9,10 +11,10 @@ import (
 
 	"gotest.tools/assert"
 
-	"github.com/weaveworks/ignite/e2e/util"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/scheme"
-	"github.com/weaveworks/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/e2e/util"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/scheme"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
 )
 
 // TestVMpsWithOutdatedStatus checks if outdated status indicators are printed
@@ -49,20 +51,23 @@ func TestVMpsWithOutdatedStatus(t *testing.T) {
 	// Update the VM manifest with false info.
 	metadata_path := filepath.Join(constants.VM_DIR, uid, "metadata.json")
 	vm := &api.VM{}
-	assert.NilError(t, scheme.Serializer.DecodeFileInto(metadata_path, vm))
+	err := scheme.Serializer.Decoder().DecodeInto(serializer.NewJSONFrameReader(serializer.FromFile(metadata_path)), vm)
 	vm.Status.Running = false
-	vmBytes, err := scheme.Serializer.EncodeJSON(vm)
+
+	var vmBytes bytes.Buffer
+	err = scheme.Serializer.Encoder().Encode(serializer.NewJSONFrameWriter(&vmBytes), vm)
 	assert.NilError(t, err)
-	assert.NilError(t, ioutil.WriteFile(metadata_path, vmBytes, 0644))
+	assert.NilError(t, ioutil.WriteFile(metadata_path, vmBytes.Bytes(), 0644))
 
 	// Revert the false data for proper cleanup.
 	// NOTE: This is needed because ignite rm believes the VM manifest status
 	// instead of checking for actual status itself.
 	defer func() {
 		vm.Status.Running = true
-		vmBytes, err = scheme.Serializer.EncodeJSON(vm)
+		var vmBytes bytes.Buffer
+		err = scheme.Serializer.Encoder().Encode(serializer.NewJSONFrameWriter(&vmBytes), vm)
 		assert.NilError(t, err)
-		assert.NilError(t, ioutil.WriteFile(metadata_path, vmBytes, 0644))
+		assert.NilError(t, ioutil.WriteFile(metadata_path, vmBytes.Bytes(), 0644))
 	}()
 
 	// Run ps -a and look for the outdated status info.

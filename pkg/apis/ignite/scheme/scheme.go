@@ -5,11 +5,11 @@ import (
 	k8sserializer "k8s.io/apimachinery/pkg/runtime/serializer"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 
-	"github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha2"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha3"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/v1alpha4"
-	"github.com/weaveworks/libgitops/pkg/serializer"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha2"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha3"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/v1alpha4"
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
 )
 
 var (

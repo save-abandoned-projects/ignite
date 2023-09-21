@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net"
 
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	"github.com/weaveworks/ignite/pkg/runtime"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	"github.com/save-abandoned-projects/ignite/pkg/runtime"
 )
 
 // Plugin describes a generic network plugin

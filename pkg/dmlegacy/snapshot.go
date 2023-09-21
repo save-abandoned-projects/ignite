@@ -8,11 +8,11 @@ import (
 
 	"github.com/nightlyone/lockfile"
 
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/operations/lookup"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/ignite/pkg/util"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/operations/lookup"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 )
 
 const snapshotLockFileName = "ignite-snapshot.lock"
@@ -62,7 +62,7 @@ func ActivateSnapshot(vm *api.VM) (devicePath string, err error) {
 	defer util.DeferErr(&err, lock.Unlock)
 
 	// Setup loop device for the image
-	imageLoop, err := newLoopDev(path.Join(constants.IMAGE_DIR, imageUID.String(), constants.IMAGE_FS), true)
+	imageLoop, err := newLoopDev(path.Join(constants.IMAGE_DIR, string(imageUID), constants.IMAGE_FS), true)
 	if err != nil {
 		return
 	}

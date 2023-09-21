@@ -1,7 +1,7 @@
 apiVersion: ignite.weave.works/v1alpha4
 kind: VM
 metadata:
-  created: "2000-01-01T01:00:00Z"
+  creationTimestamp: "2000-01-01T01:00:00Z"
   name: someVM
   uid: 1699b6ba255cde7f
 spec:
@@ -28,3 +28,4 @@ status:
     ipAddresses: null
     plugin: ""
   running: false
+  startTime: null

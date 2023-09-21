@@ -3,8 +3,8 @@ package source
 import (
 	"io"
 
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
 )
 
 // Source represents a source for VM images

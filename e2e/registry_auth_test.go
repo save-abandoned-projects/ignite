@@ -10,9 +10,9 @@ import (
 
 	"gotest.tools/assert"
 
-	"github.com/weaveworks/ignite/e2e/util"
-	"github.com/weaveworks/ignite/pkg/runtime"
-	"github.com/weaveworks/ignite/pkg/runtime/containerd"
+	"github.com/save-abandoned-projects/ignite/e2e/util"
+	"github.com/save-abandoned-projects/ignite/pkg/runtime"
+	"github.com/save-abandoned-projects/ignite/pkg/runtime/containerd"
 )
 
 const (
@@ -66,12 +66,12 @@ func TestPullFromAuthRegistry(t *testing.T) {
 	defer os.Unsetenv(containerd.InsecureRegistriesEnvVar)
 
 	// Create a registry config directory to use in test.
-	emptyDir, err := ioutil.TempDir("", "ignite-test")
+	emptyDir, err := os.MkdirTemp("", "ignite-test")
 	assert.NilError(t, err)
 	defer os.RemoveAll(emptyDir)
 
 	// Create a registry config directory to use in test.
-	rcDir, err := ioutil.TempDir("", "ignite-test")
+	rcDir, err := os.MkdirTemp("", "ignite-test")
 	assert.NilError(t, err)
 	defer os.RemoveAll(rcDir)
 

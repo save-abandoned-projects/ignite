@@ -2,21 +2,20 @@ package operations
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path"
 
+	"github.com/save-abandoned-projects/libgitops/pkg/filter"
+
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	"github.com/save-abandoned-projects/ignite/pkg/client"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/dmlegacy"
+	"github.com/save-abandoned-projects/ignite/pkg/metadata"
+	"github.com/save-abandoned-projects/ignite/pkg/source"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 	log "github.com/sirupsen/logrus"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	"github.com/weaveworks/ignite/pkg/client"
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/dmlegacy"
-	"github.com/weaveworks/ignite/pkg/metadata"
-	"github.com/weaveworks/ignite/pkg/source"
-	"github.com/weaveworks/ignite/pkg/util"
-	"github.com/weaveworks/libgitops/pkg/filter"
-	"github.com/weaveworks/libgitops/pkg/storage/filterer"
 )
 
 // FindOrImportImage returns an image based on the source string.
@@ -24,19 +23,14 @@ import (
 // exist, it is imported
 func FindOrImportImage(c *client.Client, ociRef meta.OCIImageRef) (*api.Image, error) {
 	log.Debugf("Ensuring image %s exists, or importing it...", ociRef)
-	image, err := c.Images().Find(filter.NewIDNameFilter(ociRef.String()))
-	if err == nil {
+	image, err := c.Images().Find(filter.NameFilter{Name: ociRef.String()})
+	if err == nil && image != nil {
 		// Return the image found
 		log.Debugf("Found image with UID %s", image.GetUID())
 		return image, nil
 	}
 
-	switch err.(type) {
-	case *filterer.NonexistentError:
-		return importImage(c, ociRef)
-	default:
-		return nil, err
-	}
+	return importImage(c, ociRef)
 }
 
 // importKernel imports an image from an OCI image
@@ -82,19 +76,14 @@ func importImage(c *client.Client, ociRef meta.OCIImageRef) (*api.Image, error) 
 // exist, it is imported
 func FindOrImportKernel(c *client.Client, ociRef meta.OCIImageRef) (*api.Kernel, error) {
 	log.Debugf("Ensuring kernel %s exists, or importing it...", ociRef)
-	kernel, err := c.Kernels().Find(filter.NewIDNameFilter(ociRef.String()))
-	if err == nil {
+	kernel, err := c.Kernels().Find(filter.NameFilter{Name: ociRef.String()})
+	if err == nil && kernel != nil {
 		// Return the kernel found
 		log.Debugf("Found kernel with UID %s", kernel.GetUID())
 		return kernel, nil
 	}
 
-	switch err.(type) {
-	case *filterer.NonexistentError:
-		return importKernel(c, ociRef)
-	default:
-		return nil, err
-	}
+	return importKernel(c, ociRef)
 }
 
 // importKernel imports a kernel from an OCI image
@@ -130,7 +119,7 @@ func importKernel(c *client.Client, ociRef meta.OCIImageRef) (*api.Kernel, error
 	if !util.FileExists(kernelTarFile) || !util.FileExists(vmlinuxFile) {
 		// Create a temporary directory for extracting
 		// the necessary files from the OCI image
-		tempDir, err := ioutil.TempDir("", "")
+		tempDir, err := os.MkdirTemp("", "")
 		if err != nil {
 			return nil, err
 		}

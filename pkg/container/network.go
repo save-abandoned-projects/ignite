@@ -10,11 +10,11 @@ import (
 	"time"
 
 	"github.com/firecracker-microvm/firecracker-go-sdk"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 	log "github.com/sirupsen/logrus"
 	"github.com/vishvananda/netlink"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/util"
 	"k8s.io/apimachinery/pkg/util/wait"
 )
 
@@ -494,7 +494,7 @@ func maskString(mask net.IPMask) string {
 func parseExtraIntfs(vm *api.VM) map[string]string {
 	result := make(map[string]string)
 
-	for intf, mode := range vm.GetObjectMeta().Annotations {
+	for intf, mode := range vm.GetObjectMeta().GetAnnotations() {
 		if !strings.HasPrefix(intf, constants.IGNITE_INTERFACE_ANNOTATION) {
 			continue
 		}

@@ -1,21 +1,22 @@
 package run
 
 import (
-	"io/ioutil"
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
+	"k8s.io/apimachinery/pkg/types"
 	"os"
 	"path/filepath"
 	"testing"
 
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/storage"
-	"github.com/weaveworks/libgitops/pkg/storage/cache"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage/cache"
 
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/scheme"
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	"github.com/weaveworks/ignite/pkg/client"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/ignite/pkg/util"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/scheme"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	"github.com/save-abandoned-projects/ignite/pkg/client"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 )
 
 func TestNewRmOptions(t *testing.T) {
@@ -48,7 +49,7 @@ func TestNewRmOptions(t *testing.T) {
 			existingVMs: []string{"myvm1", "myvm2", "myvm3"},
 			rmFlags:     &RmFlags{},
 			vmMatches:   []string{"myvm4"},
-			err:         true,
+			err:         false,
 		},
 		{
 			name:        "error rm without any args or config flag",
@@ -80,22 +81,23 @@ func TestNewRmOptions(t *testing.T) {
 	for _, rt := range cases {
 		t.Run(rt.name, func(t *testing.T) {
 			// Create storage.
-			dir, err := ioutil.TempDir("", "ignite")
+			dir, err := os.MkdirTemp("", "ignite")
 			if err != nil {
 				t.Fatalf("failed to create storage for ignite: %v", err)
 			}
 			defer os.RemoveAll(dir)
 
-			storage := cache.NewCache(
-				storage.NewGenericStorage(
-					storage.NewGenericRawStorage(dir), scheme.Serializer))
+			storage := cache.NewCache(storage.NewGenericStorage(
+				storage.NewGenericRawStorage(dir, api.SchemeGroupVersion, serializer.ContentTypeYAML),
+				scheme.Serializer,
+				[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier, runtime.ObjectUIDIdentifier}))
 
 			// Create ignite client with the created storage.
 			ic := client.NewClient(storage)
 
 			// Create the existing VMs.
 			for _, objectName := range rt.existingVMs {
-				vm := &api.VM{}
+				vm := ic.VMs().New()
 				vm.SetName(objectName)
 
 				// Set UID.
@@ -103,7 +105,7 @@ func TestNewRmOptions(t *testing.T) {
 				if err != nil {
 					t.Errorf("failed to generate new UID: %v", err)
 				}
-				vm.SetUID(runtime.UID(uid))
+				vm.SetUID(types.UID(uid))
 
 				// Set VM image.
 				ociRef, err := meta.NewOCIImageRef("foo/bar:latest")

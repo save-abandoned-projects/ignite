@@ -9,8 +9,8 @@ import (
 	"os"
 
 	"github.com/otiai10/copy"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/ignite/pkg/constants"
 )
 
 // Creates the /var/lib/firecracker/{vm,image,kernel} directories
@@ -90,7 +90,7 @@ type MountPoint struct {
 }
 
 func Mount(volume string) (*MountPoint, error) {
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		return nil, err
 	}

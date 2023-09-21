@@ -1,14 +1,14 @@
 package run
 
 import (
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/libgitops/pkg/filter"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 )
 
 // TODO: This
 func getVMForMatch(vmMatch string) (*api.VM, error) {
-	return providers.Client.VMs().Find(filter.NewIDNameFilter(vmMatch))
+	return providers.Client.VMs().Find(filter.NameFilter{Name: vmMatch})
 }
 
 // TODO: This
@@ -25,5 +25,5 @@ func getVMsForMatches(vmMatches []string) ([]*api.VM, error) {
 }
 
 func getAllVMs() ([]*api.VM, error) {
-	return providers.Client.VMs().FindAll(filter.NewAllFilter())
+	return providers.Client.VMs().FindAll(nil)
 }

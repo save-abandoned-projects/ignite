@@ -10,14 +10,16 @@
 package client
 
 import (
+	"errors"
 	"fmt"
 
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/libgitops/pkg/filter"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage"
 	log "github.com/sirupsen/logrus"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/storage"
-	"github.com/weaveworks/libgitops/pkg/storage/filterer"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/types"
 )
 
 // ResourceClient is an interface for accessing Resource-specific API objects
@@ -25,20 +27,20 @@ type ResourceClient interface {
 	// New returns a new Resource
 	New() *api.Resource
 	// Get returns the Resource matching given UID from the storage
-	Get(runtime.UID) (*api.Resource, error)
+	Get(types.UID) (*api.Resource, error)
 	// Set saves the given Resource into persistent storage
 	Set(*api.Resource) error
 	// Patch performs a strategic merge patch on the object with
 	// the given UID, using the byte-encoded patch given
-	Patch(runtime.UID, []byte) error
+	Patch(types.UID, []byte) error
 	// Find returns the Resource matching the given filter, filters can
 	// match e.g. the Object's Name, UID or a specific property
-	Find(filter filterer.BaseFilter) (*api.Resource, error)
+	Find(opt filter.ObjectFilter) (*api.Resource, error)
 	// FindAll returns multiple Resources matching the given filter, filters can
 	// match e.g. the Object's Name, UID or a specific property
-	FindAll(filter filterer.BaseFilter) ([]*api.Resource, error)
+	FindAll(opts []filter.ListOption) ([]*api.Resource, error)
 	// Delete deletes the Resource with the given UID from the storage
-	Delete(uid runtime.UID) error
+	Delete(uid types.UID) error
 	// List returns a list of all Resources available
 	List() ([]*api.Resource, error)
 }
@@ -55,45 +57,71 @@ func (c *IgniteInternalClient) Resources() ResourceClient {
 // resourceClient is a struct implementing the ResourceClient interface
 // It uses a shared storage instance passed from the Client together with its own Filterer
 type resourceClient struct {
-	storage  storage.Storage
-	filterer *filterer.Filterer
-	gvk      schema.GroupVersionKind
+	storage storage.Storage
+	gvk     schema.GroupVersionKind
 }
 
 // newResourceClient builds the resourceClient struct using the storage implementation and a new Filterer
 func newResourceClient(s storage.Storage, gv schema.GroupVersion) ResourceClient {
 	return &resourceClient{
-		storage:  s,
-		filterer: filterer.NewFilterer(s),
-		gvk:      gv.WithKind(api.KindResource.Title()),
+		storage: s,
+		gvk:     gv.WithKind(api.KindResource.Title()),
 	}
 }
 
 // New returns a new Object of its kind
 func (c *resourceClient) New() *api.Resource {
 	log.Tracef("Client.New; GVK: %v", c.gvk)
-	obj, err := c.storage.New(c.gvk)
+
+	obj, err := c.storage.Serializer().Defaulter().NewDefaultedObject(c.gvk)
 	if err != nil {
 		panic(fmt.Sprintf("Client.New must not return an error: %v", err))
 	}
+	// Cast to runtime.Object, and make sure it works
+	metaObj, ok := obj.(runtime.Object)
+	if !ok {
+		panic("can't convert to libgitops.runtime.Object")
+	}
+	// Set the desired gvk from the caller of this Object
+	// In practice, this means, although we created an internal type,
+	// from defaulting external TypeMeta information was set. Set the
+	// desired gvk here so it's correctly handled in all code that gets
+	// the gvk from the Object
+	metaObj.GetObjectKind().SetGroupVersionKind(c.gvk)
 	return obj.(*api.Resource)
 }
 
 // Find returns a single Resource based on the given Filter
-func (c *resourceClient) Find(filter filterer.BaseFilter) (*api.Resource, error) {
+func (c *resourceClient) Find(opt filter.ObjectFilter) (*api.Resource, error) {
 	log.Tracef("Client.Find; GVK: %v", c.gvk)
-	object, err := c.filterer.Find(c.gvk, filter)
+
+	var opts []filter.ListOption
+	switch o := opt.(type) {
+	case filter.NameFilter, filter.UIDFilter, filter.GvkFilter:
+		opts = append(opts, o.(filter.ListOption))
+	default:
+		return nil, errors.New("bad filter")
+	}
+	objects, err := c.FindAll(opts)
 	if err != nil {
 		return nil, err
 	}
 
-	return object.(*api.Resource), nil
+	if len(objects) == 0 {
+		return nil, nil
+	}
+
+	if len(objects) != 1 {
+		return nil, errors.New("ambiguous query: AllFilter used to match single Object")
+	}
+
+	return objects[0], nil
 }
 
 // FindAll returns multiple Resources based on the given Filter
-func (c *resourceClient) FindAll(filter filterer.BaseFilter) ([]*api.Resource, error) {
+func (c *resourceClient) FindAll(opts []filter.ListOption) ([]*api.Resource, error) {
 	log.Tracef("Client.FindAll; GVK: %v", c.gvk)
-	matches, err := c.filterer.FindAll(c.gvk, filter)
+	matches, err := c.storage.List(storage.NewKindKey(c.gvk), opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -107,9 +135,9 @@ func (c *resourceClient) FindAll(filter filterer.BaseFilter) ([]*api.Resource, e
 }
 
 // Get returns the Resource matching given UID from the storage
-func (c *resourceClient) Get(uid runtime.UID) (*api.Resource, error) {
+func (c *resourceClient) Get(uid types.UID) (*api.Resource, error) {
 	log.Tracef("Client.Get; UID: %q, GVK: %v", uid, c.gvk)
-	object, err := c.storage.Get(c.gvk, uid)
+	object, err := c.storage.Get(storage.NewObjectKey(storage.NewKindKey(c.gvk), runtime.NewIdentifier(string(uid))))
 	if err != nil {
 		return nil, err
 	}
@@ -120,25 +148,26 @@ func (c *resourceClient) Get(uid runtime.UID) (*api.Resource, error) {
 // Set saves the given Resource into the persistent storage
 func (c *resourceClient) Set(resource *api.Resource) error {
 	log.Tracef("Client.Set; UID: %q, GVK: %v", resource.GetUID(), c.gvk)
-	return c.storage.Set(c.gvk, resource)
+
+	return c.storage.Create(resource)
 }
 
 // Patch performs a strategic merge patch on the object with
 // the given UID, using the byte-encoded patch given
-func (c *resourceClient) Patch(uid runtime.UID, patch []byte) error {
-	return c.storage.Patch(c.gvk, uid, patch)
+func (c *resourceClient) Patch(uid types.UID, patch []byte) error {
+	return c.storage.Patch(storage.NewObjectKey(storage.NewKindKey(c.gvk), runtime.NewIdentifier(string(uid))), patch)
 }
 
 // Delete deletes the Resource from the storage
-func (c *resourceClient) Delete(uid runtime.UID) error {
+func (c *resourceClient) Delete(uid types.UID) error {
 	log.Tracef("Client.Delete; UID: %q, GVK: %v", uid, c.gvk)
-	return c.storage.Delete(c.gvk, uid)
+	return c.storage.Delete(storage.NewObjectKey(storage.NewKindKey(c.gvk), runtime.NewIdentifier(string(uid))))
 }
 
 // List returns a list of all Resources available
 func (c *resourceClient) List() ([]*api.Resource, error) {
 	log.Tracef("Client.List; GVK: %v", c.gvk)
-	list, err := c.storage.List(c.gvk)
+	list, err := c.storage.List(storage.NewKindKey(c.gvk))
 	if err != nil {
 		return nil, err
 	}

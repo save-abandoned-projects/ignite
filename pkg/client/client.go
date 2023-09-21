@@ -40,13 +40,12 @@ VM with a new IP address:
 		}
 		fmt.Printf("VM my-vm cpus: %d\n", myVM.Spec.CPUs)
 	}
-
 */
 package client
 
 import (
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/libgitops/pkg/storage"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage"
 
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )

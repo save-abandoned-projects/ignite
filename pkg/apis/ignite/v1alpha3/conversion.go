@@ -1,7 +1,7 @@
 package v1alpha3
 
 import (
-	"github.com/weaveworks/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	"k8s.io/apimachinery/pkg/conversion"
 )
 

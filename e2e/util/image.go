@@ -3,8 +3,8 @@ package util
 import (
 	"os/exec"
 
-	"github.com/weaveworks/ignite/pkg/runtime"
-	"github.com/weaveworks/ignite/pkg/runtime/containerd"
+	"github.com/save-abandoned-projects/ignite/pkg/runtime"
+	"github.com/save-abandoned-projects/ignite/pkg/runtime/containerd"
 )
 
 // RmiDocker removes an image from docker content store.

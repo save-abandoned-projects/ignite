@@ -12,8 +12,8 @@ import (
 
 	"gotest.tools/assert"
 
-	"github.com/weaveworks/ignite/cmd/ignite/run"
-	"github.com/weaveworks/ignite/e2e/util"
+	"github.com/save-abandoned-projects/ignite/cmd/ignite/run"
+	"github.com/save-abandoned-projects/ignite/e2e/util"
 )
 
 func runCopyFilesToVM(t *testing.T, vmName, source, destination, wantFileContent string) {
@@ -183,7 +183,7 @@ func TestCopyDirectoryFromHostToVM(t *testing.T) {
 	assert.Assert(t, e2eHome != "", "IGNITE_E2E_HOME should be set")
 
 	// Create a temporary directory on host.
-	dir, err := ioutil.TempDir("", "ignite-cp-dir-test")
+	dir, err := os.MkdirTemp("", "ignite-cp-dir-test")
 	if err != nil {
 		t.Fatalf("failed to create a directory: %v", err)
 	}

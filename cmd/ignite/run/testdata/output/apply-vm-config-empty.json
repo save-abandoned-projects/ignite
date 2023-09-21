@@ -2,8 +2,7 @@
   "kind": "VM",
   "apiVersion": "ignite.weave.works/v1alpha4",
   "metadata": {
-    "name": "",
-    "created": "2000-01-01T01:00:00Z"
+    "creationTimestamp": "2000-01-01T01:00:00Z"
   },
   "spec": {
     "image": {
@@ -19,12 +18,8 @@
     "cpus": 1,
     "memory": "512MB",
     "diskSize": "4GB",
-    "network": {
-      
-    },
-    "storage": {
-      
-    }
+    "network": {},
+    "storage": {}
   },
   "status": {
     "running": false,
@@ -32,6 +27,7 @@
       "id": "",
       "name": ""
     },
+    "startTime": null,
     "network": {
       "plugin": "",
       "ipAddresses": null

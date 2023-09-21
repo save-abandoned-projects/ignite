@@ -1,10 +1,11 @@
 package ignite
 
 import (
+	"bytes"
 	"path"
 
-	"github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/util"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 )
 
 // SetImage populates relevant fields to an Image on the VM object
@@ -54,17 +55,23 @@ func (vm *VM) OverlayFile() string {
 // ObjectPath returns the directory where this VM's data is stored
 func (vm *VM) ObjectPath() string {
 	// TODO: Move this into storage
-	return path.Join(constants.DATA_DIR, vm.GetKind().Lower(), vm.GetUID().String())
+	kind := string(bytes.ToLower([]byte(vm.GetObjectKind().GroupVersionKind().Kind)))
+	uid := string(vm.GetUID())
+	return path.Join(constants.DATA_DIR, kind, uid)
 }
 
 // ObjectPath returns the directory where this Image's data is stored
 func (img *Image) ObjectPath() string {
 	// TODO: Move this into storage
-	return path.Join(constants.DATA_DIR, img.GetKind().Lower(), img.GetUID().String())
+	kind := string(bytes.ToLower([]byte(img.GetObjectKind().GroupVersionKind().Kind)))
+	uid := string(img.GetUID())
+	return path.Join(constants.DATA_DIR, kind, uid)
 }
 
 // ObjectPath returns the directory where this Kernel's data is stored
 func (k *Kernel) ObjectPath() string {
 	// TODO: Move this into storage
-	return path.Join(constants.DATA_DIR, k.GetKind().Lower(), k.GetUID().String())
+	kind := string(bytes.ToLower([]byte(k.GetObjectKind().GroupVersionKind().Kind)))
+	uid := string(k.GetUID())
+	return path.Join(constants.DATA_DIR, kind, uid)
 }

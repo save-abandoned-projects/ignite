@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/docker/go-connections/nat"
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
 )
 
 // portBindingsToDocker takes in portMappings and returns a nat.PortMap of the

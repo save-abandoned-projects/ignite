@@ -8,8 +8,8 @@ import (
 
 	"github.com/nightlyone/lockfile"
 
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/util"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/util"
 )
 
 // dmsetupNotFound is the error message when dmsetup can't find a device.

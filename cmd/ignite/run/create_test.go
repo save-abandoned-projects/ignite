@@ -3,6 +3,7 @@ package run
 import (
 	"bytes"
 	"fmt"
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
 	"io/ioutil"
 	"net"
 	"os"
@@ -11,31 +12,34 @@ import (
 	"testing"
 	"time"
 
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/apis/ignite/scheme"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	"github.com/save-abandoned-projects/ignite/pkg/client"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage/cache"
 	flag "github.com/spf13/pflag"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	"github.com/weaveworks/ignite/pkg/apis/ignite/scheme"
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	"github.com/weaveworks/ignite/pkg/client"
-	"github.com/weaveworks/ignite/pkg/providers"
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/storage"
-	"github.com/weaveworks/libgitops/pkg/storage/cache"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // Update the golden files with:
-//   go test -v github.com/weaveworks/ignite/cmd/ignite/run -run TestApplyVMConfigFile -update
+//
+//	go test -v github.com/weaveworks/ignite/cmd/ignite/run -run TestApplyVMConfigFile -update
 func TestApplyVMConfigFile(t *testing.T) {
 	// Setup storage backend.
-	dir, err := ioutil.TempDir("", "ignite")
+	dir, err := os.MkdirTemp("", "ignite")
 	if err != nil {
 		t.Fatalf("failed to create storage for ignite: %v", err)
 	}
 	defer os.RemoveAll(dir)
 
-	storage := cache.NewCache(
-		storage.NewGenericStorage(
-			storage.NewGenericRawStorage(dir), scheme.Serializer))
+	storage := cache.NewCache(storage.NewGenericStorage(
+		storage.NewGenericRawStorage(dir, api.SchemeGroupVersion, serializer.ContentTypeYAML),
+		scheme.Serializer,
+		[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier, runtime.ObjectUIDIdentifier}))
 
 	ic := client.NewClient(storage)
 
@@ -86,7 +90,8 @@ func TestApplyVMConfigFile(t *testing.T) {
 					OCI: ociRef,
 				},
 				Kernel: api.VMKernelSpec{
-					OCI: ociRef,
+					OCI:     ociRef,
+					CmdLine: constants.VM_DEFAULT_KERNEL_ARGS,
 				},
 			},
 			configFile: "input/apply-vm-config.yaml",
@@ -103,7 +108,8 @@ func TestApplyVMConfigFile(t *testing.T) {
 					OCI: ociRef,
 				},
 				Kernel: api.VMKernelSpec{
-					OCI: ociRef,
+					OCI:     ociRef,
+					CmdLine: constants.VM_DEFAULT_KERNEL_ARGS,
 				},
 			},
 			configFile: "input/apply-vm-config.json",
@@ -113,6 +119,7 @@ func TestApplyVMConfigFile(t *testing.T) {
 			name:       "empty vm config",
 			configFile: "input/apply-vm-config-empty.yaml",
 			golden:     "output/apply-vm-config-empty.json",
+			err:        true, //EOF
 		},
 		{
 			name:       "invalid config",
@@ -142,10 +149,11 @@ func TestApplyVMConfigFile(t *testing.T) {
 				// Set a fixed created time to avoid the result differences due to
 				// creation time.
 				createdTime := time.Date(2000, time.January, 1, 1, 0, 0, 0, time.UTC)
-				newVM.SetCreated(runtime.Time{Time: metav1.Time{Time: createdTime}})
+				newVM.CreationTimestamp = metav1.Time{Time: createdTime}
 
 				// Convert VM object into json.
-				newVMBytes, err := scheme.Serializer.EncodeJSON(newVM)
+				var content bytes.Buffer
+				scheme.Serializer.Encoder().Encode(serializer.NewJSONFrameWriter(&content), newVM)
 				if err != nil {
 					t.Errorf("unexpected error while encoding object to json: %v", err)
 				}
@@ -156,7 +164,7 @@ func TestApplyVMConfigFile(t *testing.T) {
 				// Update the golden file if needed.
 				if *update {
 					t.Logf("updating golden file %s", goldenFilePath)
-					if err := ioutil.WriteFile(goldenFilePath, newVMBytes, 0644); err != nil {
+					if err := ioutil.WriteFile(goldenFilePath, content.Bytes(), 0644); err != nil {
 						t.Fatalf("failed to update apply-vm-config golden file: %s: %v", goldenFilePath, err)
 					}
 				}
@@ -167,8 +175,8 @@ func TestApplyVMConfigFile(t *testing.T) {
 					t.Fatalf("failed to read apply-vm-config golden file: %s: %v", goldenFilePath, err)
 				}
 
-				if !bytes.Equal(newVMBytes, wantOutput) {
-					t.Errorf("expected VM config to be:\n%v\ngot VM config:\n%v", string(wantOutput), string(newVMBytes))
+				if !bytes.Equal(content.Bytes(), wantOutput) {
+					t.Errorf("expected VM config to be:\n%v\ngot VM config:\n%v", string(wantOutput), string(content.Bytes()))
 				}
 			}
 		})
@@ -371,15 +379,16 @@ func TestNewCreateOptions(t *testing.T) {
 	for _, rt := range tests {
 		t.Run(rt.name, func(t *testing.T) {
 			// Setup storage backend.
-			dir, err := ioutil.TempDir("", "ignite")
+			dir, err := os.MkdirTemp("", "ignite")
 			if err != nil {
 				t.Fatalf("failed to create storage for ignite: %v", err)
 			}
 			defer os.RemoveAll(dir)
 
-			storage := cache.NewCache(
-				storage.NewGenericStorage(
-					storage.NewGenericRawStorage(dir), scheme.Serializer))
+			storage := cache.NewCache(storage.NewGenericStorage(
+				storage.NewGenericRawStorage(dir, api.SchemeGroupVersion, serializer.ContentTypeYAML),
+				scheme.Serializer,
+				[]runtime.IdentifierFactory{runtime.Metav1NameIdentifier, runtime.ObjectUIDIdentifier}))
 
 			ic := client.NewClient(storage)
 
