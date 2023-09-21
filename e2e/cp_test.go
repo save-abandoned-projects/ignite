@@ -12,8 +12,8 @@ import (
 
 	"gotest.tools/assert"
 
-	"github.com/weaveworks/ignite/cmd/ignite/run"
-	"github.com/weaveworks/ignite/e2e/util"
+	"github.com/save-abandoned-projects/ignite/cmd/ignite/run"
+	"github.com/save-abandoned-projects/ignite/e2e/util"
 )
 
 func runCopyFilesToVM(t *testing.T, vmName, source, destination, wantFileContent string) {

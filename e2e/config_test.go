@@ -9,8 +9,8 @@ import (
 
 	"gotest.tools/assert"
 
-	"github.com/weaveworks/ignite/e2e/util"
-	"github.com/weaveworks/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/e2e/util"
+	"github.com/save-abandoned-projects/ignite/pkg/constants"
 )
 
 func TestConfigFile(t *testing.T) {
