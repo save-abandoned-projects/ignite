@@ -50,7 +50,7 @@ func AllocateAndPopulateOverlay(vm *api.VM) error {
 	}
 
 	// Get the size of the image ext4 file
-	fi, err := os.Stat(path.Join(constants.IMAGE_DIR, string(imageUID), constants.IMAGE_FS))
+	fi, err := os.Stat(path.Join(string(constants.IMAGE_DIR), string(imageUID), constants.IMAGE_FS))
 	if err != nil {
 		return err
 	}
@@ -164,7 +164,7 @@ func copyKernelToOverlay(vm *api.VM, mountPoint string) error {
 	if err != nil {
 		return err
 	}
-	kernelTarPath := path.Join(constants.KERNEL_DIR, string(kernelUID), constants.KERNEL_TAR)
+	kernelTarPath := path.Join(string(constants.KERNEL_DIR), string(kernelUID), constants.KERNEL_TAR)
 
 	if !util.FileExists(kernelTarPath) {
 		log.Warnf("Could not find kernel overlay files, not copying into the VM.")

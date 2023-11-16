@@ -19,6 +19,7 @@ func (k Kind) Lower() string {
 	return string(bytes.ToLower([]byte(k)))
 }
 
+// TODO there are multiple place that use the same string, aggregate them together
 const (
 	KindImage         Kind = "Image"
 	KindKernel        Kind = "Kernel"
