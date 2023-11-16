@@ -10,6 +10,7 @@ import (
 	"gotest.tools/assert"
 
 	"github.com/save-abandoned-projects/ignite/e2e/util"
+	"github.com/save-abandoned-projects/ignite/pkg/config"
 	"github.com/save-abandoned-projects/ignite/pkg/constants"
 )
 
@@ -149,6 +150,8 @@ spec:
 			assert.NilError(t, err)
 			assert.NilError(t, file.Close())
 
+			config.ApplyConfiguration(file.Name())
+
 			vmConfigFileName := ""
 
 			if len(rt.vmConfig) > 0 {
@@ -187,7 +190,7 @@ spec:
 			// Append the args to the run args for override flags.
 			vmRun = vmRun.With(rt.args...)
 
-			_, err = vmRun.Cmd.CombinedOutput()
+			output, err := vmRun.Cmd.CombinedOutput()
 			if err == nil {
 				// Delete the VM only when the creation succeeds, with the
 				// config file.
@@ -202,6 +205,7 @@ spec:
 				}
 			}
 
+			fmt.Println("exec output:", string(output))
 			if !rt.err {
 				// Query VM properties.
 				psArgs := []string{

@@ -1,7 +1,6 @@
 package metadata
 
 import (
-	"bytes"
 	"errors"
 	"fmt"
 	"os"
@@ -93,7 +92,14 @@ func processUID(obj runtime.Object, c *client.Client) error {
 	} else {
 		// No UID set, generate one
 		var err error
+		// prevent dead loop
+		maxNewUidTimes := 20
+		currentTryTimes := 0
 		for {
+			if currentTryTimes == maxNewUidTimes {
+				return fmt.Errorf("failed to generate uid directory for object %q", obj.GetObjectMeta().GetName())
+			}
+			currentTryTimes++
 			if uid, err = util.NewUID(); err != nil {
 				return fmt.Errorf("failed to generate ID: %v", err)
 			}
@@ -109,7 +115,7 @@ func processUID(obj runtime.Object, c *client.Client) error {
 
 	// Create the directory for the specified UID
 	// TODO: Move this kind of functionality into pkg/storage
-	dir := path.Join(constants.DATA_DIR, string(bytes.ToLower([]byte(kind))), uid)
+	dir := path.Join(constants.DATA_DIR, string(kind), uid)
 	if err := os.MkdirAll(dir, constants.DATA_DIR_PERM); err != nil {
 		return fmt.Errorf("failed to create directory for ID %q: %v", uid, err)
 	}

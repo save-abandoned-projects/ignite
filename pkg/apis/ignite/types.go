@@ -20,9 +20,10 @@ func (k Kind) Lower() string {
 }
 
 const (
-	KindImage  Kind = "Image"
-	KindKernel Kind = "Kernel"
-	KindVM     Kind = "VM"
+	KindImage         Kind = "Image"
+	KindKernel        Kind = "Kernel"
+	KindVM            Kind = "VM"
+	KindConfiguration Kind = "Configuration"
 )
 
 // Image represents a cached OCI image ready to be used with Ignite

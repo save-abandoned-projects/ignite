@@ -1,8 +1,10 @@
 package constants
 
+import api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+
 const (
 	// Path to directory containing a subdirectory for each kernel
-	KERNEL_DIR = DATA_DIR + "/kernel"
+	KERNEL_DIR = DATA_DIR + api.KindKernel
 
 	// Kernel filename
 	KERNEL_FILE = "vmlinux"

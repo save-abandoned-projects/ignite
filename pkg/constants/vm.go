@@ -1,10 +1,13 @@
 package constants
 
-import "time"
+import (
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	"time"
+)
 
 const (
 	// Path to directory containing a subdirectory for each VM
-	VM_DIR = DATA_DIR + "/vm"
+	VM_DIR = DATA_DIR + api.KindVM
 
 	// Path where ignited stores its manifests
 	MANIFEST_DIR = "/etc/firecracker/manifests"
