@@ -2,7 +2,7 @@
 
 ### What Do Next
 
-All developed under `charlie-init` branch
+All developed under [charlie-init](https://github.com/save-abandoned-projects/ignite/tree/charlie-init) branch
 
 #### [Libgitops](https://github.com/save-abandoned-projects/libgitops)
 
