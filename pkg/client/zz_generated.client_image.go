@@ -28,6 +28,8 @@ type ImageClient interface {
 	Get(types.UID) (*api.Image, error)
 	// Set saves the given Image into persistent storage
 	Set(*api.Image) error
+	// Update the given Image into persistent storage
+	Update(*api.Image) error
 	// Patch performs a strategic merge patch on the object with
 	// the given UID, using the byte-encoded patch given
 	Patch(types.UID, []byte) error
@@ -148,6 +150,13 @@ func (c *imageClient) Set(image *api.Image) error {
 	log.Tracef("Client.Set; UID: %q, GVK: %v", image.GetUID(), c.gvk)
 
 	return c.storage.Create(image)
+}
+
+// Update the given Image into the persistent storage
+func (c *imageClient) Update(image *api.Image) error {
+	log.Tracef("Client.Update; UID: %q, GVK: %v", image.GetUID(), c.gvk)
+
+	return c.storage.Update(image)
 }
 
 // Patch performs a strategic merge patch on the object with

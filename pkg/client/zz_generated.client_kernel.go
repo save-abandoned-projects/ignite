@@ -28,6 +28,8 @@ type KernelClient interface {
 	Get(types.UID) (*api.Kernel, error)
 	// Set saves the given Kernel into persistent storage
 	Set(*api.Kernel) error
+	// Update the given Kernel into persistent storage
+	Update(*api.Kernel) error
 	// Patch performs a strategic merge patch on the object with
 	// the given UID, using the byte-encoded patch given
 	Patch(types.UID, []byte) error
@@ -148,6 +150,13 @@ func (c *kernelClient) Set(kernel *api.Kernel) error {
 	log.Tracef("Client.Set; UID: %q, GVK: %v", kernel.GetUID(), c.gvk)
 
 	return c.storage.Create(kernel)
+}
+
+// Update the given Kernel into the persistent storage
+func (c *kernelClient) Update(kernel *api.Kernel) error {
+	log.Tracef("Client.Update; UID: %q, GVK: %v", kernel.GetUID(), c.gvk)
+
+	return c.storage.Update(kernel)
 }
 
 // Patch performs a strategic merge patch on the object with

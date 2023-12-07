@@ -41,12 +41,23 @@ func SetNameAndUID(obj runtime.Object, c *client.Client) error {
 	}
 
 	// Generate or validate the given UID, if any
-	if err := processUID(obj, c); err != nil {
+	uid, kind, err := processUID(obj, c)
+	if err != nil {
 		return err
 	}
 
 	// Generate or validate the given name, if any
-	return processName(obj, c)
+	if err := processName(obj, c); err != nil {
+		return err
+	}
+
+	// Create the directory for the specified UID
+	dir := path.Join(constants.DATA_DIR, kind, uid)
+	if err := os.MkdirAll(dir, constants.DATA_DIR_PERM); err != nil {
+		return fmt.Errorf("failed to create directory for ID %q: %v", uid, err)
+	}
+
+	return nil
 }
 
 // SetLabels metadata labels for a given object.
@@ -74,7 +85,7 @@ func SetLabels(obj runtime.Object, labels []string) error {
 }
 
 // processUID a new 8-byte ID and handles directory creation/deletion
-func processUID(obj runtime.Object, c *client.Client) error {
+func processUID(obj runtime.Object, c *client.Client) (string, string, error) {
 	uid := string(obj.GetUID())
 
 	kind := api.Kind(obj.GetObjectKind().GroupVersionKind().Kind)
@@ -82,12 +93,12 @@ func processUID(obj runtime.Object, c *client.Client) error {
 	if len(uid) > 0 {
 		// Verify that if specified
 		if !uidRegex.MatchString(uid) {
-			return fmt.Errorf("invalid UID %q: does not match required format %s", uid, uidRegex.String())
+			return "", "", fmt.Errorf("invalid UID %q: does not match required format %s", uid, uidRegex.String())
 		}
 
 		// Make sure there isn't any duplicate names
 		if err := verifyUIDOrName(c, uid, kind); err != nil {
-			return err
+			return "", "", err
 		}
 	} else {
 		// No UID set, generate one
@@ -97,11 +108,11 @@ func processUID(obj runtime.Object, c *client.Client) error {
 		currentTryTimes := 0
 		for {
 			if currentTryTimes == maxNewUidTimes {
-				return fmt.Errorf("failed to generate uid directory for object %q", obj.GetObjectMeta().GetName())
+				return "", "", fmt.Errorf("failed to generate uid directory for object %q", obj.GetObjectMeta().GetName())
 			}
 			currentTryTimes++
 			if uid, err = util.NewUID(); err != nil {
-				return fmt.Errorf("failed to generate ID: %v", err)
+				return "", "", fmt.Errorf("failed to generate ID: %v", err)
 			}
 
 			// If the generated UID is unique break the generator loop
@@ -113,14 +124,7 @@ func processUID(obj runtime.Object, c *client.Client) error {
 		}
 	}
 
-	// Create the directory for the specified UID
-	// TODO: Move this kind of functionality into pkg/storage
-	dir := path.Join(constants.DATA_DIR, string(kind), uid)
-	if err := os.MkdirAll(dir, constants.DATA_DIR_PERM); err != nil {
-		return fmt.Errorf("failed to create directory for ID %q: %v", uid, err)
-	}
-
-	return nil
+	return uid, string(kind), nil
 }
 
 func processName(obj runtime.Object, c *client.Client) error {
