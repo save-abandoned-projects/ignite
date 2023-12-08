@@ -31,10 +31,10 @@ func DeleteVM(c *client.Client, vm *api.VM) error {
 func CleanupVM(vm *api.VM) error {
 	// Runtime information is available only when the VM is running.
 	if vm.Running() {
-		// Inspect the container before trying to stop it and it gets auto-removed
+		// Inspect the container before trying to stop it, and it gets auto-removed
 		inspectResult, _ := providers.Runtime.InspectContainer(vm.PrefixedID())
 
-		// If the VM is running, try to kill it first so we don't leave dangling containers. Otherwise, try to cleanup VM networking.
+		// If the VM is running, try to kill it first, so we don't leave dangling containers. Otherwise, try to cleanup VM networking.
 		if err := StopVM(vm, true, true); err != nil {
 			if vm.Running() {
 				return err
@@ -42,9 +42,11 @@ func CleanupVM(vm *api.VM) error {
 		}
 
 		// Remove the VM container if it exists
-		// TODO should this function return a proper error?
 		RemoveVMContainer(inspectResult)
 	}
+
+	// if vm is not running, just remove the container
+	providers.Runtime.RemoveContainer(vm.PrefixedID())
 
 	// After removing the VM container, if the Snapshot Device is still there, clean up
 	if _, err := os.Stat(vm.SnapshotDev()); err == nil {
@@ -72,7 +74,7 @@ func RemoveVMContainer(result *runtime.ContainerInspectResult) {
 	// between InspectContainer and this call, RemoveContainer will throw an error. Currently
 	// we have no real way to inspect and remove immediately without having a potential race
 	// condition, so ignore the error for now. TODO: Robust conditional remove support
-	_ = providers.Runtime.RemoveContainer(result.ID)
+	providers.Runtime.RemoveContainer(result.ID)
 }
 
 // StopVM removes networking of the given VM and stops or kills it
@@ -103,6 +105,12 @@ func StopVM(vm *api.VM, kill, silent bool) error {
 
 		if err != nil {
 			return fmt.Errorf("failed to %s container for %s %q: %v", action, vm.Kind, vm.GetUID(), err)
+		}
+
+		vm.Status.Running = false
+		err := providers.Client.VMs().Update(vm)
+		if err != nil {
+			log.Errorf("Update status %s with name %q and ID %q  failed!", vm.Kind, vm.GetName(), vm.GetUID())
 		}
 
 		if silent {

@@ -466,7 +466,10 @@ func (cc *ctdClient) RunContainer(image meta.OCIImageRef, config *runtime.Contai
 		return
 	}
 
-	// Remove the container if it exists
+	// Stop and Remove the container if it exists
+	if err = cc.StopContainer(name, nil); err != nil {
+		return
+	}
 	if err = cc.RemoveContainer(name); err != nil {
 		return
 	}
@@ -656,6 +659,7 @@ func withDevices(devices []*runtime.Bind) oci.SpecOpts {
 	}
 }
 
+// StopContainer use SIGTERM to gracefully terminate the process
 func (cc *ctdClient) StopContainer(container string, timeout *time.Duration) (err error) {
 	cont, err := cc.client.LoadContainer(cc.ctx, container)
 	if err != nil {
@@ -714,13 +718,19 @@ func (cc *ctdClient) StopContainer(container string, timeout *time.Duration) (er
 	// Wait for the task to stop or the timer to fire
 	select {
 	case exitStatus := <-waitC:
-		timer.Stop()             // Cancel the force-kill timer
-		err = exitStatus.Error() // TODO: Handle exit code
+		code, _, exitErr := exitStatus.Result()
+		if exitErr != nil {
+			log.Warn("stop task failed, code: %d, %v", code, exitErr)
+		} else {
+			timer.Stop() // Cancel the force-kill timer	when stop successfully
+		}
+		err = exitErr
 	case err = <-timeoutC: // The kill timer has fired
 	}
 
 	// Delete the task
-	if _, e := task.Delete(cc.ctx); e != nil {
+	status, e := task.Delete(cc.ctx)
+	if e != nil {
 		if err != nil {
 			err = fmt.Errorf("%v, task deletion failed: %v", err, e) // TODO: Multierror
 		} else {
@@ -728,36 +738,41 @@ func (cc *ctdClient) StopContainer(container string, timeout *time.Duration) (er
 		}
 	}
 
+	if ec := status.ExitCode(); ec != 0 {
+		log.Warnf("task %v exit with non-zero exit code %v", task.ID(), int(ec))
+	}
+
 	return
 }
 
 func killTask(ctx context.Context, container containerd.Container) error {
 	task, err := container.Task(ctx, nil)
-	// If the container is not found, return nil, no-op.
-	if errdefs.IsNotFound(err) {
-		log.Warn(err)
+	if err == nil {
+		wait, err := task.Wait(ctx)
+		if err != nil {
+			if _, derr := task.Delete(ctx); derr == nil {
+				return nil
+			}
+			return err
+		}
+		if err := task.Kill(ctx, syscall.SIGKILL, containerd.WithKillAll); err != nil {
+			if _, derr := task.Delete(ctx); derr == nil {
+				return nil
+			}
+			return err
+		}
+		<-wait
+		if _, err := task.Delete(ctx); err != nil {
+			return err
+		}
 		return nil
 	}
 
-	wait, err := task.Wait(ctx)
-	if err != nil {
-		if _, derr := task.Delete(ctx); derr == nil {
-			return nil
-		}
-		return err
-	}
-	if err := task.Kill(ctx, syscall.SIGKILL, containerd.WithKillAll); err != nil {
-		if _, derr := task.Delete(ctx); derr == nil {
-			return nil
-		}
-		return err
-	}
-	<-wait
-	if _, err := task.Delete(ctx); err != nil {
-		return err
+	if errdefs.IsNotFound(err) {
+		return nil
 	}
 
-	return nil
+	return err
 }
 
 func (cc *ctdClient) KillContainer(container, signal string) (err error) {
@@ -774,6 +789,7 @@ func (cc *ctdClient) KillContainer(container, signal string) (err error) {
 	return killTask(cc.ctx, cont)
 }
 
+// RemoveContainer the task should be stopped or killed before run this function
 func (cc *ctdClient) RemoveContainer(container string) error {
 	// Remove the container if it exists
 	cont, contLoadErr := cc.client.LoadContainer(cc.ctx, container)

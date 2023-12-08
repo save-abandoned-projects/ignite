@@ -55,6 +55,7 @@ func (rf *RmFlags) NewRmOptions(vmMatches []string) (*RmOptions, error) {
 	return ro, err
 }
 
+// Rm TODO: 应该有一个terminating状态
 // Rm removes VMs based on RmOptions.
 func Rm(ro *RmOptions) error {
 	for _, vm := range ro.vms {

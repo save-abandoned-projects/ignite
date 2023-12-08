@@ -4,14 +4,18 @@ import (
 	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
 	"github.com/save-abandoned-projects/ignite/pkg/providers"
 	"github.com/save-abandoned-projects/libgitops/pkg/filter"
+	"k8s.io/apimachinery/pkg/types"
 )
 
-// TODO: This
 func getVMForMatch(vmMatch string) (*api.VM, error) {
-	return providers.Client.VMs().Find(filter.NameFilter{Name: vmMatch})
+	vm, err := providers.Client.VMs().Find(filter.NameFilter{Name: vmMatch})
+	// If it can't find the vm by name, use uid instead
+	if vm == nil && err == nil {
+		return providers.Client.VMs().Find(filter.UIDFilter{UID: types.UID(vmMatch)})
+	}
+	return vm, err
 }
 
-// TODO: This
 func getVMsForMatches(vmMatches []string) ([]*api.VM, error) {
 	allVMs := make([]*api.VM, 0, len(vmMatches))
 	for _, match := range vmMatches {
