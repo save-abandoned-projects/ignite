@@ -108,6 +108,7 @@ func StopVM(vm *api.VM, kill, silent bool) error {
 		}
 
 		vm.Status.Running = false
+		vm.Status.Network.IPAddresses = nil
 		err := providers.Client.VMs().Update(vm)
 		if err != nil {
 			log.Errorf("Update status %s with name %q and ID %q  failed!", vm.Kind, vm.GetName(), vm.GetUID())
