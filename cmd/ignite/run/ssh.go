@@ -40,6 +40,9 @@ type SshOptions struct {
 func (sf *SSHFlags) NewSSHOptions(vmMatch string) (so *SshOptions, err error) {
 	so = &SshOptions{SSHFlags: sf}
 	so.vm, err = getVMForMatch(vmMatch)
+	if so.vm == nil {
+		return nil, fmt.Errorf("no such vm: %s", vmMatch)
+	}
 	return
 }
 

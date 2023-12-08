@@ -90,6 +90,9 @@ func (cf *CPFlags) NewCPOptions(source string, dest string) (co *CpOptions, err 
 	}
 
 	co.vm, err = getVMForMatch(vmMatch)
+	if co.vm == nil {
+		return nil, fmt.Errorf("no such vm: %s", vmMatch)
+	}
 	return
 }
 

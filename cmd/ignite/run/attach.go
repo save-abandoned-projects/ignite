@@ -18,6 +18,9 @@ type AttachOptions struct {
 func NewAttachOptions(vmMatch string) (ao *AttachOptions, err error) {
 	ao = &AttachOptions{checkRunning: true}
 	ao.vm, err = getVMForMatch(vmMatch)
+	if ao.vm == nil {
+		return nil, fmt.Errorf("no such vm: %s", vmMatch)
+	}
 	return
 }
 
