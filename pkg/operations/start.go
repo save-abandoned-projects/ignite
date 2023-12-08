@@ -143,6 +143,10 @@ func StartVMNonBlocking(vm *api.VM, debug bool) (*VMChannels, error) {
 		return vmChans, fmt.Errorf("failed to start container for VM %q: %v", vm.GetUID(), err)
 	}
 
+	// Set the container ID for the VM
+	vm.Status.Runtime.ID = containerID
+	vm.Status.Runtime.Name = providers.RuntimeName
+
 	// Set up the networking
 	result, err := providers.NetworkPlugin.SetupContainerNetwork(containerID, vm.Spec.Network.Ports...)
 	if err != nil {
@@ -153,10 +157,6 @@ func StartVMNonBlocking(vm *api.VM, debug bool) (*VMChannels, error) {
 		log.Infof("Networking is handled by %q", providers.NetworkPlugin.Name())
 		log.Infof("Started Firecracker VM %q in a container with ID %q", vm.GetUID(), containerID)
 	}
-
-	// Set the container ID for the VM
-	vm.Status.Runtime.ID = containerID
-	vm.Status.Runtime.Name = providers.RuntimeName
 
 	// Append non-loopback runtime IP addresses of the VM to its state
 	for _, addr := range result.Addresses {
