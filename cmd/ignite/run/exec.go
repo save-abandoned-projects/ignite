@@ -1,6 +1,7 @@
 package run
 
 import (
+	"fmt"
 	"time"
 
 	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
@@ -28,6 +29,9 @@ func (ef *ExecFlags) NewExecOptions(vmMatch string, command ...string) (eo *Exec
 	}
 
 	eo.vm, err = getVMForMatch(vmMatch)
+	if eo.vm == nil {
+		return nil, fmt.Errorf("no such vm: %s", vmMatch)
+	}
 	return
 }
 

@@ -30,6 +30,8 @@ type ResourceClient interface {
 	Get(types.UID) (*api.Resource, error)
 	// Set saves the given Resource into persistent storage
 	Set(*api.Resource) error
+	// Update the given Resource into persistent storage
+	Update(*api.Resource) error
 	// Patch performs a strategic merge patch on the object with
 	// the given UID, using the byte-encoded patch given
 	Patch(types.UID, []byte) error
@@ -150,6 +152,13 @@ func (c *resourceClient) Set(resource *api.Resource) error {
 	log.Tracef("Client.Set; UID: %q, GVK: %v", resource.GetUID(), c.gvk)
 
 	return c.storage.Create(resource)
+}
+
+// Update the given Resource into the persistent storage
+func (c *resourceClient) Update(resource *api.Resource) error {
+	log.Tracef("Client.Update; UID: %q, GVK: %v", resource.GetUID(), c.gvk)
+
+	return c.storage.Update(resource)
 }
 
 // Patch performs a strategic merge patch on the object with

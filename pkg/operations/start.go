@@ -167,7 +167,7 @@ func StartVMNonBlocking(vm *api.VM, debug bool) (*VMChannels, error) {
 	vm.Status.Network.Plugin = providers.NetworkPluginName
 
 	// write the API object in a non-running state before we wait for spawn's network logic and firecracker
-	if err := providers.Client.VMs().Set(vm); err != nil {
+	if err := providers.Client.VMs().Update(vm); err != nil {
 		return vmChans, err
 	}
 
@@ -219,7 +219,7 @@ func waitForSpawn(vm *api.VM, vmChans *VMChannels) {
 			vm.Status.StartTime = startTime
 
 			// Write the state changes, send any errors through the channel
-			vmChans.SpawnFinished <- providers.Client.VMs().Set(vm)
+			vmChans.SpawnFinished <- providers.Client.VMs().Update(vm)
 			return
 		}
 	}

@@ -2,7 +2,7 @@ package constants
 
 const (
 	// Path to directory containing a subdirectory for each kernel
-	KERNEL_DIR = DATA_DIR + "/kernel"
+	KERNEL_DIR = DATA_DIR + "/Kernel"
 
 	// Kernel filename
 	KERNEL_FILE = "vmlinux"

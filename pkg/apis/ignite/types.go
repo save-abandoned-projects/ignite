@@ -19,10 +19,12 @@ func (k Kind) Lower() string {
 	return string(bytes.ToLower([]byte(k)))
 }
 
+// TODO there are multiple place that use the same string, aggregate them together
 const (
-	KindImage  Kind = "Image"
-	KindKernel Kind = "Kernel"
-	KindVM     Kind = "VM"
+	KindImage         Kind = "Image"
+	KindKernel        Kind = "Kernel"
+	KindVM            Kind = "VM"
+	KindConfiguration Kind = "Configuration"
 )
 
 // Image represents a cached OCI image ready to be used with Ignite

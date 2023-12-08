@@ -16,6 +16,9 @@ type LogsOptions struct {
 func NewLogsOptions(vmMatch string) (lo *LogsOptions, err error) {
 	lo = &LogsOptions{}
 	lo.vm, err = getVMForMatch(vmMatch)
+	if lo.vm == nil {
+		return nil, fmt.Errorf("no such vm: %s", vmMatch)
+	}
 	return
 }
 

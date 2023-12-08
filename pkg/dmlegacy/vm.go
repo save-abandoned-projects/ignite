@@ -164,7 +164,7 @@ func copyKernelToOverlay(vm *api.VM, mountPoint string) error {
 	if err != nil {
 		return err
 	}
-	kernelTarPath := path.Join(constants.KERNEL_DIR, string(kernelUID), constants.KERNEL_TAR)
+	kernelTarPath := path.Join(string(constants.KERNEL_DIR), string(kernelUID), constants.KERNEL_TAR)
 
 	if !util.FileExists(kernelTarPath) {
 		log.Warnf("Could not find kernel overlay files, not copying into the VM.")

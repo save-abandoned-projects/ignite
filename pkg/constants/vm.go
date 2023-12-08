@@ -1,10 +1,12 @@
 package constants
 
-import "time"
+import (
+	"time"
+)
 
 const (
 	// Path to directory containing a subdirectory for each VM
-	VM_DIR = DATA_DIR + "/vm"
+	VM_DIR = DATA_DIR + "/VM"
 
 	// Path where ignited stores its manifests
 	MANIFEST_DIR = "/etc/firecracker/manifests"

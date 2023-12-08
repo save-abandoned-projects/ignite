@@ -15,7 +15,7 @@ const (
 	DATA_DIR_FILE_PERM = 644
 
 	// Filename for metadata files
-	METADATA = "metadata.json"
+	METADATA = "metadata.yaml"
 
 	// DHCP infinite lease time
 	DHCP_INFINITE_LEASE = "4294967295s"

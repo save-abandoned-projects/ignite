@@ -1,7 +1,6 @@
 package ignite
 
 import (
-	"bytes"
 	"path"
 
 	"github.com/save-abandoned-projects/ignite/pkg/constants"
@@ -55,7 +54,7 @@ func (vm *VM) OverlayFile() string {
 // ObjectPath returns the directory where this VM's data is stored
 func (vm *VM) ObjectPath() string {
 	// TODO: Move this into storage
-	kind := string(bytes.ToLower([]byte(vm.GetObjectKind().GroupVersionKind().Kind)))
+	kind := vm.GetObjectKind().GroupVersionKind().Kind
 	uid := string(vm.GetUID())
 	return path.Join(constants.DATA_DIR, kind, uid)
 }
@@ -63,7 +62,7 @@ func (vm *VM) ObjectPath() string {
 // ObjectPath returns the directory where this Image's data is stored
 func (img *Image) ObjectPath() string {
 	// TODO: Move this into storage
-	kind := string(bytes.ToLower([]byte(img.GetObjectKind().GroupVersionKind().Kind)))
+	kind := img.GetObjectKind().GroupVersionKind().Kind
 	uid := string(img.GetUID())
 	return path.Join(constants.DATA_DIR, kind, uid)
 }
@@ -71,7 +70,7 @@ func (img *Image) ObjectPath() string {
 // ObjectPath returns the directory where this Kernel's data is stored
 func (k *Kernel) ObjectPath() string {
 	// TODO: Move this into storage
-	kind := string(bytes.ToLower([]byte(k.GetObjectKind().GroupVersionKind().Kind)))
+	kind := k.GetObjectKind().GroupVersionKind().Kind
 	uid := string(k.GetUID())
 	return path.Join(constants.DATA_DIR, kind, uid)
 }
