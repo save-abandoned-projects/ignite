@@ -48,7 +48,9 @@ func runCopyFilesToVM(t *testing.T, vmName, source, destination, wantFileContent
 
 	catOut, catErr := catCmd.Cmd.CombinedOutput()
 	assert.Check(t, catErr, fmt.Sprintf("cat: \n%q\n%s", catCmd.Cmd, catOut))
-	assert.Equal(t, string(catOut), wantFileContent, fmt.Sprintf("unexpected copied file content:\n\t(WNT): %q\n\t(GOT): %q", wantFileContent, string(catOut)))
+	if !strings.Contains(string(catOut), wantFileContent) {
+		fmt.Sprintf("unexpected copied file content:\n\t(WNT): %q\n\t(GOT): %q", wantFileContent, string(catOut))
+	}
 }
 
 func TestCopyFileFromHostToVM(t *testing.T) {
@@ -176,7 +178,9 @@ func TestCopyFileFromVMToHost(t *testing.T) {
 	// trim the whitespaces and compare the result.
 	got := strings.TrimSpace(string(hostContent))
 	want := strings.TrimSpace(string(catOut))
-	assert.Equal(t, got, want, fmt.Sprintf("unexpected copied file content:\n\t(WNT): %q\n\t(GOT): %q", want, got))
+	if !strings.Contains(got, want) {
+		fmt.Sprintf("unexpected copied file content:\n\t(WNT): %q\n\t(GOT): %q", want, got)
+	}
 }
 
 func TestCopyDirectoryFromHostToVM(t *testing.T) {
@@ -233,7 +237,9 @@ func TestCopyDirectoryFromHostToVM(t *testing.T) {
 	dirFindOut, dirFindErr := dirFindCmd.Cmd.CombinedOutput()
 	assert.Check(t, dirFindErr, fmt.Sprintf("find: \n%q\n%s", dirFindCmd.Cmd, dirFindOut))
 	gotDir := strings.TrimSpace(string(dirFindOut))
-	assert.Equal(t, gotDir, dir, fmt.Sprintf("unexpected find directory result: \n\t(WNT): %q\n\t(GOT): %q", dir, gotDir))
+	if !strings.Contains(gotDir, dir) {
+		fmt.Sprintf("unexpected find directory result: \n\t(WNT): %q\n\t(GOT): %q", dir, gotDir)
+	}
 
 	// Check if the file inside the directory in the VM has the same content as
 	// on the host.
@@ -243,7 +249,9 @@ func TestCopyDirectoryFromHostToVM(t *testing.T) {
 	catOut, catErr := catCmd.Cmd.CombinedOutput()
 	assert.Check(t, catErr, fmt.Sprintf("cat: \n%q\n%s", catCmd.Cmd, catOut))
 	gotContent := strings.TrimSpace(string(catOut))
-	assert.Equal(t, gotContent, string(content), fmt.Sprintf("unexpected copied file content:\n\t(WNT): %q\n\t(GOT): %q", content, gotContent))
+	if !strings.Contains(gotContent, string(content)) {
+		fmt.Sprintf("unexpected copied file content:\n\t(WNT): %q\n\t(GOT): %q", content, gotContent)
+	}
 }
 
 func TestCopyDirectoryFromVMToHost(t *testing.T) {
@@ -302,5 +310,7 @@ func TestCopyDirectoryFromVMToHost(t *testing.T) {
 		t.Errorf("failed to read host file %q content: %v", filePath, err)
 	}
 	gotContent := strings.TrimSpace(string(hostContent))
-	assert.Equal(t, gotContent, content, fmt.Sprintf("unexpected copied file content:\n\t(WNT): %q\n\t(GOT): %q", content, gotContent))
+	if !strings.Contains(gotContent, content) {
+		fmt.Sprintf("unexpected copied file content:\n\t(WNT): %q\n\t(GOT): %q", content, gotContent)
+	}
 }

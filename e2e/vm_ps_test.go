@@ -49,13 +49,13 @@ func TestVMpsWithOutdatedStatus(t *testing.T) {
 	uid := strings.TrimSpace(string(psUIDOut))
 
 	// Update the VM manifest with false info.
-	metadata_path := filepath.Join(constants.VM_DIR, uid, "metadata.json")
+	metadata_path := filepath.Join(constants.VM_DIR, uid, "metadata.yaml")
 	vm := &api.VM{}
-	err := scheme.Serializer.Decoder().DecodeInto(serializer.NewJSONFrameReader(serializer.FromFile(metadata_path)), vm)
+	err := scheme.Serializer.Decoder().DecodeInto(serializer.NewYAMLFrameReader(serializer.FromFile(metadata_path)), vm)
 	vm.Status.Running = false
 
 	var vmBytes bytes.Buffer
-	err = scheme.Serializer.Encoder().Encode(serializer.NewJSONFrameWriter(&vmBytes), vm)
+	err = scheme.Serializer.Encoder().Encode(serializer.NewYAMLFrameWriter(&vmBytes), vm)
 	assert.NilError(t, err)
 	assert.NilError(t, ioutil.WriteFile(metadata_path, vmBytes.Bytes(), 0644))
 
@@ -65,7 +65,7 @@ func TestVMpsWithOutdatedStatus(t *testing.T) {
 	defer func() {
 		vm.Status.Running = true
 		var vmBytes bytes.Buffer
-		err = scheme.Serializer.Encoder().Encode(serializer.NewJSONFrameWriter(&vmBytes), vm)
+		err = scheme.Serializer.Encoder().Encode(serializer.NewYAMLFrameWriter(&vmBytes), vm)
 		assert.NilError(t, err)
 		assert.NilError(t, ioutil.WriteFile(metadata_path, vmBytes.Bytes(), 0644))
 	}()

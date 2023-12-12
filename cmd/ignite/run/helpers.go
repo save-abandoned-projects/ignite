@@ -23,7 +23,9 @@ func getVMsForMatches(vmMatches []string) ([]*api.VM, error) {
 		if err != nil {
 			return nil, err
 		}
-		allVMs = append(allVMs, vm)
+		if vm != nil {
+			allVMs = append(allVMs, vm)
+		}
 	}
 	return allVMs, nil
 }

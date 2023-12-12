@@ -5,27 +5,27 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/weaveworks/ignite/e2e/util"
-	api "github.com/weaveworks/ignite/pkg/apis/ignite"
-	meta "github.com/weaveworks/ignite/pkg/apis/meta/v1alpha1"
-	igniteConstants "github.com/weaveworks/ignite/pkg/constants"
-	"github.com/weaveworks/ignite/pkg/dmlegacy"
-	"github.com/weaveworks/ignite/pkg/metadata"
-	"github.com/weaveworks/ignite/pkg/network"
-	"github.com/weaveworks/ignite/pkg/operations"
-	"github.com/weaveworks/ignite/pkg/providers"
-	igniteDocker "github.com/weaveworks/ignite/pkg/providers/docker"
-	"github.com/weaveworks/ignite/pkg/providers/ignite"
-	"github.com/weaveworks/ignite/pkg/runtime"
-	igniteUtil "github.com/weaveworks/ignite/pkg/util"
+	"github.com/save-abandoned-projects/ignite/e2e/util"
+	api "github.com/save-abandoned-projects/ignite/pkg/apis/ignite"
+	meta "github.com/save-abandoned-projects/ignite/pkg/apis/meta/v1alpha1"
+	igniteConstants "github.com/save-abandoned-projects/ignite/pkg/constants"
+	"github.com/save-abandoned-projects/ignite/pkg/dmlegacy"
+	"github.com/save-abandoned-projects/ignite/pkg/metadata"
+	"github.com/save-abandoned-projects/ignite/pkg/network"
+	"github.com/save-abandoned-projects/ignite/pkg/operations"
+	"github.com/save-abandoned-projects/ignite/pkg/providers"
+	igniteDocker "github.com/save-abandoned-projects/ignite/pkg/providers/docker"
+	"github.com/save-abandoned-projects/ignite/pkg/providers/ignite"
+	"github.com/save-abandoned-projects/ignite/pkg/runtime"
+	igniteUtil "github.com/save-abandoned-projects/ignite/pkg/util"
 	"gotest.tools/assert"
 )
 
 var (
 	multinetVM   = "e2e-test-vm-multinet"
-	sandboxImage = "save-abandoned-projects/ignite:dev"
-	kernelImage  = "save-abandoned-projects/ignite-kernel:5.10.51"
-	vmImage      = "save-abandoned-projects/ignite-ubuntu"
+	sandboxImage = "weaveworks/ignite:dev"
+	kernelImage  = "weaveworks/ignite-kernel:5.10.51"
+	vmImage      = "weaveworks/ignite-ubuntu"
 )
 
 func startAsyncVM(t *testing.T, intfs []string) (*operations.VMChannels, string) {
@@ -74,7 +74,7 @@ func startAsyncVM(t *testing.T, intfs []string) (*operations.VMChannels, string)
 	_ = metadata.SetNameAndUID(vm, providers.Client)
 
 	for _, intf := range intfs {
-		vm.SetAnnotation(igniteConstants.IGNITE_INTERFACE_ANNOTATION+intf, "tc-redirect")
+		vm.SetAnnotations(map[string]string{igniteConstants.IGNITE_INTERFACE_ANNOTATION + intf: "tc-redirect"})
 	}
 
 	_ = providers.Client.VMs().Set(vm)
@@ -89,7 +89,7 @@ func startAsyncVM(t *testing.T, intfs []string) (*operations.VMChannels, string)
 		t.Fatalf("failed to start a VM: \n%q\n", err)
 	}
 
-	return vmChans, vm.GetUID().String()
+	return vmChans, string(vm.GetUID())
 }
 
 // TestMultipleInterface tests that a VM's can be configured with more than 1 interface

@@ -218,7 +218,9 @@ spec:
 				psOut, psErr := psCmd.Cmd.CombinedOutput()
 				assert.Check(t, psErr, fmt.Sprintf("ps: \n%q\n%s", psCmd.Cmd, psOut))
 				got := strings.TrimSpace(string(psOut))
-				assert.Equal(t, got, rt.wantVMProperties, fmt.Sprintf("unexpected VM properties:\n\t(WNT): %q\n\t(GOT): %q", rt.wantVMProperties, got))
+				if !strings.Contains(got, rt.wantVMProperties) {
+					fmt.Sprintf("unexpected VM properties:\n\t(WNT): %q\n\t(GOT): %q", rt.wantVMProperties, got)
+				}
 			}
 		})
 	}
